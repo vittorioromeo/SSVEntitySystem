@@ -4,8 +4,8 @@
 
 namespace sses
 {
-	Component::Component() : id("") { }
-	Component::Component(string mId) : id(mId) { }
+	Component::Component() : id{""} { }
+	Component::Component(string mId) : id{mId} { }
 	Component::~Component() { }
 
 	void Component::init() { }

@@ -13,8 +13,8 @@ using namespace std;
 
 namespace sses
 {
-	Entity::Entity() : id("") { }
-	Entity::Entity(string mId) : id(mId) { }
+	Entity::Entity() : id{""} { }
+	Entity::Entity(string mId) : id{mId} { }
 	Entity::~Entity() { }
 
 	void Entity::addComponent(Component* mComponentPtr)
