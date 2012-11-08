@@ -33,11 +33,12 @@ namespace sses
 
 			void addEntity(Entity*);
 			void delEntity(Entity*);
+			void clear();
 			void update(float);
 			void draw();
 
-			vector<Entity*>& getEntityPtrsById(string);
-			vector<Component*>& getComponentPtrsById(string);
+			vector<Entity*> getEntityPtrsById(string);
+			vector<Component*> getComponentPtrsById(string);
 
 			template <class T>
 			vector<T*> getEntityPtrsByIdCasted(string mId) { return entityRepo.getByIdCasted<T>(mId); }

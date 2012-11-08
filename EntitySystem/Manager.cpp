@@ -9,20 +9,7 @@
 
 namespace sses
 {
-	Manager::~Manager()
-	{
-		for (auto &entityPtr : entityRepo.getAll())
-		{
-			for (auto &componentPtr : entityPtr->componentRepo.getAll())
-			{
-				componentRepo.del(componentPtr->id, componentPtr);
-				delete componentPtr;
-			}
-
-			entityRepo.del(entityPtr->id, entityPtr);
-			delete entityPtr;
-		}
-	}
+	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponentPtr)
 	{
@@ -35,15 +22,22 @@ namespace sses
 		entityRepo.add(mEntityPtr->id, mEntityPtr);
 	}
 	void Manager::delEntity(Entity* mEntityPtr) { entityPtrsToErase.push_back(mEntityPtr); }
+	void Manager::clear()
+	{
+		for (auto componentPtr : componentRepo.getAll()) delete componentPtr;
+		componentRepo.clear();
+
+		for (auto entityPtr : entityRepo.getAll()) delete entityPtr;
+		entityRepo.clear();
+	}
 
 	void Manager::update(float mFrameTime)
 	{
-		for (auto &entityPtr : entityRepo.getAll())
-			entityPtr->update(mFrameTime);
+		for (auto entityPtr : entityRepo.getAll()) entityPtr->update(mFrameTime);
 
-		for (auto &entityPtrToErase : entityPtrsToErase)
+		for (auto entityPtrToErase : entityPtrsToErase)
 		{
-			for (auto &componentPtr : entityPtrToErase->componentRepo.getAll())
+			for (auto componentPtr : entityPtrToErase->componentRepo.getAll())
 			{
 				componentRepo.del(componentPtr->id, componentPtr);
 				delete componentPtr;
@@ -55,12 +49,8 @@ namespace sses
 
 		entityPtrsToErase.clear();
 	}
-	void Manager::draw()
-	{
-		for (auto &entityPtr : entityRepo.getAll())
-			entityPtr->draw();
-	}
+	void Manager::draw() { for (auto entityPtr : entityRepo.getAll()) entityPtr->draw(); }
 
-	vector<Entity*>& Manager::getEntityPtrsById(string mId) { return entityRepo.getById(mId); }
-	vector<Component*>& Manager::getComponentPtrsById(string mId) { return componentRepo.getById(mId); }
+	vector<Entity*> Manager::getEntityPtrsById(string mId) { return entityRepo.getById(mId); }
+	vector<Component*> Manager::getComponentPtrsById(string mId) { return componentRepo.getById(mId); }
 } /* namespace sses */

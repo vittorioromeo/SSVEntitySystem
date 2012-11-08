@@ -18,8 +18,8 @@ namespace sses
 			map<string, vector<T*>> idPtrs;
 
 		public:
-			vector<T*>& getAll() { return ptrs; }
-			vector<T*>& getById(string mId) { return idPtrs[mId]; }
+			vector<T*> getAll() { return ptrs; }
+			vector<T*> getById(string mId) { return idPtrs[mId]; }
 			void add(string mId, T* mPtr)
 			{
 				ptrs.push_back(mPtr);
@@ -29,6 +29,11 @@ namespace sses
 			{
 				delFromVector<T*>(ptrs, mPtr);
 				delFromVector<T*>(idPtrs[mId], mPtr);
+			}
+			void clear()
+			{
+				ptrs.clear();
+				idPtrs.clear();
 			}
 
 			template <class U>
