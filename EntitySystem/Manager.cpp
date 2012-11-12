@@ -5,10 +5,17 @@
 #include <sstream>
 #include "PtrRepository.h"
 #include "../Utils.h"
-
+#include <functional>
+#include <map>
+#include <algorithm>
 
 namespace sses
 {
+	bool drawPrioritize(const Entity* a, const Entity* b)
+	{
+		return a->drawPriority > b->drawPriority;
+	}
+
 	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponentPtr)
@@ -19,7 +26,7 @@ namespace sses
 	void Manager::addEntity(Entity* mEntityPtr)
 	{
 		mEntityPtr->managerPtr = this;
-		entityRepo.add(mEntityPtr->id, mEntityPtr);
+		entityRepo.add(mEntityPtr->id, mEntityPtr);		
 	}
 	void Manager::delEntity(Entity* mEntityPtr) { entityPtrsToErase.push_back(mEntityPtr); }
 	void Manager::clear()
@@ -49,7 +56,12 @@ namespace sses
 
 		entityPtrsToErase.clear();
 	}
-	void Manager::draw() { for (auto entityPtr : entityRepo.getAll()) entityPtr->draw(); }
+	void Manager::draw()
+	{
+		vector<Entity*> entityPtrsToSort{entityRepo.getAll()};
+		sort(entityPtrsToSort.begin(), entityPtrsToSort.end(), drawPrioritize);
+		for (auto entityPtr : entityPtrsToSort) entityPtr->draw();
+	}
 
 	vector<Entity*> Manager::getEntityPtrsById(string mId) { return entityRepo.getById(mId); }
 	vector<Component*> Manager::getComponentPtrsById(string mId) { return componentRepo.getById(mId); }

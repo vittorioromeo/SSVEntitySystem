@@ -7,6 +7,8 @@
 #include "Entity.h"
 #include "Component.h"
 #include "PtrRepository.h"
+#include <functional>
+#include <map>
 
 using namespace std;
 
@@ -40,10 +42,8 @@ namespace sses
 			vector<Entity*> getEntityPtrsById(string);
 			vector<Component*> getComponentPtrsById(string);
 
-			template <class T>
-			vector<T*> getEntityPtrsByIdCasted(string mId) { return entityRepo.getByIdCasted<T>(mId); }
-			template <class T>
-			vector<T*> getComponentPtrsByIdCasted(string mId) { return componentRepo.getByIdCasted<T>(mId); }
+			template <class T> vector<T*> getEntityPtrsByIdCasted(string mId) { return entityRepo.getByIdCasted<T>(mId); }
+			template <class T> vector<T*> getComponentPtrsByIdCasted(string mId) { return componentRepo.getByIdCasted<T>(mId); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

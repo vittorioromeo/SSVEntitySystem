@@ -24,16 +24,8 @@ namespace sses
 		managerPtr->addComponent(mComponentPtr);
 		mComponentPtr->init();
 	}
-	void Entity::update(float mFrameTime)
-	{
-		for (auto componentPtr : componentRepo.getAll())
-			componentPtr->update(mFrameTime);
-	}
-	void Entity::draw()
-	{
-		for (auto componentPtr : componentRepo.getAll())
-			componentPtr->draw();
-	}
+	void Entity::update(float mFrameTime) { for (auto componentPtr : componentRepo.getAll()) componentPtr->update(mFrameTime); }
+	void Entity::draw() { for (auto componentPtr : componentRepo.getAll()) componentPtr->draw(); }
 	void Entity::destroy() { managerPtr->delEntity(this); }
 
 	Manager& Entity::getManager() { return *managerPtr; }

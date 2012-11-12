@@ -40,6 +40,8 @@ namespace sses
 
 			template <class T>
 			vector<T*> getComponentPtrsByIdCasted(string mId) { return componentRepo.getByIdCasted<T>(mId); }
+
+			int drawPriority{0};
 	};
 } /* namespace sses */
 	
