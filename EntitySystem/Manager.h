@@ -7,8 +7,6 @@
 #include "Entity.h"
 #include "Component.h"
 #include "PtrRepository.h"
-#include <functional>
-#include <map>
 
 using namespace std;
 

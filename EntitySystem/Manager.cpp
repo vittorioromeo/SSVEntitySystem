@@ -5,16 +5,11 @@
 #include <sstream>
 #include "PtrRepository.h"
 #include "../Utils.h"
-#include <functional>
-#include <map>
 #include <algorithm>
 
 namespace sses
 {
-	bool drawPrioritize(const Entity* a, const Entity* b)
-	{
-		return a->drawPriority > b->drawPriority;
-	}
+	bool drawPrioritize(const Entity* a, const Entity* b) { return a->drawPriority > b->drawPriority; }
 
 	Manager::~Manager() { clear(); }
 
@@ -26,7 +21,7 @@ namespace sses
 	void Manager::addEntity(Entity* mEntityPtr)
 	{
 		mEntityPtr->managerPtr = this;
-		entityRepo.add(mEntityPtr->id, mEntityPtr);		
+		entityRepo.add(mEntityPtr->id, mEntityPtr);
 	}
 	void Manager::delEntity(Entity* mEntityPtr) { entityPtrsToErase.push_back(mEntityPtr); }
 	void Manager::clear()
