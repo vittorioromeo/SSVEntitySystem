@@ -1,1 +1,1 @@
-./Debug/EntitySystem_Component.o ./Debug/EntitySystem_Entity.o ./Debug/EntitySystem_Manager.o  
+./Release/EntitySystem_Component.o ./Release/EntitySystem_Entity.o ./Release/EntitySystem_Manager.o  
