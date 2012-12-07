@@ -28,29 +28,26 @@
 #include <string>
 #include "../Utils.h"
 
-using namespace std;
-
 namespace sses
 {
-	template <class T>
-	class PtrRepository
+	template <typename T> class PtrRepository
 	{
 		private:
-			vector<T*> ptrs;
-			map<string, vector<T*>> idPtrs;
+			std::vector<T*> ptrs;
+			std::map<std::string, std::vector<T*>> idPtrs;
 
 		public:
-			vector<T*> getAll() { return ptrs; }
-			vector<T*> getById(string mId) { return idPtrs[mId]; }
-			void add(string mId, T* mPtr)
+			std::vector<T*> getAll() { return ptrs; }
+			std::vector<T*> getById(std::string mId) { return idPtrs[mId]; }
+			void add(std::string mId, T* mPtr)
 			{
 				ptrs.push_back(mPtr);
 				idPtrs[mId].push_back(mPtr);
 			}
-			void del(string mId, T* mPtr)
+			void del(std::string mId, T* mPtr)
 			{
-				delFromVector<T*>(ptrs, mPtr);
-				delFromVector<T*>(idPtrs[mId], mPtr);
+				easyErase<T*>(ptrs, mPtr);
+				easyErase<T*>(idPtrs[mId], mPtr);
 			}
 			void clear()
 			{
@@ -58,15 +55,10 @@ namespace sses
 				idPtrs.clear();
 			}
 
-			template <class U>
-			vector<U*> getByIdCasted(string mId)
+			template <typename U> std::vector<U*> getByIdCasted(std::string mId)
 			{
-				vector<T*> ptrsToCast(getById(mId));
-				vector<U*> result;
-
-				for (auto ptrToCast : ptrsToCast)
-					result.push_back(static_cast<U*>(ptrToCast));
-
+				std::vector<U*> result;
+				for (auto ptrToCast : getById(mId)) result.push_back(static_cast<U*>(ptrToCast));
 				return result;
 			}
 	};

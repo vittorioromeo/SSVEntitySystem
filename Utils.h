@@ -23,19 +23,14 @@
 #ifndef UTILS_H_SSES
 #define UTILS_H_SSES
 
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <sstream>
 
-using namespace std;
-
 namespace sses
 {
-	template <class T>
-	void delFromVector(vector<T>& mVector, T mItem)
-	{
-		mVector.erase(remove(mVector.begin(), mVector.end(), mItem), mVector.end());
-	}
+	template <typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
 }
 
 #endif /* UTILS_H_SSES */

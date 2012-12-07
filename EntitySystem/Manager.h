@@ -30,8 +30,6 @@
 #include "Component.h"
 #include "PtrRepository.h"
 
-using namespace std;
-
 namespace sses
 {
 	class Manager
@@ -45,7 +43,7 @@ namespace sses
 
 			PtrRepository<Entity> entityRepo; // owned!
 			PtrRepository<Component> componentRepo; // owned!
-			vector<Entity*> entityPtrsToErase; // not owned
+			std::vector<Entity*> entityPtrsToErase; // not owned
 
 			void addComponent(Component*);
 
@@ -59,11 +57,11 @@ namespace sses
 			void update(float);
 			void draw();
 
-			vector<Entity*> getEntityPtrsById(string);
-			vector<Component*> getComponentPtrsById(string);
+			std::vector<Entity*> getEntityPtrsById(std::string);
+			std::vector<Component*> getComponentPtrsById(std::string);
 
-			template <class T> vector<T*> getEntityPtrsByIdCasted(string mId) { return entityRepo.getByIdCasted<T>(mId); }
-			template <class T> vector<T*> getComponentPtrsByIdCasted(string mId) { return componentRepo.getByIdCasted<T>(mId); }
+			template <typename T> std::vector<T*> getEntityPtrsByIdCasted(std::string mId) { return entityRepo.getByIdCasted<T>(mId); }
+			template <typename T> std::vector<T*> getComponentPtrsByIdCasted(std::string mId) { return componentRepo.getByIdCasted<T>(mId); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

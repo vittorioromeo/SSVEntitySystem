@@ -75,11 +75,11 @@ namespace sses
 	}
 	void Manager::draw()
 	{
-		vector<Entity*> entityPtrsToSort{entityRepo.getAll()};
-		sort(entityPtrsToSort.begin(), entityPtrsToSort.end(), drawPrioritize);
+		std::vector<Entity*> entityPtrsToSort{entityRepo.getAll()};
+		std::sort(std::begin(entityPtrsToSort), std::end(entityPtrsToSort), drawPrioritize);
 		for (auto entityPtr : entityPtrsToSort) entityPtr->draw();
 	}
 
-	vector<Entity*> Manager::getEntityPtrsById(string mId) { return entityRepo.getById(mId); }
-	vector<Component*> Manager::getComponentPtrsById(string mId) { return componentRepo.getById(mId); }
+	std::vector<Entity*> Manager::getEntityPtrsById(std::string mId) { return entityRepo.getById(mId); }
+	std::vector<Component*> Manager::getComponentPtrsById(std::string mId) { return componentRepo.getById(mId); }
 } /* namespace sses */

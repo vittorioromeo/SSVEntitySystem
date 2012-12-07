@@ -25,8 +25,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace sses
 {
 	class Entity;
@@ -38,17 +36,17 @@ namespace sses
 		friend class Manager;
 
 		private:
-			string id;
+			std::string id;
 
 			Component(const Component&); // non construction-copyable
 			Component& operator=(const Component&); // non copyable
 
-			Manager* managerPtr { nullptr }; // manager not owned, just pointed to
-			Entity* entityPtr { nullptr }; // entity not owned, just pointed to
+			Manager* managerPtr{nullptr}; // manager not owned, just pointed to
+			Entity* entityPtr{nullptr}; // entity not owned, just pointed to
 			
 		public:
 			Component(); // default id "" ctor
-			Component(string);
+			Component(std::string);
 			virtual ~Component();
 
 			virtual void init();

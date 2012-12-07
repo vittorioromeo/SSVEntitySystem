@@ -27,11 +27,11 @@
 namespace sses
 {
 	Component::Component() : id{""} { }
-	Component::Component(string mId) : id{mId} { }
+	Component::Component(std::string mId) : id{mId} { }
 	Component::~Component() { }
 
 	void Component::init() { }
-	void Component::update(float mFrameTime) { }
+	void Component::update(float) { }
 	void Component::draw() { }
 
 	Manager& Component::getManager() { return *managerPtr; }
