@@ -20,8 +20,8 @@
  * SOFTWARE.
  */
 
-#ifndef REPOSITORY_H_
-#define REPOSITORY_H_
+#ifndef REPOSITOR2Y_H_
+#define REPOSITOR2Y_H_
 
 #include <vector>
 #include <map>
@@ -30,37 +30,37 @@
 
 namespace sses
 {
-	template <typename T> class PtrRepository
+	template <typename T> class Repository
 	{
 		private:
-			std::vector<T*> ptrs;
-			std::map<std::string, std::vector<T*>> idPtrs;
+			std::vector<T> items;
+			std::map<std::string, std::vector<T>> itemMap;
 
 		public:
-			std::vector<T*> getAll() { return ptrs; }
-			std::vector<T*> getById(std::string mId) { return idPtrs[mId]; }
-			void add(std::string mId, T* mPtr)
+			std::vector<T> getItems() { return items; }
+			std::vector<T> get(std::string mId) { return itemMap[mId]; }
+			void add(std::string mId, T mPtr)
 			{
-				ptrs.push_back(mPtr);
-				idPtrs[mId].push_back(mPtr);
+				items.push_back(mPtr);
+				itemMap[mId].push_back(mPtr);
 			}
-			void del(std::string mId, T* mPtr)
+			void del(std::string mId, T mPtr)
 			{
-				easyErase<T*>(ptrs, mPtr);
-				easyErase<T*>(idPtrs[mId], mPtr);
+				easyErase<T>(items, mPtr);
+				easyErase<T>(itemMap[mId], mPtr);
 			}
 			void clear()
 			{
-				ptrs.clear();
-				idPtrs.clear();
+				items.clear();
+				itemMap.clear();
 			}
 
-			template <typename U> std::vector<U*> getByIdCasted(std::string mId)
+			template <typename U> std::vector<U> getCasted(std::string mId)
 			{
-				std::vector<U*> result;
-				for (auto ptrToCast : getById(mId)) result.push_back(static_cast<U*>(ptrToCast));
+				std::vector<U> result;
+				for (auto ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
 				return result;
 			}
 	};
 } /* namespace sses */
-#endif /* REPOSITORY_H_ */
+#endif /* REPOSITOR2Y_H_ */

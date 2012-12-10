@@ -30,7 +30,10 @@
 
 namespace sses
 {
+	class Entity;
+
 	template <typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB);
 }
 
 #endif /* UTILS_H_SSES */

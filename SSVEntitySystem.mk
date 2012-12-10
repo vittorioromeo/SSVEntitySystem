@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=12/07/12
+Date                   :=12/08/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -63,7 +63,7 @@ CodeLiteDir:=c:\Program Files (x86)\CodeLite
 WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
-Objects=$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix) 
+Objects=$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix) $(IntermediateDirectory)/Utils$(ObjectSuffix) 
 
 ##
 ## Main Build Targets 
@@ -112,6 +112,14 @@ $(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix): EntitySystem/Manag
 $(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix): EntitySystem/Manager.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/EntitySystem/Manager.cpp"
 
+$(IntermediateDirectory)/Utils$(ObjectSuffix): Utils.cpp $(IntermediateDirectory)/Utils$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Utils$(DependSuffix): Utils.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Utils$(ObjectSuffix) -MF$(IntermediateDirectory)/Utils$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Utils.cpp"
+
+$(IntermediateDirectory)/Utils$(PreprocessSuffix): Utils.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Utils$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Utils.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
@@ -127,6 +135,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Utils$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Utils$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Utils$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
 	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVEntitySystem"

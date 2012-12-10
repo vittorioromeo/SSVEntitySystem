@@ -25,14 +25,12 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "PtrRepository.h"
+#include "Repository.h"
 #include "../Utils.h"
 #include <algorithm>
 
 namespace sses
 {
-	bool drawPrioritize(const Entity* a, const Entity* b) { return a->drawPriority > b->drawPriority; }
-
 	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponentPtr)
@@ -48,20 +46,20 @@ namespace sses
 	void Manager::delEntity(Entity* mEntityPtr) { entityPtrsToErase.push_back(mEntityPtr); }
 	void Manager::clear()
 	{
-		for (auto componentPtr : componentRepo.getAll()) delete componentPtr;
+		for (auto componentPtr : componentRepo.getItems()) delete componentPtr;
 		componentRepo.clear();
 
-		for (auto entityPtr : entityRepo.getAll()) delete entityPtr;
+		for (auto entityPtr : entityRepo.getItems()) delete entityPtr;
 		entityRepo.clear();
 	}
 
 	void Manager::update(float mFrameTime)
 	{
-		for (auto entityPtr : entityRepo.getAll()) entityPtr->update(mFrameTime);
+		for (auto entityPtr : entityRepo.getItems()) entityPtr->update(mFrameTime);
 
 		for (auto entityPtrToErase : entityPtrsToErase)
 		{
-			for (auto componentPtr : entityPtrToErase->componentRepo.getAll())
+			for (auto componentPtr : entityPtrToErase->getComponentRepo().getItems())
 			{
 				componentRepo.del(componentPtr->id, componentPtr);
 				delete componentPtr;
@@ -75,11 +73,11 @@ namespace sses
 	}
 	void Manager::draw()
 	{
-		std::vector<Entity*> entityPtrsToSort{entityRepo.getAll()};
+		std::vector<Entity*> entityPtrsToSort{entityRepo.getItems()};
 		std::sort(std::begin(entityPtrsToSort), std::end(entityPtrsToSort), drawPrioritize);
 		for (auto entityPtr : entityPtrsToSort) entityPtr->draw();
 	}
 
-	std::vector<Entity*> Manager::getEntityPtrsById(std::string mId) { return entityRepo.getById(mId); }
-	std::vector<Component*> Manager::getComponentPtrsById(std::string mId) { return componentRepo.getById(mId); }
+	std::vector<Entity*> Manager::getEntityPtrs(std::string mId) { return entityRepo.get(mId); }
+	std::vector<Component*> Manager::getComponentPtrs(std::string mId) { return componentRepo.get(mId); }
 } /* namespace sses */

@@ -25,7 +25,7 @@
 
 #include <vector>
 #include <string>
-#include "PtrRepository.h"
+#include "Repository.h"
 
 namespace sses
 {
@@ -37,13 +37,13 @@ namespace sses
 		friend class Manager;
 
 		private:
-			std::string id;
+			int drawPriority{0};
+			std::string id{""};
+			Repository<Component*> componentRepo; // not owned, manager owns everything!
+			Manager* managerPtr{nullptr}; // not owned, just pointed to
 
 			Entity(const Entity&); // non construction-copyable
 			Entity& operator=(const Entity&); // non copyable
-
-			PtrRepository<Component> componentRepo; // not owned, manager owns everything!
-			Manager* managerPtr{nullptr}; // not owned, just pointed to
 			
 		public:
 			Entity(); // default id "" ctor
@@ -55,12 +55,13 @@ namespace sses
 			void draw();
 			void destroy();
 
+			void setDrawPriority(int mDrawPriority);
+			int getDrawPriority() const;
+
 			Manager& getManager(); // returns a reference to the parent manager
-			PtrRepository<Component>& getComponentRepo();
+			Repository<Component*>& getComponentRepo();
 
-			template <typename T> std::vector<T*> getComponentPtrsByIdCasted(std::string mId) { return componentRepo.getByIdCasted<T>(mId); }
-
-			int drawPriority{0};
+			template <typename T> std::vector<T*> getComponentPtrsCasted(std::string mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 	

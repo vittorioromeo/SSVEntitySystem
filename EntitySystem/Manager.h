@@ -28,7 +28,7 @@
 #include <map>
 #include "Entity.h"
 #include "Component.h"
-#include "PtrRepository.h"
+#include "Repository.h"
 
 namespace sses
 {
@@ -38,12 +38,12 @@ namespace sses
 		friend class Component;
 
 		private:
+			Repository<Entity*> entityRepo; // owned!
+			Repository<Component*> componentRepo; // owned!
+			std::vector<Entity*> entityPtrsToErase; // not owned
+
 			Manager(const Manager&); // non construction-copyable
 			Manager& operator=(const Manager&); // non copyable
-
-			PtrRepository<Entity> entityRepo; // owned!
-			PtrRepository<Component> componentRepo; // owned!
-			std::vector<Entity*> entityPtrsToErase; // not owned
 
 			void addComponent(Component*);
 
@@ -57,11 +57,11 @@ namespace sses
 			void update(float);
 			void draw();
 
-			std::vector<Entity*> getEntityPtrsById(std::string);
-			std::vector<Component*> getComponentPtrsById(std::string);
+			std::vector<Entity*> getEntityPtrs(std::string);
+			std::vector<Component*> getComponentPtrs(std::string);
 
-			template <typename T> std::vector<T*> getEntityPtrsByIdCasted(std::string mId) { return entityRepo.getByIdCasted<T>(mId); }
-			template <typename T> std::vector<T*> getComponentPtrsByIdCasted(std::string mId) { return componentRepo.getByIdCasted<T>(mId); }
+			template <typename T> std::vector<T*> getEntityPtrsCasted(std::string mId) { return entityRepo.getCasted<T*>(mId); }
+			template <typename T> std::vector<T*> getComponentPtrsCasted(std::string mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

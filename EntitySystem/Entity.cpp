@@ -25,11 +25,9 @@
 #include <list>
 #include <string>
 #include <algorithm>
-
 #include "Entity.h"
 #include "Component.h"
 #include "Manager.h"
-#include "PtrRepository.h"
 
 using namespace std;
 
@@ -46,10 +44,13 @@ namespace sses
 		managerPtr->addComponent(mComponentPtr);
 		mComponentPtr->init();
 	}
-	void Entity::update(float mFrameTime) { for (auto componentPtr : componentRepo.getAll()) componentPtr->update(mFrameTime); }
-	void Entity::draw() { for (auto componentPtr : componentRepo.getAll()) componentPtr->draw(); }
+	void Entity::update(float mFrameTime) { for (auto componentPtr : componentRepo.getItems()) componentPtr->update(mFrameTime); }
+	void Entity::draw() { for (auto componentPtr : componentRepo.getItems()) componentPtr->draw(); }
 	void Entity::destroy() { managerPtr->delEntity(this); }
 
+	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
+	int Entity::getDrawPriority() const { return drawPriority; }
+
 	Manager& Entity::getManager() { return *managerPtr; }
-	PtrRepository<Component>& Entity::getComponentRepo() { return componentRepo; }
+	Repository<Component*>& Entity::getComponentRepo() { return componentRepo; }
 } /* namespace sses */

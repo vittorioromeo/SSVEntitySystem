@@ -36,13 +36,12 @@ namespace sses
 		friend class Manager;
 
 		private:
-			std::string id;
+			std::string id{""};
+			Manager* managerPtr{nullptr}; // manager not owned, just pointed to
+			Entity* entityPtr{nullptr}; // entity not owned, just pointed to
 
 			Component(const Component&); // non construction-copyable
 			Component& operator=(const Component&); // non copyable
-
-			Manager* managerPtr{nullptr}; // manager not owned, just pointed to
-			Entity* entityPtr{nullptr}; // entity not owned, just pointed to
 			
 		public:
 			Component(); // default id "" ctor
