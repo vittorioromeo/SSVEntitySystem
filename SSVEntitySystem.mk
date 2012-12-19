@@ -2,9 +2,9 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Release
+## Debug
 ProjectName            :=SSVEntitySystem
-ConfigurationName      :=Release
+ConfigurationName      :=Debug
 WorkspacePath          := "D:\Vee\Software\GitHub\OHWorkspace"
 ProjectPath            := "D:\Vee\Software\GitHub\OHWorkspace\SSVEntitySystem"
 IntermediateDirectory  :=./Release
@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=12/08/12
+Date                   :=12/17/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -52,8 +52,8 @@ LibPath                := $(LibraryPathSwitch).
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -O3 -pedantic -W -Wall -std=c++11 $(Preprocessors)
-CFLAGS   :=   $(Preprocessors)
+CXXFLAGS :=  -g -pedantic -Wall -std=c++11 -O0 $(Preprocessors)
+CFLAGS   :=  -g $(Preprocessors)
 
 
 ##
@@ -76,8 +76,8 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects) > $(ObjectsFileList)
 	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
-	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace\.build-release"
-	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVEntitySystem"
+	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace\.build-debug"
+	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace\.build-debug\SSVEntitySystem"
 
 $(IntermediateDirectory)/.d:
 	@$(MakeDirCommand) "./Release"
@@ -140,6 +140,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Utils$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
-	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVEntitySystem"
+	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-debug\SSVEntitySystem"
 
 
