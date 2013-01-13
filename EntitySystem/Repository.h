@@ -37,14 +37,14 @@ namespace sses
 			std::map<std::string, std::vector<T>> itemMap;
 
 		public:
-			std::vector<T> getItems() { return items; }
-			std::vector<T> get(std::string mId) { return itemMap[mId]; }
-			void add(std::string mId, T mPtr)
+			std::vector<T>& getItems() { return items; }
+			std::vector<T>& get(const std::string& mId) { return itemMap[mId]; }
+			void add(const std::string& mId, T mPtr)
 			{
 				items.push_back(mPtr);
 				itemMap[mId].push_back(mPtr);
 			}
-			void del(std::string mId, T mPtr)
+			void del(const std::string& mId, T mPtr)
 			{
 				easyErase<T>(items, mPtr);
 				easyErase<T>(itemMap[mId], mPtr);
@@ -55,10 +55,10 @@ namespace sses
 				itemMap.clear();
 			}
 
-			template <typename U> std::vector<U> getCasted(std::string mId)
+			template <typename U> std::vector<U> getCasted(const std::string& mId)
 			{
 				std::vector<U> result;
-				for (auto ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
+				for (auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
 				return result;
 			}
 	};

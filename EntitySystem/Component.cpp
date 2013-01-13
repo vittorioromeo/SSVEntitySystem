@@ -27,7 +27,7 @@
 namespace sses
 {
 	Component::Component() : id{""} { }
-	Component::Component(std::string mId) : id{mId} { }
+	Component::Component(const std::string& mId) : id{mId} { }
 	Component::~Component() { }
 
 	void Component::init() { }

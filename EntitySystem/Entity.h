@@ -42,12 +42,13 @@ namespace sses
 			Repository<Component*> componentRepo; // not owned, manager owns everything!
 			Manager* managerPtr{nullptr}; // not owned, just pointed to
 
-			Entity(const Entity&); // non construction-copyable
-			Entity& operator=(const Entity&); // non copyable
+			
 			
 		public:
 			Entity(); // default id "" ctor
-			Entity(std::string);
+			Entity(const std::string& mId);
+			Entity(const Entity&) = delete; // non construction-copyable
+			Entity& operator=(const Entity&) = delete; // non copyable
 			~Entity();
 
 			void addComponent(Component*);
@@ -61,7 +62,7 @@ namespace sses
 			Manager& getManager(); // returns a reference to the parent manager
 			Repository<Component*>& getComponentRepo();
 
-			template <typename T> std::vector<T*> getComponentPtrsCasted(std::string mId) { return componentRepo.getCasted<T*>(mId); }
+			template <typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 	

@@ -42,13 +42,12 @@ namespace sses
 			Repository<Component*> componentRepo; // owned!
 			std::vector<Entity*> entityPtrsToErase; // not owned
 
-			Manager(const Manager&); // non construction-copyable
-			Manager& operator=(const Manager&); // non copyable
-
 			void addComponent(Component*);
 
 		public:
 			Manager() = default;
+			Manager(const Manager&) = delete; // non construction-copyable
+			Manager& operator=(const Manager&) = delete; // non copyable
 			~Manager();
 
 			void addEntity(Entity*);
@@ -57,11 +56,11 @@ namespace sses
 			void update(float);
 			void draw();
 
-			std::vector<Entity*> getEntityPtrs(std::string);
-			std::vector<Component*> getComponentPtrs(std::string);
+			std::vector<Entity*> getEntityPtrs(const std::string& mId);
+			std::vector<Component*> getComponentPtrs(const std::string& mId);
 
-			template <typename T> std::vector<T*> getEntityPtrsCasted(std::string mId) { return entityRepo.getCasted<T*>(mId); }
-			template <typename T> std::vector<T*> getComponentPtrsCasted(std::string mId) { return componentRepo.getCasted<T*>(mId); }
+			template <typename T> std::vector<T*> getEntityPtrsCasted(const std::string& mId) { return entityRepo.getCasted<T*>(mId); }
+			template <typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

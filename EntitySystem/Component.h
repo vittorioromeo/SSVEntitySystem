@@ -38,14 +38,13 @@ namespace sses
 		private:
 			std::string id{""};
 			Manager* managerPtr{nullptr}; // manager not owned, just pointed to
-			Entity* entityPtr{nullptr}; // entity not owned, just pointed to
-
-			Component(const Component&); // non construction-copyable
-			Component& operator=(const Component&); // non copyable
+			Entity* entityPtr{nullptr}; // entity not owned, just pointed to			
 			
 		public:
 			Component(); // default id "" ctor
-			Component(std::string);
+			Component(const std::string& mId);
+			Component(const Component&) = delete; // non construction-copyable
+			Component& operator=(const Component&) = delete; // non copyable
 			virtual ~Component();
 
 			virtual void init();

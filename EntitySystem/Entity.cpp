@@ -34,7 +34,7 @@ using namespace std;
 namespace sses
 {
 	Entity::Entity() : id{""} { }
-	Entity::Entity(string mId) : id{mId} { }
+	Entity::Entity(const std::string& mId) : id{mId} { }
 	Entity::~Entity() { }
 
 	void Entity::addComponent(Component* mComponentPtr)
@@ -44,8 +44,8 @@ namespace sses
 		managerPtr->addComponent(mComponentPtr);
 		mComponentPtr->init();
 	}
-	void Entity::update(float mFrameTime) { for (auto componentPtr : componentRepo.getItems()) componentPtr->update(mFrameTime); }
-	void Entity::draw() { for (auto componentPtr : componentRepo.getItems()) componentPtr->draw(); }
+	void Entity::update(float mFrameTime) { for (auto& componentPtr : componentRepo.getItems()) componentPtr->update(mFrameTime); }
+	void Entity::draw() { for (auto& componentPtr : componentRepo.getItems()) componentPtr->draw(); }
 	void Entity::destroy() { managerPtr->delEntity(this); }
 
 	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }

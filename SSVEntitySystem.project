@@ -22,8 +22,6 @@
     <File Name="Utils.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include"/>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -109,4 +107,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>
