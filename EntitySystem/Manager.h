@@ -59,8 +59,8 @@ namespace sses
 			std::vector<Entity*> getEntityPtrs(const std::string& mId);
 			std::vector<Component*> getComponentPtrs(const std::string& mId);
 
-			template <typename T> std::vector<T*> getEntityPtrsCasted(const std::string& mId) { return entityRepo.getCasted<T*>(mId); }
-			template <typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
+			template<typename T> std::vector<T*> getEntityPtrsCasted(const std::string& mId) { return entityRepo.getCasted<T*>(mId); }
+			template<typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

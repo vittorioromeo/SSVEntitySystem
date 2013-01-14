@@ -62,7 +62,7 @@ namespace sses
 			Manager& getManager(); // returns a reference to the parent manager
 			Repository<Component*>& getComponentRepo();
 
-			template <typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
+			template<typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
 	};
 } /* namespace sses */
 	

@@ -30,7 +30,7 @@
 
 namespace sses
 {
-	template <typename T> class Repository
+	template<typename T> class Repository
 	{
 		private:
 			std::vector<T> items;
@@ -55,7 +55,7 @@ namespace sses
 				itemMap.clear();
 			}
 
-			template <typename U> std::vector<U> getCasted(const std::string& mId)
+			template<typename U> std::vector<U> getCasted(const std::string& mId)
 			{
 				std::vector<U> result;
 				for (auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
