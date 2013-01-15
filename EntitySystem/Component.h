@@ -48,7 +48,7 @@ namespace sses
 			virtual ~Component();
 
 			virtual void init();
-			virtual void update(float);
+			virtual void update(float mFrameTime);
 			virtual void draw();
 
 			Entity& getEntity(); // returns a reference to the parent entity

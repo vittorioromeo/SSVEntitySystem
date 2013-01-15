@@ -39,10 +39,10 @@ namespace sses
 		private:
 			int drawPriority{0};
 			std::string id{""};
-			Repository<Component*> componentRepo; // not owned, manager owns everything!
+			Repository<Component*> components; // not owned, manager owns everything!
 			Manager* managerPtr{nullptr}; // not owned, just pointed to
 
-			
+			void addComponent(Component* mComponent);
 			
 		public:
 			Entity(); // default id "" ctor
@@ -51,7 +51,6 @@ namespace sses
 			Entity& operator=(const Entity&) = delete; // non copyable
 			~Entity();
 
-			void addComponent(Component*);
 			void update(float);
 			void draw();
 			void destroy();
@@ -62,7 +61,10 @@ namespace sses
 			Manager& getManager(); // returns a reference to the parent manager
 			Repository<Component*>& getComponentRepo();
 
-			template<typename T> std::vector<T*> getComponentPtrsCasted(const std::string& mId) { return componentRepo.getCasted<T*>(mId); }
+			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
+
+			// Shortcuts
+			Entity& operator+=(Component* mComponent);
 	};
 } /* namespace sses */
 	

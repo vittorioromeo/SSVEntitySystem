@@ -37,20 +37,23 @@ namespace sses
 	Entity::Entity(const std::string& mId) : id{mId} { }
 	Entity::~Entity() { }
 
-	void Entity::addComponent(Component* mComponentPtr)
+	void Entity::addComponent(Component* mComponent)
 	{
-		mComponentPtr->entityPtr = this;
-		componentRepo.add(mComponentPtr->id, mComponentPtr);
-		managerPtr->addComponent(mComponentPtr);
-		mComponentPtr->init();
+		mComponent->entityPtr = this;
+		components.add(mComponent->id, mComponent);
+		managerPtr->addComponent(mComponent);
+		mComponent->init();
 	}
-	void Entity::update(float mFrameTime) { for (auto& componentPtr : componentRepo.getItems()) componentPtr->update(mFrameTime); }
-	void Entity::draw() { for (auto& componentPtr : componentRepo.getItems()) componentPtr->draw(); }
-	void Entity::destroy() { managerPtr->delEntity(this); }
+	void Entity::update(float mFrameTime) { for (auto& componentPtr : components.getItems()) componentPtr->update(mFrameTime); }
+	void Entity::draw() { for (auto& componentPtr : components.getItems()) componentPtr->draw(); }
+	void Entity::destroy() { *managerPtr -= this; }
 
 	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
 	int Entity::getDrawPriority() const { return drawPriority; }
 
 	Manager& Entity::getManager() { return *managerPtr; }
-	Repository<Component*>& Entity::getComponentRepo() { return componentRepo; }
+	Repository<Component*>& Entity::getComponentRepo() { return components; }
+
+	// Shortcuts
+	Entity& Entity::operator+=(Component* mComponent) { addComponent(mComponent); return *this; }
 } /* namespace sses */
