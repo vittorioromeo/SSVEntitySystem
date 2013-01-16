@@ -29,57 +29,51 @@
 #include "../Utils.h"
 #include <algorithm>
 
+using namespace std;
+
 namespace sses
 {
 	Manager::~Manager() { clear(); }
 
-	void Manager::addComponent(Component* mComponent)
-	{
-		mComponent->managerPtr = this;
-		components.add(mComponent->id, mComponent);
-	}
-	void Manager::addEntity(Entity* mEntity)
-	{
-		mEntity->managerPtr = this;
-		entities.add(mEntity->id, mEntity);
-	}
+	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }
+	void Manager::addEntity(Entity* mEntity) { mEntity->manager = this; entities.add(mEntity->id, mEntity); }
 	void Manager::delEntity(Entity* mEntity) { entitiesToErase.push_back(mEntity); }
 	void Manager::clear()
 	{
 		for (auto& componentPtr : components.getItems()) delete componentPtr;
 		components.clear();
 
-		for (auto& entityPtr : entities.getItems()) delete entityPtr;
+		for (auto& entity : entities.getItems()) delete entity;
 		entities.clear();
 	}
 
 	void Manager::update(float mFrameTime)
 	{
-		for (auto& entityPtr : entities.getItems()) entityPtr->update(mFrameTime);
+		for (auto& entity : entities.getItems()) entity->update(mFrameTime);
 
-		for (auto& entityPtrToErase : entitiesToErase)
+		for (auto& entityToErase : entitiesToErase)
 		{
-			for (auto& componentPtr : entityPtrToErase->getComponentRepo().getItems())
+			for (auto& componentPtr : entityToErase->getComponentRepo().getItems())
 			{
 				components.del(componentPtr->id, componentPtr);
 				delete componentPtr;
 			}
 
-			entities.del(entityPtrToErase->id, entityPtrToErase);
-			delete entityPtrToErase;
+			entities.del(entityToErase->id, entityToErase);
+			delete entityToErase;
 		}
 
 		entitiesToErase.clear();
 	}
 	void Manager::draw()
 	{
-		std::vector<Entity*> entityPtrsToSort{entities.getItems()};
-		std::sort(std::begin(entityPtrsToSort), std::end(entityPtrsToSort), drawPrioritize);
-		for (auto& entityPtr : entityPtrsToSort) entityPtr->draw();
+		vector<Entity*> entitiesToSort{entities.getItems()};
+		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize);
+		for (auto& entity : entitiesToSort) entity->draw();
 	}
 
-	std::vector<Entity*> Manager::getEntities(const std::string& mId) { return entities.get(mId); }
-	std::vector<Component*> Manager::getComponents(const std::string& mId) { return components.get(mId); }
+	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
+	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
 
 	// Shortcuts
 	Manager& Manager::operator+=(Entity* mEntity) { addEntity(mEntity); return *this; }

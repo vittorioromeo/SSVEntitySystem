@@ -37,8 +37,8 @@ namespace sses
 
 		private:
 			std::string id{""};
-			Manager* managerPtr{nullptr}; // manager not owned, just pointed to
-			Entity* entityPtr{nullptr}; // entity not owned, just pointed to			
+			Manager* manager{nullptr}; // manager not owned, just pointed to
+			Entity* entity{nullptr}; // entity not owned, just pointed to			
 			
 		public:
 			Component(); // default id "" ctor

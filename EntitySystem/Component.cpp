@@ -34,6 +34,6 @@ namespace sses
 	void Component::update(float) { }
 	void Component::draw() { }
 
-	Manager& Component::getManager() { return *managerPtr; }
-	Entity& Component::getEntity() { return *entityPtr; }
+	Manager& Component::getManager() { return *manager; }
+	Entity& Component::getEntity() { return *entity; }
 } /* namespace sses */

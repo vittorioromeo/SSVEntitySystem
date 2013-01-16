@@ -21,7 +21,6 @@
     </VirtualDirectory>
     <File Name="Utils.cpp"/>
   </VirtualDirectory>
-  <VirtualDirectory Name="include"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">

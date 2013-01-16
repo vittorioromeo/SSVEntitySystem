@@ -40,7 +40,7 @@ namespace sses
 			int drawPriority{0};
 			std::string id{""};
 			Repository<Component*> components; // not owned, manager owns everything!
-			Manager* managerPtr{nullptr}; // not owned, just pointed to
+			Manager* manager{nullptr}; // not owned, just pointed to
 
 			void addComponent(Component* mComponent);
 			

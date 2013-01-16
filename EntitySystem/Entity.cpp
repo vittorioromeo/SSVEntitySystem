@@ -39,19 +39,19 @@ namespace sses
 
 	void Entity::addComponent(Component* mComponent)
 	{
-		mComponent->entityPtr = this;
+		mComponent->entity = this;
 		components.add(mComponent->id, mComponent);
-		managerPtr->addComponent(mComponent);
+		manager->addComponent(mComponent);
 		mComponent->init();
 	}
-	void Entity::update(float mFrameTime) { for (auto& componentPtr : components.getItems()) componentPtr->update(mFrameTime); }
-	void Entity::draw() { for (auto& componentPtr : components.getItems()) componentPtr->draw(); }
-	void Entity::destroy() { *managerPtr -= this; }
+	void Entity::update(float mFrameTime) { for (auto& component : components.getItems()) component->update(mFrameTime); }
+	void Entity::draw() { for (auto& component : components.getItems()) component->draw(); }
+	void Entity::destroy() { *manager -= this; }
 
 	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
 	int Entity::getDrawPriority() const { return drawPriority; }
 
-	Manager& Entity::getManager() { return *managerPtr; }
+	Manager& Entity::getManager() { return *manager; }
 	Repository<Component*>& Entity::getComponentRepo() { return components; }
 
 	// Shortcuts
