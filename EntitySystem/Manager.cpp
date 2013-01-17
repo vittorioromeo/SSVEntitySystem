@@ -37,7 +37,7 @@ namespace sses
 
 	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }
 	void Manager::addEntity(Entity* mEntity) { mEntity->manager = this; entities.add(mEntity->id, mEntity); }
-	void Manager::delEntity(Entity* mEntity) { entitiesToErase.push_back(mEntity); }
+	void Manager::delEntity(Entity* mEntity) { entitiesToErase.insert(mEntity); }
 	void Manager::clear()
 	{
 		for (auto& componentPtr : components.getItems()) delete componentPtr;
@@ -49,8 +49,6 @@ namespace sses
 
 	void Manager::update(float mFrameTime)
 	{
-		for (auto& entity : entities.getItems()) entity->update(mFrameTime);
-
 		for (auto& entityToErase : entitiesToErase)
 		{
 			for (auto& componentPtr : entityToErase->getComponentRepo().getItems())
@@ -64,6 +62,8 @@ namespace sses
 		}
 
 		entitiesToErase.clear();
+
+		for (auto& entity : entities.getItems()) entity->update(mFrameTime);		
 	}
 	void Manager::draw()
 	{

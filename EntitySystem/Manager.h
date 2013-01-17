@@ -25,6 +25,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include <map>
 #include "Entity.h"
 #include "Component.h"
@@ -40,7 +41,7 @@ namespace sses
 		private:
 			Repository<Entity*> entities; // owned!
 			Repository<Component*> components; // owned!
-			std::vector<Entity*> entitiesToErase; // not owned
+			std::unordered_set<Entity*> entitiesToErase; // not owned
 
 			void addEntity(Entity* mEntity);
 			void delEntity(Entity* mEntity);
