@@ -32,7 +32,7 @@ namespace sses
 {
 	class Entity;
 
-	template<typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+	template<typename T> void eraseFromVector(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
 	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB);
 }
 

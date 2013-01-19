@@ -27,12 +27,12 @@
 #include <sstream>
 #include "Repository.h"
 #include "../Utils.h"
-#include <algorithm>
 
 using namespace std;
 
 namespace sses
 {
+	Manager::Manager() { entitiesToErase.set_empty_key(nullptr); }
 	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }

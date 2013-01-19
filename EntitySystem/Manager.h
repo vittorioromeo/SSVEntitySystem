@@ -25,8 +25,8 @@
 
 #include <string>
 #include <vector>
-#include <unordered_set>
 #include <map>
+#include <sparsehash/dense_hash_set>
 #include "Entity.h"
 #include "Component.h"
 #include "Repository.h"
@@ -41,14 +41,14 @@ namespace sses
 		private:
 			Repository<Entity*> entities; // owned!
 			Repository<Component*> components; // owned!
-			std::unordered_set<Entity*> entitiesToErase; // not owned
+			google::dense_hash_set<Entity*> entitiesToErase; // not owned
 
 			void addEntity(Entity* mEntity);
 			void delEntity(Entity* mEntity);
 			void addComponent(Component* mComponent);
 
 		public:
-			Manager() = default;
+			Manager();
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 			~Manager();
