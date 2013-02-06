@@ -43,8 +43,8 @@ namespace sses
 			Repository<Component*> components; // owned!
 			google::dense_hash_set<Entity*> entitiesToErase; // not owned
 
-			void addEntity(Entity* mEntity);
-			void delEntity(Entity* mEntity);
+			void add(Entity* mEntity);
+			void del(Entity* mEntity);
 			void addComponent(Component* mComponent);
 
 		public:
@@ -62,8 +62,11 @@ namespace sses
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
 
 			// Shortcuts
-			Manager& operator+=(Entity* mEntity);
 			Manager& operator-=(Entity* mEntity);
+
+			// Creation
+			Entity* createEntity(std::string mId = "");
+			template<typename T, typename... Args> T* createComponent(Args&&... args) { return new T(std::forward<Args>(args)...); }
 	};
 } /* namespace sses */
 #endif /* ENTITYMANAGER_H_ */

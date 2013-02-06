@@ -33,7 +33,6 @@ using namespace std;
 
 namespace sses
 {
-	Entity::Entity() : id{""} { }
 	Entity::Entity(const std::string& mId) : id{mId} { }
 	Entity::~Entity() { }
 

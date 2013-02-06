@@ -40,7 +40,7 @@ namespace sses
 			std::vector<T>& getItems() { return items; }
 			std::vector<T>& get(const std::string& mId) { return itemMap[mId]; }
 			void add(const std::string& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
-			void del(const std::string& mId, T mPtr) { eraseFromVector(items, mPtr); eraseFromVector(itemMap[mId], mPtr); }
+			void del(const std::string& mId, T mPtr) { eraseRemove(items, mPtr); eraseRemove(itemMap[mId], mPtr); }
 			void clear(){ items.clear(); itemMap.clear(); }
 
 			template<typename U> std::vector<U> getCasted(const std::string& mId)

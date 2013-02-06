@@ -36,8 +36,8 @@ namespace sses
 	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }
-	void Manager::addEntity(Entity* mEntity) { mEntity->manager = this; entities.add(mEntity->id, mEntity); }
-	void Manager::delEntity(Entity* mEntity) { entitiesToErase.insert(mEntity); }
+	void Manager::add(Entity* mEntity) { mEntity->manager = this; entities.add(mEntity->id, mEntity); }
+	void Manager::del(Entity* mEntity) { entitiesToErase.insert(mEntity); }
 	void Manager::clear()
 	{
 		for (auto& componentPtr : components.getItems()) delete componentPtr;
@@ -60,7 +60,6 @@ namespace sses
 			entities.del(entityToErase->id, entityToErase);
 			delete entityToErase;
 		}
-
 		entitiesToErase.clear();
 
 		for (auto& entity : entities.getItems()) entity->update(mFrameTime);		
@@ -76,6 +75,7 @@ namespace sses
 	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
 
 	// Shortcuts
-	Manager& Manager::operator+=(Entity* mEntity) { addEntity(mEntity); return *this; }
-	Manager& Manager::operator-=(Entity* mEntity) { delEntity(mEntity); return *this; }
+	Manager& Manager::operator-=(Entity* mEntity) { del(mEntity); return *this; }
+
+	Entity* Manager::createEntity(string mId) { Entity* result{new Entity(mId)}; add(result); return result; }
 }

@@ -26,7 +26,6 @@
 
 namespace sses
 {
-	Component::Component() : id{""} { }
 	Component::Component(const std::string& mId) : id{mId} { }
 	Component::~Component() { }
 

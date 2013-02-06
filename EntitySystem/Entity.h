@@ -45,8 +45,7 @@ namespace sses
 			void addComponent(Component* mComponent);
 			
 		public:
-			Entity(); // default id "" ctor
-			Entity(const std::string& mId);
+			Entity(const std::string& mId = "");
 			Entity(const Entity&) = delete; // non construction-copyable
 			Entity& operator=(const Entity&) = delete; // non copyable
 			~Entity();
