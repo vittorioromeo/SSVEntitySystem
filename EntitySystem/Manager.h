@@ -61,10 +61,6 @@ namespace sses
 			std::vector<Component*> getComponents(const std::string& mId);
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
 
-			// Shortcuts
-			Manager& operator-=(Entity* mEntity);
-
-			// Creation
 			Entity* createEntity(std::string mId = "");
 			template<typename T, typename... Args> T* createComponent(Args&&... args) { return new T(std::forward<Args>(args)...); }
 	};

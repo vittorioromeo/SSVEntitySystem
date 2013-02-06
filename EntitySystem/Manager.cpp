@@ -74,8 +74,5 @@ namespace sses
 	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
 	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
 
-	// Shortcuts
-	Manager& Manager::operator-=(Entity* mEntity) { del(mEntity); return *this; }
-
 	Entity* Manager::createEntity(string mId) { Entity* result{new Entity(mId)}; add(result); return result; }
 }

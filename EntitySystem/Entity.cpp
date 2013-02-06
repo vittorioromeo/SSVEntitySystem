@@ -45,7 +45,7 @@ namespace sses
 	}
 	void Entity::update(float mFrameTime) { for (auto& component : components.getItems()) component->update(mFrameTime); }
 	void Entity::draw() { for (auto& component : components.getItems()) component->draw(); }
-	void Entity::destroy() { *manager -= this; }
+	void Entity::destroy() { manager->del(this); }
 
 	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
 	int Entity::getDrawPriority() const { return drawPriority; }
