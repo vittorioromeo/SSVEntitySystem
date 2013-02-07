@@ -37,18 +37,17 @@ namespace sses
 		friend class Manager;
 
 		private:
-			int drawPriority{0};
+			Manager& manager;
 			std::string id{""};
-			Repository<Component*> components; // not owned, manager owns everything!
-			Manager* manager{nullptr}; // not owned, just pointed to
+			int drawPriority{0};
+			Repository<Component*> components; // not owned, manager owns everything!			
 
 			void addComponent(Component* mComponent);
 			
 		public:
-			Entity(const std::string& mId = "");
+			Entity(Manager& mManager, const std::string& mId = "");
 			Entity(const Entity&) = delete; // non construction-copyable
 			Entity& operator=(const Entity&) = delete; // non copyable
-			~Entity();
 
 			void update(float);
 			void draw();
@@ -59,6 +58,7 @@ namespace sses
 
 			Manager& getManager(); // returns a reference to the parent manager
 			Repository<Component*>& getComponentRepo();
+			std::string getId();
 
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
 

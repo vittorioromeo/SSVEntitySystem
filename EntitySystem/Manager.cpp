@@ -36,7 +36,7 @@ namespace sses
 	Manager::~Manager() { clear(); }
 
 	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }
-	void Manager::add(Entity* mEntity) { mEntity->manager = this; entities.add(mEntity->id, mEntity); }
+	void Manager::add(Entity* mEntity) { entities.add(mEntity->id, mEntity); }
 	void Manager::del(Entity* mEntity) { entitiesToErase.insert(mEntity); }
 	void Manager::clear()
 	{
@@ -74,5 +74,5 @@ namespace sses
 	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
 	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
 
-	Entity* Manager::createEntity(string mId) { Entity* result{new Entity(mId)}; add(result); return result; }
+	Entity* Manager::createEntity(string mId) { Entity* result{new Entity(*this, mId)}; add(result); return result; }
 }
