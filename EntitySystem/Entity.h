@@ -46,6 +46,7 @@ namespace sses
 
 			// Shortcuts
 			Entity& operator+=(Component* mComponent);
+			Entity& operator+=(std::vector<Component*> mComponents);
 	};
 } /* namespace sses */
 	

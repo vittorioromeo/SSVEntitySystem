@@ -37,4 +37,5 @@ namespace sses
 
 	// Shortcuts
 	Entity& Entity::operator+=(Component* mComponent) { addComponent(mComponent); return *this; }
+	Entity& Entity::operator+=(std::vector<Component*> mComponents) { for(auto& component : mComponents) addComponent(component); return *this; }
 } /* namespace sses */
