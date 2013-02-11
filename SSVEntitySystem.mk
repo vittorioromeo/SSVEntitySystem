@@ -7,13 +7,13 @@ ProjectName            :=SSVEntitySystem
 ConfigurationName      :=Release
 WorkspacePath          := "D:\Vee\Software\GitHub\OHWorkspace"
 ProjectPath            := "D:\Vee\Software\GitHub\OHWorkspace\SSVEntitySystem"
-IntermediateDirectory  :=./Release
+IntermediateDirectory  :=./_INTERMEDIATE
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=08/02/2013
+Date                   :=11/02/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -27,7 +27,7 @@ OutputSwitch           :=-o
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
-OutputFile             :=$(IntermediateDirectory)/$(ProjectName).dll
+OutputFile             :=./_RELEASE/$(ProjectName).dll
 Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
@@ -80,7 +80,7 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace/.build-release/SSVEntitySystem"
 
 $(IntermediateDirectory)/.d:
-	@$(MakeDirCommand) "./Release"
+	@$(MakeDirCommand) "./_INTERMEDIATE"
 
 PreBuild:
 
