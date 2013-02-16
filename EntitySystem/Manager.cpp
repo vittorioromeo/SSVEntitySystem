@@ -56,5 +56,5 @@ namespace sses
 	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
 	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
 
-	Entity* Manager::createEntity(string mId, vector<Component*> mComponents) { Entity* result{new Entity(*this, mId)}; add(result); *result += mComponents; return result; }
+	Entity& Manager::createEntity(string mId, vector<Component*> mComponents) { Entity* result{new Entity(*this, mId)}; add(result); *result += mComponents; return *result; }
 }
