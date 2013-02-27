@@ -22,18 +22,18 @@ namespace sses
 	void Manager::del(Entity* mEntity) { entitiesToErase.insert(mEntity); }
 	void Manager::clear()
 	{
-		for (auto& componentPtr : components.getItems()) delete componentPtr;
+		for(auto& componentPtr : components.getItems()) delete componentPtr;
 		components.clear();
 
-		for (auto& entity : entities.getItems()) delete entity;
+		for(auto& entity : entities.getItems()) delete entity;
 		entities.clear();
 	}
 
 	void Manager::update(float mFrameTime)
 	{
-		for (auto& entityToErase : entitiesToErase)
+		for(auto& entityToErase : entitiesToErase)
 		{
-			for (auto& componentPtr : entityToErase->getComponentRepo().getItems())
+			for(auto& componentPtr : entityToErase->getComponentRepo().getItems())
 			{
 				components.del(componentPtr->id, componentPtr);
 				delete componentPtr;
@@ -44,13 +44,13 @@ namespace sses
 		}
 		entitiesToErase.clear();
 
-		for (auto& entity : entities.getItems()) entity->update(mFrameTime);		
+		for(auto& entity : entities.getItems()) entity->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
 		vector<Entity*> entitiesToSort{entities.getItems()};
 		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize);
-		for (auto& entity : entitiesToSort) entity->draw();
+		for(auto& entity : entitiesToSort) entity->draw();
 	}
 
 	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
