@@ -5,21 +5,30 @@
       <![CDATA[00040001N0005Debug0000000000000001N0008Debug4.60000000000000001N0012LinuxRelease0000000000000001N0007Release000000000000]]>
     </Plugin>
   </Plugins>
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[cpp;c;h;hpp;xrc;wxcp;fbp]]>
+    </Extensions>
+    <Topleveldir>../SSVEntitySystem</Topleveldir>
+  </Reconciliation>
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="SSVEntitySystem.h"/>
-    <File Name="Utils.h"/>
-    <VirtualDirectory Name="EntitySystem">
-      <File Name="EntitySystem/Component.cpp"/>
-      <File Name="EntitySystem/Component.h"/>
-      <File Name="EntitySystem/Entity.cpp"/>
-      <File Name="EntitySystem/Entity.h"/>
-      <File Name="EntitySystem/Manager.cpp"/>
-      <File Name="EntitySystem/Manager.h"/>
-      <File Name="EntitySystem/Repository.h"/>
+    <VirtualDirectory Name="Utils">
+      <File Name="Utils/Repository.h"/>
+      <File Name="Utils/Utils.cpp"/>
+      <File Name="Utils/Utils.h"/>
     </VirtualDirectory>
-    <File Name="Utils.cpp"/>
+    <File Name="Component.cpp"/>
+    <File Name="Component.h"/>
+    <File Name="Entity.cpp"/>
+    <File Name="Entity.h"/>
+    <File Name="Manager.cpp"/>
+    <File Name="Manager.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

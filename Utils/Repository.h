@@ -2,13 +2,13 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef REPOSITOR2Y_H_
-#define REPOSITOR2Y_H_
+#ifndef SSES_REPOSITORY
+#define SSES_REPOSITORY
 
 #include <vector>
 #include <map>
 #include <string>
-#include "../Utils.h"
+#include "Utils.h"
 
 namespace sses
 {
@@ -32,5 +32,6 @@ namespace sses
 				return result;
 			}
 	};
-} /* namespace sses */
-#endif /* REPOSITOR2Y_H_ */
+}
+
+#endif

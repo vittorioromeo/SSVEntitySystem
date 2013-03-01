@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#ifndef SSES_COMPONENT
+#define SSES_COMPONENT
 
 #include <string>
 
@@ -35,6 +35,6 @@ namespace sses
 			Entity& getEntity(); // returns a reference to the parent entity
 			Manager& getManager(); // returns a reference to the parent manager
 	};
-} /* namespace sses */
+}
 	
-#endif /* COMPONENT_H_ */
+#endif

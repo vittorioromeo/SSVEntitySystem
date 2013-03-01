@@ -2,12 +2,12 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef ENTITY_H_
-#define ENTITY_H_
+#ifndef SSES_ENTITY
+#define SSES_ENTITY
 
 #include <vector>
 #include <string>
-#include "Repository.h"
+#include "Utils/Repository.h"
 
 namespace sses
 {
@@ -48,6 +48,6 @@ namespace sses
 			Entity& operator+=(Component* mComponent);
 			Entity& operator+=(std::vector<Component*> mComponents);
 	};
-} /* namespace sses */
+}
 	
-#endif /* ENTITY_H_ */
+#endif

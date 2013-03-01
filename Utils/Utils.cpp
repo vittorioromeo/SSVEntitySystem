@@ -3,7 +3,7 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "Utils.h"
-#include "EntitySystem/Entity.h"
+#include "Entity.h"
 
 namespace sses
 {

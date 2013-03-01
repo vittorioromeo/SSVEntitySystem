@@ -7,8 +7,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "Repository.h"
-#include "../Utils.h"
+#include "Utils/Repository.h"
+#include "Utils/Utils.h"
 
 using namespace std;
 

@@ -2,11 +2,11 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVENTITYSYSTEM_H_
-#define SSVENTITYSYSTEM_H_
+#ifndef SSES_SSVENTITYSYSTEM
+#define SSES_SSVENTITYSYSTEM
 
-#include "EntitySystem/Component.h"
-#include "EntitySystem/Entity.h"
-#include "EntitySystem/Manager.h"
+#include "Component.h"
+#include "Entity.h"
+#include "Manager.h"
 
-#endif /* SSVENTITYSYSTEM_H_ */
+#endif

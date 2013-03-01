@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef ENTITYMANAGER_H_
-#define ENTITYMANAGER_H_
+#ifndef SSES_MANAGER
+#define SSES_MANAGER
 
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 #include <sparsehash/dense_hash_set>
 #include "Entity.h"
 #include "Component.h"
-#include "Repository.h"
+#include "Utils/Repository.h"
 
 namespace sses
 {
@@ -46,5 +46,6 @@ namespace sses
 			Entity& createEntity(std::string mId = "", std::vector<Component*> mComponents = {});
 			template<typename T, typename... Args> T* createComponent(Args&&... args) { return new T(std::forward<Args>(args)...); }
 	};
-} /* namespace sses */
-#endif /* ENTITYMANAGER_H_ */
+}
+
+#endif

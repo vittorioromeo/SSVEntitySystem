@@ -2,13 +2,11 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef UTILS_H_SSES
-#define UTILS_H_SSES
+#ifndef SSES_UTILS
+#define SSES_UTILS
 
 #include <algorithm>
 #include <vector>
-#include <string>
-#include <sstream>
 
 namespace sses
 {
@@ -18,4 +16,4 @@ namespace sses
 	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB);
 }
 
-#endif /* UTILS_H_SSES */
+#endif

@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=21/02/2013
+Date                   :=01/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -61,7 +61,9 @@ CFLAGS   :=   $(Preprocessors)
 ##
 CodeLiteDir:=C:\Program Files (x86)\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix) $(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix) $(IntermediateDirectory)/Utils$(ObjectSuffix) 
+WXWIN:=C:\wxWidgets
+WXCFG:=gcc_dll\mswu
+Objects0=$(IntermediateDirectory)/Component$(ObjectSuffix) $(IntermediateDirectory)/Entity$(ObjectSuffix) $(IntermediateDirectory)/Manager$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -88,37 +90,37 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix): EntitySystem/Component.cpp $(IntermediateDirectory)/EntitySystem_Component$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/EntitySystem/Component.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/EntitySystem_Component$(DependSuffix): EntitySystem/Component.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix) -MF$(IntermediateDirectory)/EntitySystem_Component$(DependSuffix) -MM "EntitySystem/Component.cpp"
+$(IntermediateDirectory)/Component$(ObjectSuffix): Component.cpp $(IntermediateDirectory)/Component$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Component.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Component$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Component$(DependSuffix): Component.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Component$(ObjectSuffix) -MF$(IntermediateDirectory)/Component$(DependSuffix) -MM "Component.cpp"
 
-$(IntermediateDirectory)/EntitySystem_Component$(PreprocessSuffix): EntitySystem/Component.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/EntitySystem_Component$(PreprocessSuffix) "EntitySystem/Component.cpp"
+$(IntermediateDirectory)/Component$(PreprocessSuffix): Component.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Component$(PreprocessSuffix) "Component.cpp"
 
-$(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix): EntitySystem/Entity.cpp $(IntermediateDirectory)/EntitySystem_Entity$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/EntitySystem/Entity.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/EntitySystem_Entity$(DependSuffix): EntitySystem/Entity.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix) -MF$(IntermediateDirectory)/EntitySystem_Entity$(DependSuffix) -MM "EntitySystem/Entity.cpp"
+$(IntermediateDirectory)/Entity$(ObjectSuffix): Entity.cpp $(IntermediateDirectory)/Entity$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Entity.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Entity$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Entity$(DependSuffix): Entity.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Entity$(ObjectSuffix) -MF$(IntermediateDirectory)/Entity$(DependSuffix) -MM "Entity.cpp"
 
-$(IntermediateDirectory)/EntitySystem_Entity$(PreprocessSuffix): EntitySystem/Entity.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/EntitySystem_Entity$(PreprocessSuffix) "EntitySystem/Entity.cpp"
+$(IntermediateDirectory)/Entity$(PreprocessSuffix): Entity.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Entity$(PreprocessSuffix) "Entity.cpp"
 
-$(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix): EntitySystem/Manager.cpp $(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/EntitySystem/Manager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix): EntitySystem/Manager.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix) -MF$(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix) -MM "EntitySystem/Manager.cpp"
+$(IntermediateDirectory)/Manager$(ObjectSuffix): Manager.cpp $(IntermediateDirectory)/Manager$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Manager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Manager$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Manager$(DependSuffix): Manager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Manager$(ObjectSuffix) -MF$(IntermediateDirectory)/Manager$(DependSuffix) -MM "Manager.cpp"
 
-$(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix): EntitySystem/Manager.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix) "EntitySystem/Manager.cpp"
+$(IntermediateDirectory)/Manager$(PreprocessSuffix): Manager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Manager$(PreprocessSuffix) "Manager.cpp"
 
-$(IntermediateDirectory)/Utils$(ObjectSuffix): Utils.cpp $(IntermediateDirectory)/Utils$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Utils$(DependSuffix): Utils.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Utils$(ObjectSuffix) -MF$(IntermediateDirectory)/Utils$(DependSuffix) -MM "Utils.cpp"
+$(IntermediateDirectory)/Utils_Utils$(ObjectSuffix): Utils/Utils.cpp $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVEntitySystem/Utils/Utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Utils_Utils$(DependSuffix): Utils/Utils.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) -MF$(IntermediateDirectory)/Utils_Utils$(DependSuffix) -MM "Utils/Utils.cpp"
 
-$(IntermediateDirectory)/Utils$(PreprocessSuffix): Utils.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Utils$(PreprocessSuffix) "Utils.cpp"
+$(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix): Utils/Utils.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix) "Utils/Utils.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
@@ -126,18 +128,18 @@ $(IntermediateDirectory)/Utils$(PreprocessSuffix): Utils.cpp
 ## Clean
 ##
 clean:
-	$(RM) $(IntermediateDirectory)/EntitySystem_Component$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Component$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Component$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Entity$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Entity$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Entity$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/EntitySystem_Manager$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/Utils$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/Utils$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/Utils$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Component$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Component$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Component$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Entity$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Entity$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Entity$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Manager$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Manager$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Manager$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
 	$(RM) "../.build-release/SSVEntitySystem"
