@@ -44,7 +44,7 @@ namespace sses
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
 
 			Entity& createEntity(std::string mId = "", std::vector<Component*> mComponents = {});
-			template<typename T, typename... Args> T* createComponent(Args&&... args) { return new T(std::forward<Args>(args)...); }
+			template<typename T, typename... TArgs> T* createComponent(TArgs&&... mArgs) { return new T(std::forward<TArgs>(mArgs)...); }
 	};
 }
 

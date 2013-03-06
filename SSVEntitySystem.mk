@@ -12,8 +12,8 @@ OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=Vittorio
-Date                   :=01/03/2013
+User                   :=vittorio.romeo
+Date                   :=06/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -61,7 +61,7 @@ CFLAGS   :=   $(Preprocessors)
 ##
 CodeLiteDir:=C:\Program Files (x86)\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
-WXWIN:=C:\wxWidgets
+WXWIN:=C:\wxWidgets-2.9.4
 WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/Component$(ObjectSuffix) $(IntermediateDirectory)/Entity$(ObjectSuffix) $(IntermediateDirectory)/Manager$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) 
 
@@ -77,7 +77,7 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@$(MakeDirCommand) $(@D)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
-	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
+	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) $(Objects) $(LibPath) $(Libs) $(LinkOptions)
 	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace/.build-release"
 	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace/.build-release/SSVEntitySystem"
 
