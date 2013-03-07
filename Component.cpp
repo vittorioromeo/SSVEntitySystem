@@ -6,6 +6,8 @@
 #include "Entity.h"
 #include "Manager.h"
 
+using namespace std;
+
 namespace sses
 {
 	Component::Component(const std::string& mId) : id{mId} { }
@@ -15,6 +17,7 @@ namespace sses
 	void Component::update(float) { }
 	void Component::draw() { }
 
-	Manager& Component::getManager() { return *manager; }
-	Entity& Component::getEntity() { return *entity; }
-} /* namespace sses */
+	string Component::getId() 			{ return id; }
+	Manager& Component::getManager() 	{ return *manager; }
+	Entity& Component::getEntity() 		{ return *entity; }
+}

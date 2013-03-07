@@ -9,52 +9,36 @@
 #include <sstream>
 #include "Utils/Repository.h"
 #include "Utils/Utils.h"
+#include "Entity.h"
 
 using namespace std;
 
 namespace sses
 {
-	Manager::Manager() { entitiesToErase.set_empty_key(nullptr); }
 	Manager::~Manager() { clear(); }
 
-	void Manager::addComponent(Component* mComponent) { mComponent->manager = this; components.add(mComponent->id, mComponent); }
-	void Manager::add(Entity* mEntity) { entities.add(mEntity->id, mEntity); }
-	void Manager::del(Entity* mEntity) { entitiesToErase.insert(mEntity); }
-	void Manager::clear()
+	void Manager::addComponent(Component& mComponent) { mComponent.manager = this; components.add(mComponent.id, &mComponent); }
+	void Manager::del(Entity& mEntity)
 	{
-		for(auto& componentPtr : components.getItems()) delete componentPtr;
-		components.clear();
-
-		for(auto& entity : entities.getItems()) delete entity;
-		entities.clear();
+		for(auto& component : mEntity.getComponentRepo()) components.del(component->getId(), component);
+		entityMemoryManager.del(&mEntity);
 	}
+	void Manager::clear() { components.clear(); entityMemoryManager.clear(); }
 
 	void Manager::update(float mFrameTime)
 	{
-		for(auto& entityToErase : entitiesToErase)
-		{
-			for(auto& componentPtr : entityToErase->getComponentRepo().getItems())
-			{
-				components.del(componentPtr->id, componentPtr);
-				delete componentPtr;
-			}
-
-			entities.del(entityToErase->id, entityToErase);
-			delete entityToErase;
-		}
-		entitiesToErase.clear();
-
-		for(auto& entity : entities.getItems()) entity->update(mFrameTime);
+		entityMemoryManager.cleanUp();
+		for(auto& entity : entityMemoryManager.getItems()) entity->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
-		vector<Entity*> entitiesToSort{entities.getItems()};
+		vector<Entity*> entitiesToSort{entityMemoryManager.getItems().getItems()};
 		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize);
 		for(auto& entity : entitiesToSort) entity->draw();
 	}
 
-	vector<Entity*> Manager::getEntities(const string& mId) { return entities.get(mId); }
-	vector<Component*> Manager::getComponents(const string& mId) { return components.get(mId); }
+	Entity& Manager::createEntity(const string& mId) { return entityMemoryManager.create(*this, mId); }
 
-	Entity& Manager::createEntity(string mId, vector<Component*> mComponents) { Entity* result{new Entity(*this, mId)}; add(result); *result += mComponents; return *result; }
+	vector<Entity*> Manager::getEntities(const string& mId) 		{ return entityMemoryManager.getItems().get(mId); }
+	vector<Component*> Manager::getComponents(const string& mId) 	{ return components.get(mId); }
 }

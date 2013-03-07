@@ -82,8 +82,13 @@
     <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-O3;-pedantic;-W;-Wall;-std=c++11" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="."/>
+        <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
+        <IncludePath Value="../SSVStart"/>
       </Compiler>
-      <Linker Options="-shared" Required="yes"/>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="../SSVStart/_RELEASE"/>
+        <Library Value="SSVStart"/>
+      </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="./_RELEASE/$(ProjectName).dll" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./_RELEASE/" PauseExecWhenProcTerminates="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">

@@ -7,12 +7,13 @@
 
 #include <vector>
 #include <string>
+#include "Utils/Utils.h"
 #include "Utils/Repository.h"
+#include "Manager.h"
 
 namespace sses
 {
 	class Component;
-	class Manager;
 	
 	class Entity
 	{
@@ -22,10 +23,8 @@ namespace sses
 			Manager& manager;
 			std::string id{""};
 			int drawPriority{0};
-			Repository<Component*> components; // not owned, manager owns everything!			
-
-			void addComponent(Component* mComponent);
-			
+			ssvs::Utils::MemoryManager<Component, Repository<Component*>, google::dense_hash_set<Component*>> memoryManager;
+		
 		public:
 			Entity(Manager& mManager, const std::string& mId = "");
 			Entity(const Entity&) = delete; // non construction-copyable
@@ -36,17 +35,18 @@ namespace sses
 			void destroy();
 
 			void setDrawPriority(int mDrawPriority);
-			int getDrawPriority() const;
 
-			Manager& getManager(); // returns a reference to the parent manager
-			Repository<Component*>& getComponentRepo();
+			Manager& getManager();
 			std::string getId();
+			int getDrawPriority() const;
+			Repository<Component*>& getComponentRepo();
 
-			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
-
-			// Shortcuts
-			Entity& operator+=(Component* mComponent);
-			Entity& operator+=(std::vector<Component*> mComponents);
+			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
+			{
+				T& result(memoryManager.create<T, TArgs...>(std::forward<TArgs>(mArgs)...));
+				result.entity = this; manager.addComponent(result); result.init(); return result;
+			}
+			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return memoryManager.getItems().getCasted<T*>(mId); }
 	};
 }
 	

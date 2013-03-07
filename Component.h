@@ -32,8 +32,9 @@ namespace sses
 			virtual void update(float mFrameTime);
 			virtual void draw();
 
-			Entity& getEntity(); // returns a reference to the parent entity
-			Manager& getManager(); // returns a reference to the parent manager
+			std::string getId();
+			Entity& getEntity();
+			Manager& getManager();
 	};
 }
 	

@@ -7,44 +7,42 @@
 
 #include <string>
 #include <vector>
-#include <map>
 #include <sparsehash/dense_hash_set>
-#include "Entity.h"
+#include <SSVStart.h>
 #include "Component.h"
 #include "Utils/Repository.h"
 
 namespace sses
 {
+	class Entity;
+
 	class Manager
 	{
 		friend class Entity;
 		friend class Component;
 
 		private:
-			Repository<Entity*> entities; // owned!
-			Repository<Component*> components; // owned!
-			google::dense_hash_set<Entity*> entitiesToErase; // not owned
+			ssvs::Utils::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> entityMemoryManager;
+			Repository<Component*> components; // not owned
 
-			void add(Entity* mEntity);
-			void del(Entity* mEntity);
-			void addComponent(Component* mComponent);
+			void del(Entity& mEntity);
+			void addComponent(Component& mComponent);
 
 		public:
-			Manager();
+			Manager() = default;
+			~Manager();
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
-			~Manager();
 			
 			void clear();
 			void update(float mFrameTime);
 			void draw();
 
+			Entity& createEntity(const std::string& mId = "");
+
 			std::vector<Entity*> getEntities(const std::string& mId);
 			std::vector<Component*> getComponents(const std::string& mId);
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
-
-			Entity& createEntity(std::string mId = "", std::vector<Component*> mComponents = {});
-			template<typename T, typename... TArgs> T* createComponent(TArgs&&... mArgs) { return new T(std::forward<TArgs>(mArgs)...); }
 	};
 }
 

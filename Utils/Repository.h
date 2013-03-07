@@ -15,6 +15,9 @@ namespace sses
 	template<typename T> class Repository
 	{
 		private:
+			typedef typename std::vector<T>::iterator iterator;
+			typedef typename std::vector<T>::const_iterator const_iterator;
+
 			std::vector<T> items;
 			std::map<std::string, std::vector<T>> itemMap;
 
@@ -31,6 +34,13 @@ namespace sses
 				for (auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
 				return result;
 			}
+
+			iterator begin() 				{ return items.begin(); }
+			const_iterator begin() const 	{ return items.begin(); }
+			const iterator cbegin() const	{ return items.cbegin(); }
+			iterator end() 					{ return items.end(); }
+			const_iterator end() const 		{ return items.end(); }
+			const iterator cend() const 	{ return items.cend(); }
 	};
 }
 

@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "Entity.h"
 #include "Component.h"
-#include "Manager.h"
 
 using namespace std;
 
@@ -15,25 +14,18 @@ namespace sses
 {
 	Entity::Entity(Manager& mManager, const std::string& mId) : manager(mManager), id{mId} { }
 
-	void Entity::addComponent(Component* mComponent)
+	void Entity::update(float mFrameTime)
 	{
-		mComponent->entity = this;
-		components.add(mComponent->id, mComponent);
-		manager.addComponent(mComponent);
-		mComponent->init();
+		memoryManager.cleanUp();
+		for(auto& component : memoryManager.getItems()) component->update(mFrameTime);
 	}
-	void Entity::update(float mFrameTime) { for (auto& component : components.getItems()) component->update(mFrameTime); }
-	void Entity::draw() { for (auto& component : components.getItems()) component->draw(); }
-	void Entity::destroy() { manager.del(this); }
+	void Entity::draw() { for(auto& component : memoryManager.getItems()) component->draw(); }
+	void Entity::destroy() { manager.del(*this); }
 
-	void Entity::setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
-	int Entity::getDrawPriority() const { return drawPriority; }
+	void Entity::setDrawPriority(int mDrawPriority) 	{ drawPriority = mDrawPriority; }
 
-	Manager& Entity::getManager() { return manager; }
-	Repository<Component*>& Entity::getComponentRepo() { return components; }
-	string Entity::getId() { return id; }
-
-	// Shortcuts
-	Entity& Entity::operator+=(Component* mComponent) { addComponent(mComponent); return *this; }
-	Entity& Entity::operator+=(std::vector<Component*> mComponents) { for(auto& component : mComponents) addComponent(component); return *this; }
-} /* namespace sses */
+	Manager& Entity::getManager()	 					{ return manager; }
+	string Entity::getId() 								{ return id; }
+	int Entity::getDrawPriority() const 				{ return drawPriority; }
+	Repository<Component*>& Entity::getComponentRepo() 	{ return memoryManager.getItems(); }
+}

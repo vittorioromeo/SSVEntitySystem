@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=vittorio.romeo
-Date                   :=06/03/2013
+Date                   :=07/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
-LinkOptions            :=  -shared
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
+LinkOptions            :=  
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include $(IncludeSwitch)../SSVStart 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := 
-ArLibs                 :=  
-LibPath                := $(LibraryPathSwitch). 
+Libs                   := $(LibrarySwitch)SSVStart 
+ArLibs                 :=  "SSVStart" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVStart/_RELEASE 
 
 ##
 ## Common variables
