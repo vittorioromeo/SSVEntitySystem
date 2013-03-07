@@ -22,7 +22,7 @@ namespace sses
 		friend class Component;
 
 		private:
-			ssvs::Utils::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> entityMemoryManager;
+			ssvs::Utils::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> memoryManager;
 			Repository<Component*> components; // not owned
 
 			void del(Entity& mEntity);

@@ -18,23 +18,22 @@ namespace sses
 		friend class Manager;
 
 		private:
+			Entity& entity;
+			Manager& manager;
 			std::string id{""};
-			Manager* manager{nullptr}; // manager not owned, just pointed to
-			Entity* entity{nullptr}; // entity not owned, just pointed to
 			
 		public:
-			Component(const std::string& mId = "");
+			Component(Entity& mEntity, const std::string& mId = "");
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
 			virtual ~Component();
 
-			virtual void init();
 			virtual void update(float mFrameTime);
 			virtual void draw();
 
-			std::string getId();
 			Entity& getEntity();
 			Manager& getManager();
+			std::string getId();
 	};
 }
 	

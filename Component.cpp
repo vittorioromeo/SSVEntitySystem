@@ -10,14 +10,13 @@ using namespace std;
 
 namespace sses
 {
-	Component::Component(const std::string& mId) : id{mId} { }
+	Component::Component(Entity& mEntity, const std::string& mId) : entity(mEntity), manager(entity.getManager()), id{mId} { }
 	Component::~Component() { }
 
-	void Component::init() { }
 	void Component::update(float) { }
 	void Component::draw() { }
 
+	Entity& Component::getEntity() 		{ return entity; }
+	Manager& Component::getManager() 	{ return manager; }
 	string Component::getId() 			{ return id; }
-	Manager& Component::getManager() 	{ return *manager; }
-	Entity& Component::getEntity() 		{ return *entity; }
 }
