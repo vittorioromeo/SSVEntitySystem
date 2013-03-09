@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-#include <sparsehash/dense_hash_set>
+#include <google/dense_hash_set>
 #include <SSVStart.h>
 #include "Component.h"
 #include "Utils/Repository.h"
