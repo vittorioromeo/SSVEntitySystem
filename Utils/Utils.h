@@ -34,7 +34,6 @@ namespace sses
 {
 	class Entity;
 
-	template<typename T, typename V> void eraseRemove(T& mItems, const V& mValue) { mItems.erase(std::remove(std::begin(mItems), std::end(mItems), mValue), std::end(mItems)); }
 	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB);
 }
 

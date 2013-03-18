@@ -2,11 +2,11 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Manager.h"
 #include <algorithm>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Manager.h"
 #include "Utils/Repository.h"
 #include "Utils/Utils.h"
 #include "Entity.h"

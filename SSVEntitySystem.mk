@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=vittorio.romeo
-Date                   :=11/03/2013
+Date                   :=18/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -38,12 +38,12 @@ MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
 LinkOptions            :=  
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include $(IncludeSwitch)D:/Vee/Software/Repos/sparsehash/build/built/include $(IncludeSwitch)../SSVStart 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)../SSVUtils $(IncludeSwitch)../SSVStart $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include $(IncludeSwitch)D:/Vee/Software/Repos/sparsehash/build/built/include 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := $(LibrarySwitch)SSVStart 
-ArLibs                 :=  "SSVStart" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVStart/_RELEASE 
+Libs                   := $(LibrarySwitch)SSVUtils $(LibrarySwitch)SSVStart 
+ArLibs                 :=  "SSVUtils" "SSVStart" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/_RELEASE $(LibraryPathSwitch)../SSVStart/_RELEASE 
 
 ##
 ## Common variables
@@ -52,7 +52,7 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVStart/
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -O3 -pedantic -W -Wall -std=c++11 $(Preprocessors)
+CXXFLAGS :=  -W -s -pedantic -O3 -Wextra -std=c++11 -Wall $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 
 
