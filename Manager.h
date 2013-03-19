@@ -9,7 +9,6 @@
 #include <vector>
 #include <google/dense_hash_set>
 #include "Utils/Utils.h"
-#include <SSVStart.h>
 #include "Component.h"
 #include "Utils/Repository.h"
 
@@ -23,7 +22,7 @@ namespace sses
 		friend class Component;
 
 		private:
-			ssvs::Utils::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> memoryManager;
+			ssvu::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> memoryManager;
 			Repository<Component*> components; // not owned
 
 			void del(Entity& mEntity);

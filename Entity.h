@@ -23,7 +23,7 @@ namespace sses
 			Manager& manager;
 			std::string id{""};
 			int drawPriority{0};
-			ssvs::Utils::MemoryManager<Component, Repository<Component*>, google::dense_hash_set<Component*>> memoryManager;
+			ssvu::MemoryManager<Component, Repository<Component*>, google::dense_hash_set<Component*>> memoryManager;
 		
 		public:
 			Entity(Manager& mManager, const std::string& mId = "");

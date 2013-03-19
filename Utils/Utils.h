@@ -8,25 +8,35 @@
 #include <algorithm>
 #include <vector>
 #include <google/dense_hash_set>
-#include <SSVStart.h>
+#include <SSVUtils.h>
 #include "Utils/Repository.h"
 
-namespace ssvs
+namespace ssvu
 {
-	namespace Utils
+	namespace Traits
 	{
-		namespace Traits
+		template<typename TItem> struct Container<sses::Repository<TItem>, TItem>
 		{
-			template<typename TItem> struct Container<sses::Repository<TItem>, TItem>
-			{
-				typedef sses::Repository<TItem> TContainer;
+			typedef sses::Repository<TItem> TContainer;
 
-				static void init(TContainer&) { }
-				static void clear(TContainer& mContainer) { mContainer.clear(); }
-				static void add(TContainer& mContainer, const TItem& mItem) { mContainer.add(mItem->getId(), mItem); }
-				static void del(TContainer& mContainer, const TItem& mItem) { mContainer.del(mItem->getId(), mItem); }
-			};
-		}
+			static void init(TContainer&) { }
+			static void clear(TContainer& mContainer) { mContainer.clear(); }
+			static void add(TContainer& mContainer, const TItem& mItem) { mContainer.add(mItem->getId(), mItem); }
+			static void del(TContainer& mContainer, const TItem& mItem) { mContainer.del(mItem->getId(), mItem); }
+		};
+
+		#ifndef SSVU_TRAITS_DENSEHASHSET
+		#define SSVU_TRAITS_DENSEHASHSET
+		template<typename TItem> struct Container<google::dense_hash_set<TItem>, TItem>
+		{
+			typedef google::dense_hash_set<TItem> TContainer;
+
+			static void init(TContainer& mContainer) { mContainer.set_empty_key(nullptr); }
+			static void clear(TContainer& mContainer) { mContainer.clear(); }
+			static void add(TContainer& mContainer, const TItem& mItem) { mContainer.insert(mItem); }
+			static void del(TContainer&, const TItem&) { }
+		};
+		#endif
 	}
 }
 

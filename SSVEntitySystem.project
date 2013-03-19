@@ -82,15 +82,12 @@
     <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../SSVUtils"/>
-        <IncludePath Value="../SSVStart"/>
-        <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
+        <IncludePath Value="../SFML/include"/>
         <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
       </Compiler>
       <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/_RELEASE"/>
-        <LibraryPath Value="../SSVStart/_RELEASE"/>
         <Library Value="SSVUtils"/>
-        <Library Value="SSVStart"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="./_RELEASE/$(ProjectName).dll" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./_RELEASE/" PauseExecWhenProcTerminates="yes"/>
