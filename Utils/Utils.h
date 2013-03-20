@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <vector>
 #include <google/dense_hash_set>
-#include <SSVUtils.h>
+#include <SSVUtils/SSVUtils.h>
 #include "Utils/Repository.h"
 
 namespace ssvu
