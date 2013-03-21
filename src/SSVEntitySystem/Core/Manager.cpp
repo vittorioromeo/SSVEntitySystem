@@ -6,10 +6,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "Manager.h"
-#include "Utils/Repository.h"
-#include "Utils/Utils.h"
-#include "Entity.h"
+#include "SSVEntitySystem/Core/Manager.h"
+#include "SSVEntitySystem/Utils/Repository.h"
+#include "SSVEntitySystem/Utils/Utils.h"
+#include "SSVEntitySystem/Core/Entity.h"
 
 using namespace std;
 

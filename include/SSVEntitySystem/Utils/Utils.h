@@ -9,7 +9,7 @@
 #include <vector>
 #include <google/dense_hash_set>
 #include <SSVUtils/SSVUtils.h>
-#include "Utils/Repository.h"
+#include "SSVEntitySystem/Utils/Repository.h"
 
 namespace ssvu
 {

@@ -2,9 +2,9 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Component.h"
-#include "Entity.h"
-#include "Manager.h"
+#include "SSVEntitySystem/Core/Component.h"
+#include "SSVEntitySystem/Core/Entity.h"
+#include "SSVEntitySystem/Core/Manager.h"
 
 using namespace std;
 

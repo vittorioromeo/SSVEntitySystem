@@ -1,1 +1,1 @@
-./_INTERMEDIATE/Component.o ./_INTERMEDIATE/Entity.o ./_INTERMEDIATE/Manager.o ./_INTERMEDIATE/Utils_Utils.o
+./_INTERMEDIATE/Core_Component.o ./_INTERMEDIATE/Core_Entity.o ./_INTERMEDIATE/Core_Manager.o ./_INTERMEDIATE/Utils_Utils.o

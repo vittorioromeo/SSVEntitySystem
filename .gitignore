@@ -173,5 +173,4 @@ pip-log.txt
 *.a
 *.mk
 *.project
-*.txt
 *.so

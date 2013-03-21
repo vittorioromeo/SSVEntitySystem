@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Utils/Utils.h"
-#include "Entity.h"
+#include "SSVEntitySystem/Utils/Utils.h"
+#include "SSVEntitySystem/Core/Entity.h"
 
 namespace sses
 {

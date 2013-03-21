@@ -8,9 +8,9 @@
 #include <string>
 #include <vector>
 #include <google/dense_hash_set>
-#include "Utils/Utils.h"
-#include "Component.h"
-#include "Utils/Repository.h"
+#include "SSVEntitySystem/Utils/Utils.h"
+#include "SSVEntitySystem/Core/Component.h"
+#include "SSVEntitySystem/Utils/Repository.h"
 
 namespace sses
 {

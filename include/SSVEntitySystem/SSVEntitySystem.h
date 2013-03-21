@@ -5,8 +5,8 @@
 #ifndef SSVENTITYSYSTEM
 #define SSVENTITYSYSTEM
 
-#include "Component.h"
-#include "Entity.h"
-#include "Manager.h"
+#include "SSVEntitySystem/Core/Component.h"
+#include "SSVEntitySystem/Core/Entity.h"
+#include "SSVEntitySystem/Core/Manager.h"
 
 #endif

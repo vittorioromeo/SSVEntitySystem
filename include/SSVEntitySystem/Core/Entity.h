@@ -7,8 +7,8 @@
 
 #include <vector>
 #include <string>
-#include "Utils/Utils.h"
-#include "Utils/Repository.h"
+#include "SSVEntitySystem/Utils/Utils.h"
+#include "SSVEntitySystem/Utils/Repository.h"
 #include "Manager.h"
 
 namespace sses

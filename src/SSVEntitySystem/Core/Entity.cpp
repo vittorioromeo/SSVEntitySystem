@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include "Entity.h"
-#include "Component.h"
+#include "SSVEntitySystem/Core/Entity.h"
+#include "SSVEntitySystem/Core/Component.h"
 
 using namespace std;
 

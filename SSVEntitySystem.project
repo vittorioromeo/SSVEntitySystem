@@ -16,22 +16,34 @@
   </Reconciliation>
   <Description/>
   <Dependencies/>
-  <VirtualDirectory Name="src">
-    <File Name="SSVEntitySystem.h"/>
-    <VirtualDirectory Name="Utils">
-      <File Name="Utils/Repository.h"/>
-      <File Name="Utils/Utils.cpp"/>
-      <File Name="Utils/Utils.h"/>
-    </VirtualDirectory>
-    <File Name="Component.cpp"/>
-    <File Name="Component.h"/>
-    <File Name="Entity.cpp"/>
-    <File Name="Entity.h"/>
-    <File Name="Manager.cpp"/>
-    <File Name="Manager.h"/>
-  </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
+  <VirtualDirectory Name="src">
+    <VirtualDirectory Name="SSVEntitySystem">
+      <VirtualDirectory Name="Core">
+        <File Name="src/SSVEntitySystem/Core/Component.cpp"/>
+        <File Name="src/SSVEntitySystem/Core/Entity.cpp"/>
+        <File Name="src/SSVEntitySystem/Core/Manager.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Utils">
+        <File Name="src/SSVEntitySystem/Utils/Utils.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="include">
+    <VirtualDirectory Name="SSVEntitySystem">
+      <VirtualDirectory Name="Core">
+        <File Name="include/SSVEntitySystem/Core/Component.h"/>
+        <File Name="include/SSVEntitySystem/Core/Entity.h"/>
+        <File Name="include/SSVEntitySystem/Core/Manager.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Utils">
+        <File Name="include/SSVEntitySystem/Utils/Repository.h"/>
+        <File Name="include/SSVEntitySystem/Utils/Utils.h"/>
+      </VirtualDirectory>
+      <File Name="include/SSVEntitySystem/SSVEntitySystem.h"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -81,9 +93,9 @@
     </Configuration>
     <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
-        <IncludePath Value="../SSVUtils/include"/>
-        <IncludePath Value="../SFML/include"/>
-        <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
+        <IncludePath Value="./include/"/>
+        <IncludePath Value="../SSVUtils/include/"/>
+        <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include/"/>
       </Compiler>
       <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/_RELEASE"/>
