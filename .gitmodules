@@ -1,0 +1,3 @@
+[submodule "extlibs/SSVUtils"]
+	path = extlibs/SSVUtils
+	url = https://github.com/SuperV1234/SSVUtils.git

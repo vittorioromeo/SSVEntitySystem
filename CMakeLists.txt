@@ -4,11 +4,18 @@ project(SSVEntitySystem)
 set(SSVENTITYSYSTEM_BUILD_SHARED_LIB FALSE CACHE BOOL "Build shared libraries.")
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type." FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" CACHE STRING "" FORCE)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
+
+find_package(SSVUtils REQUIRED)
+if(SSVUTILS_FOUND)
+    include_directories(${SSVUTILS_INCLUDE_DIR})
+else()
+    set(SSVUTILS_ROOT "" CACHE PATH "SSVUtils top-level directory")
+    message("\n-> SSVUtils directory not found. Set SSVUTILS_ROOT to SSVUtils' top-level path (containing both \"include\" and \"lib\" directories).")
+endif()
 
 set(SPARSEHASH_INCLUDE_DIR "" CACHE STRING "google::sparsehash include directory")
 set(SPARSEHASH_LIBRARY "" CACHE STRING "google::sparsehash library file")
-set(SSVUTILS_INCLUDE_DIR "" CACHE STRING "SSVUtils include directory")
-set(SSVUTILS_LIBRARY "" CACHE STRING "SSVUtils library file")
 
 if(SSVENTITYSYSTEM_BUILD_SHARED_LIB)
 	set(LIB_TYPE SHARED)
@@ -33,7 +40,6 @@ set(
 )
 
 include_directories(${SPARSEHASH_INCLUDE_DIR})
-include_directories(${SSVUTILS_INCLUDE_DIR})
 include_directories(${INC_DIR})
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${SOURCES})
