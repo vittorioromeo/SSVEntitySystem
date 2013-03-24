@@ -44,7 +44,7 @@
       <File Name="include/SSVEntitySystem/SSVEntitySystem.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Settings Type="Dynamic Library">
+  <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
         <IncludePath Value="."/>
@@ -91,18 +91,18 @@
         <SearchPaths/>
       </Completion>
     </Configuration>
-    <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+    <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall;-DNDEBUG" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="./include/"/>
         <IncludePath Value="../SSVUtils/include/"/>
         <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include/"/>
       </Compiler>
       <Linker Options="" Required="yes">
-        <LibraryPath Value="../SSVUtils/_RELEASE"/>
-        <Library Value="SSVUtils"/>
+        <LibraryPath Value="../SSVUtils/lib/"/>
+        <Library Value="../SSVUtils/lib/libSSVUtils-s.a"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="./_RELEASE/$(ProjectName).dll" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./_RELEASE/" PauseExecWhenProcTerminates="yes"/>
+      <General OutputFile="./lib/lib$(ProjectName)-s.a" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./lib/" PauseExecWhenProcTerminates="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
