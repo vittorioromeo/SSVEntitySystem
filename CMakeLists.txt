@@ -7,6 +7,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" CACHE STRING "" FORCE)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
 
+set(SPARSEHASH_INCLUDE_DIR "" CACHE STRING "google::sparsehash include directory")
+set(SPARSEHASH_LIBRARY "" CACHE STRING "google::sparsehash library file")
+
 find_package(SSVUtils REQUIRED)
 if(SSVUTILS_FOUND)
 	include_directories(${SSVUTILS_INCLUDE_DIR})
@@ -15,9 +18,6 @@ else()
 	set(SSVUTILS_ROOT "" CACHE PATH "SSVUtils top-level directory")
 	message("\n-> SSVUtils directory not found. Set SSVUTILS_ROOT to SSVUtils' top-level path (containing both \"include\" and \"lib\" directories).")
 endif()
-
-set(SPARSEHASH_INCLUDE_DIR "" CACHE STRING "google::sparsehash include directory")
-set(SPARSEHASH_LIBRARY "" CACHE STRING "google::sparsehash library file")
 
 if(SSVENTITYSYSTEM_BUILD_SHARED_LIB)
 	set(LIB_TYPE SHARED)
