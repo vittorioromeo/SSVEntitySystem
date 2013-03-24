@@ -16,8 +16,6 @@
   </Reconciliation>
   <Description/>
   <Dependencies/>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <VirtualDirectory Name="src">
     <VirtualDirectory Name="SSVEntitySystem">
       <VirtualDirectory Name="Core">
@@ -134,4 +132,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

@@ -7,9 +7,10 @@
 
 #include <algorithm>
 #include <vector>
-#include <google/dense_hash_set>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVEntitySystem/Utils/Repository.h"
+#pragma GCC system_header
+#include <google/dense_hash_set>
 
 namespace ssvu
 {

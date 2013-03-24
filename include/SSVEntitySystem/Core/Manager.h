@@ -7,10 +7,11 @@
 
 #include <string>
 #include <vector>
-#include <google/dense_hash_set>
 #include "SSVEntitySystem/Utils/Utils.h"
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Utils/Repository.h"
+#pragma GCC system_header
+#include <google/dense_hash_set>
 
 namespace sses
 {

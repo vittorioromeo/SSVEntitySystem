@@ -9,7 +9,7 @@
 #include <string>
 #include "SSVEntitySystem/Utils/Utils.h"
 #include "SSVEntitySystem/Utils/Repository.h"
-#include "Manager.h"
+#include "SSVEntitySystem/Core/Manager.h"
 
 namespace sses
 {
