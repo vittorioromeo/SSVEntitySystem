@@ -34,8 +34,10 @@ namespace sses
 			void draw();
 			void destroy();
 
+			// Setters
 			void setDrawPriority(int mDrawPriority);
 
+			// Getters
 			Manager& getManager();
 			std::string getId();
 			int getDrawPriority() const;
@@ -48,6 +50,12 @@ namespace sses
 				manager.addComponent(result); return result;
 			}
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return memoryManager.getItems().getCasted<T*>(mId); }
+			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }
+			template<typename T> T* getFirstComponentSafe(const std::string& mId) 
+			{ 
+				auto& components(memoryManager.getItems().getCasted<T*>(mId));
+				return components.empty() ? nullptr : components[0];
+			}
 	};
 }
 	

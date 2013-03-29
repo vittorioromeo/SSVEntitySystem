@@ -26,12 +26,12 @@ namespace sses
 			std::vector<T>& get(const std::string& mId) { return itemMap[mId]; }
 			void add(const std::string& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
 			void del(const std::string& mId, T mPtr) { ssvu::eraseRemove(items, mPtr); ssvu::eraseRemove(itemMap[mId], mPtr); }
-			void clear(){ items.clear(); itemMap.clear(); }
+			void clear() { items.clear(); itemMap.clear(); }
 
 			template<typename U> std::vector<U> getCasted(const std::string& mId)
 			{
 				std::vector<U> result;
-				for (auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
+				for(auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
 				return result;
 			}
 

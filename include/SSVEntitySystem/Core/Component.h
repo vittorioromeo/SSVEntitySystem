@@ -31,6 +31,7 @@ namespace sses
 			virtual void update(float mFrameTime);
 			virtual void draw();
 
+			// Getters
 			Entity& getEntity();
 			Manager& getManager();
 			std::string getId();

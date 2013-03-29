@@ -10,6 +10,7 @@
 #include "SSVEntitySystem/Utils/Repository.h"
 #include "SSVEntitySystem/Utils/Utils.h"
 #include "SSVEntitySystem/Core/Entity.h"
+#include <SSVUtils/SSVUtils.h>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ namespace sses
 	
 	Entity& Manager::createEntity(const string& mId) { return memoryManager.create(*this, mId); }
 	
+	// Getters
 	vector<Entity*>& Manager::getEntities()							{ return memoryManager.getItems().getItems(); }
 	vector<Entity*> Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
 	vector<Component*> Manager::getComponents(const string& mId) 	{ return components.get(mId); }
