@@ -17,6 +17,7 @@ message("\nFound SSVEntitySystem include at: ${SSVENTITYSYSTEM_INCLUDE_DIR}.\n")
 
 FIND_LIBRARY(SSVENTITYSYSTEM_LIBRARY
   NAMES SSVEntitySystem libSSVEntitySystem SSVEntitySystem-s libSSVEntitySystem-s ssventitysystem libssventitysystem ssventitysystem-s libssventitysystem-s
+		SSVEntitySystem-s-d libSSVEntitySystem-s-d ssventitysystem-s-d libssventitysystem-s-d
   PATH_SUFFIXES lib/ lib64/
   PATHS "${PROJECT_SOURCE_DIR}/../SSVEntitySystem/"
   "${PROJECT_SOURCE_DIR}/extlibs/SSVEntitySystem/"
