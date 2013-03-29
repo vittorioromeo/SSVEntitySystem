@@ -39,6 +39,7 @@ namespace sses
 			Manager& getManager();
 			std::string getId();
 			int getDrawPriority() const;
+			std::vector<Component*>& getComponents();
 			Repository<Component*>& getComponentRepo();
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)

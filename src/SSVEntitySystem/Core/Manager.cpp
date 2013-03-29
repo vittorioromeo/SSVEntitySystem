@@ -36,9 +36,10 @@ namespace sses
 		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize);
 		for(auto& entity : entitiesToSort) entity->draw();
 	}
-
+	
 	Entity& Manager::createEntity(const string& mId) { return memoryManager.create(*this, mId); }
-
+	
+	vector<Entity*>& Manager::getEntities()							{ return memoryManager.getItems().getItems(); }
 	vector<Entity*> Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
 	vector<Component*> Manager::getComponents(const string& mId) 	{ return components.get(mId); }
 }

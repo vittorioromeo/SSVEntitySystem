@@ -41,6 +41,7 @@ namespace sses
 
 			Entity& createEntity(const std::string& mId = "");
 
+			std::vector<Entity*>& getEntities();
 			std::vector<Entity*> getEntities(const std::string& mId);
 			std::vector<Component*> getComponents(const std::string& mId);
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }

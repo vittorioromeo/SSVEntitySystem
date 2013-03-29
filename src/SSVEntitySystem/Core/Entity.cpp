@@ -27,5 +27,7 @@ namespace sses
 	Manager& Entity::getManager()	 					{ return manager; }
 	string Entity::getId() 								{ return id; }
 	int Entity::getDrawPriority() const 				{ return drawPriority; }
+	
+	vector<Component*>& Entity::getComponents()			{ return memoryManager.getItems().getItems(); }
 	Repository<Component*>& Entity::getComponentRepo() 	{ return memoryManager.getItems(); }
 }
