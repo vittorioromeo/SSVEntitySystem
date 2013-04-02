@@ -53,7 +53,7 @@ namespace sses
 			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }
 			template<typename T> T* getFirstComponentSafe(const std::string& mId) 
 			{ 
-				auto& components(memoryManager.getItems().getCasted<T*>(mId));
+				auto components(memoryManager.getItems().getCasted<T*>(mId));
 				return components.empty() ? nullptr : components[0];
 			}
 	};
