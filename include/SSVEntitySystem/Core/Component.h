@@ -11,7 +11,7 @@ namespace sses
 {
 	class Entity;
 	class Manager;
-	
+
 	class Component
 	{
 		friend class Entity;
@@ -21,7 +21,7 @@ namespace sses
 			Entity& entity;
 			Manager& manager;
 			std::string id{""};
-			
+
 		public:
 			Component(Entity& mEntity, const std::string& mId = "");
 			Component(const Component&) = delete; // non construction-copyable
@@ -34,8 +34,8 @@ namespace sses
 			// Getters
 			Entity& getEntity();
 			Manager& getManager();
-			std::string getId();
+			const std::string& getId() const;
 	};
 }
-	
+
 #endif

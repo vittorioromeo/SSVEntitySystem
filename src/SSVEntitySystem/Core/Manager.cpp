@@ -42,6 +42,6 @@ namespace sses
 
 	// Getters
 	vector<Entity*>& Manager::getEntities()							{ return memoryManager.getItems().getItems(); }
-	vector<Entity*> Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
-	vector<Component*> Manager::getComponents(const string& mId) 	{ return components.get(mId); }
+	vector<Entity*>& Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
+	vector<Component*>& Manager::getComponents(const string& mId) 	{ return components.get(mId); }
 }

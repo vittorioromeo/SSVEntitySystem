@@ -6,7 +6,7 @@
 #define SSES_REPOSITORY
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <SSVUtils/SSVUtils.h>
 
@@ -19,7 +19,7 @@ namespace sses
 			typedef typename std::vector<T>::const_iterator const_iterator;
 
 			std::vector<T> items;
-			std::map<std::string, std::vector<T>> itemMap;
+			std::unordered_map<std::string, std::vector<T>> itemMap;
 
 		public:
 			std::vector<T>& getItems() { return items; }

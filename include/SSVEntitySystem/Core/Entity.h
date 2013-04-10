@@ -14,7 +14,7 @@
 namespace sses
 {
 	class Component;
-	
+
 	class Entity
 	{
 		friend class Manager;
@@ -24,7 +24,7 @@ namespace sses
 			std::string id{""};
 			int drawPriority{0};
 			ssvu::MemoryManager<Component, Repository<Component*>, google::dense_hash_set<Component*>> memoryManager;
-		
+
 		public:
 			Entity(Manager& mManager, const std::string& mId = "");
 			Entity(const Entity&) = delete; // non construction-copyable
@@ -39,7 +39,7 @@ namespace sses
 
 			// Getters
 			Manager& getManager();
-			std::string getId();
+			const std::string& getId() const;
 			int getDrawPriority() const;
 			std::vector<Component*>& getComponents();
 			Repository<Component*>& getComponentRepo();
@@ -51,12 +51,12 @@ namespace sses
 			}
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return memoryManager.getItems().getCasted<T*>(mId); }
 			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }
-			template<typename T> T* getFirstComponentSafe(const std::string& mId) 
-			{ 
+			template<typename T> T* getFirstComponentSafe(const std::string& mId)
+			{
 				auto components(memoryManager.getItems().getCasted<T*>(mId));
 				return components.empty() ? nullptr : components[0];
 			}
 	};
 }
-	
+
 #endif
