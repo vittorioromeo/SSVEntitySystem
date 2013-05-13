@@ -21,7 +21,7 @@ namespace sses
 	void Manager::addComponent(Component& mComponent) { components.add(mComponent.id, &mComponent); }
 	void Manager::del(Entity& mEntity)
 	{
-		for(auto& component : mEntity.getComponentRepo()) components.del(component->getId(), component);
+		for(const auto& component : mEntity.getComponentRepo()) components.del(component->getId(), component);
 		memoryManager.del(&mEntity);
 	}
 	void Manager::clear() { components.clear(); memoryManager.clear(); }
@@ -29,13 +29,13 @@ namespace sses
 	void Manager::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		for(auto& entity : memoryManager.getItems()) entity->update(mFrameTime);
+		for(const auto& entity : memoryManager.getItems()) entity->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
 		vector<Entity*> entitiesToSort{memoryManager.getItems().getItems()};
 		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize); // TODO: only sort when needed (check before->after count? add needToSort bool?)
-		for(auto& entity : entitiesToSort) entity->draw();
+		for(const auto& entity : entitiesToSort) entity->draw();
 	}
 
 	Entity& Manager::createEntity(const string& mId) { return memoryManager.create(*this, mId); }

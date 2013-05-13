@@ -31,7 +31,7 @@ namespace sses
 			template<typename U> std::vector<U> getCasted(const std::string& mId)
 			{
 				std::vector<U> result;
-				for(auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
+				for(const auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
 				return result;
 			}
 
