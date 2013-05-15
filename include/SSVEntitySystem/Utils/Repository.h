@@ -36,10 +36,10 @@ namespace sses
 			}
 
 			iterator begin() 				{ return items.begin(); }
-			const_iterator begin() const 	{ return items.begin(); }
-			const iterator cbegin() const	{ return items.cbegin(); }
 			iterator end() 					{ return items.end(); }
+			const_iterator begin() const 	{ return items.begin(); }
 			const_iterator end() const 		{ return items.end(); }
+			const iterator cbegin() const	{ return items.cbegin(); }
 			const iterator cend() const 	{ return items.cend(); }
 	};
 }
