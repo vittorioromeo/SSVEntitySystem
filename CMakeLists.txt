@@ -17,7 +17,7 @@ else()
 	set(LIB_TYPE STATIC)
 endif()
 
-set(SPARSEHASH_INCLUDE_DIR "" CACHE STRING "google::sparsehash include directory")
+find_package(Sparsehash REQUIRED)
 find_package(SSVUtils REQUIRED)
 
 set(SRC_DIR "src")
