@@ -29,7 +29,8 @@ namespace sses
 	void Manager::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		for(const auto& entity : memoryManager.getItems()) entity->update(mFrameTime);
+		vector<Entity*> entitiesToUpdate{memoryManager.getItems().getItems()};
+		for(const auto& entity : entitiesToUpdate) entity->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
