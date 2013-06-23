@@ -17,9 +17,9 @@ namespace sses
 	void Entity::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		for(const auto& component : memoryManager.getItems()) component->update(mFrameTime);
+		for(const auto& component : memoryManager) component->update(mFrameTime);
 	}
-	void Entity::draw() { for(const auto& component : memoryManager.getItems()) component->draw(); }
+	void Entity::draw() { for(const auto& component : memoryManager) component->draw(); }
 	void Entity::destroy() { manager.del(*this); }
 
 	// Setters
