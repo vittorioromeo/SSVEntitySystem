@@ -17,18 +17,18 @@ namespace sses
 	void Entity::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		for(const auto& component : memoryManager) component->update(mFrameTime);
+		for(const auto& c : memoryManager) c->update(mFrameTime);
 	}
-	void Entity::draw() { for(const auto& component : memoryManager) component->draw(); }
+	void Entity::draw() { for(const auto& c : memoryManager) c->draw(); }
 	void Entity::destroy() { manager.del(*this); }
 
 	// Setters
 	void Entity::setDrawPriority(int mDrawPriority) 	{ drawPriority = mDrawPriority; }
 
 	// Getters
-	Manager& Entity::getManager()	 					{ return manager; }
+	Manager& Entity::getManager() const					{ return manager; }
 	const string& Entity::getId() const					{ return id; }
-	int Entity::getDrawPriority() const 				{ return drawPriority; }
+	int Entity::getDrawPriority() const					{ return drawPriority; }
 	vector<Component*>& Entity::getComponents()			{ return memoryManager.getItems().getItems(); }
-	Repository<Component*>& Entity::getComponentRepo()	{ return memoryManager.getItems(); }
+	Repository<Component*>& Entity::getComponentRepo() 	{ return memoryManager.getItems(); }
 }

@@ -32,8 +32,8 @@ namespace sses
 			virtual void draw();
 
 			// Getters
-			Entity& getEntity();
-			Manager& getManager();
+			Entity& getEntity() const;
+			Manager& getManager() const;
 			const std::string& getId() const;
 	};
 }

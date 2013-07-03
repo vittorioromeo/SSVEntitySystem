@@ -45,7 +45,7 @@ namespace sses
 {
 	class Entity;
 
-	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB);
+	bool drawPrioritize(const Entity* mA, const Entity* mB);
 }
 
 #endif

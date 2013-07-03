@@ -21,7 +21,7 @@ namespace sses
 	void Manager::addComponent(Component& mComponent) { components.add(mComponent.id, &mComponent); }
 	void Manager::del(Entity& mEntity)
 	{
-		for(const auto& component : mEntity.getComponentRepo()) components.del(component->getId(), component);
+		for(const auto& c : mEntity.getComponentRepo()) components.del(c->getId(), c);
 		memoryManager.del(&mEntity);
 	}
 	void Manager::clear() { components.clear(); memoryManager.clear(); }
@@ -29,14 +29,14 @@ namespace sses
 	void Manager::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		vector<Entity*> entitiesToUpdate{memoryManager.getItems().getItems()};
-		for(const auto& entity : entitiesToUpdate) entity->update(mFrameTime);
+		vector<Entity*> toUpdate{memoryManager.getItems().getItems()};
+		for(const auto& e : toUpdate) e->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
-		vector<Entity*> entitiesToSort{memoryManager.getItems().getItems()};
-		sort(begin(entitiesToSort), end(entitiesToSort), drawPrioritize); // TODO: only sort when needed (check before->after count? add needToSort bool?)
-		for(const auto& entity : entitiesToSort) entity->draw();
+		vector<Entity*> toSort{memoryManager.getItems().getItems()};
+		sort(begin(toSort), end(toSort), drawPrioritize); // TODO: only sort when needed (check before->after count? add needToSort bool?)
+		for(const auto& e : toSort) e->draw();
 	}
 
 	Entity& Manager::createEntity(const string& mId) { return memoryManager.create(*this, mId); }
@@ -46,3 +46,5 @@ namespace sses
 	vector<Entity*>& Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
 	vector<Component*>& Manager::getComponents(const string& mId) 	{ return components.get(mId); }
 }
+
+// TODO: transform std::string IDs in Uids like SSVSCollision!

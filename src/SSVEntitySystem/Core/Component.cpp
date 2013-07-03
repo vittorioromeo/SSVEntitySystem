@@ -17,7 +17,7 @@ namespace sses
 	void Component::draw() { }
 
 	// Getters
-	Entity& Component::getEntity()			{ return entity; }
-	Manager& Component::getManager()		{ return manager; }
+	Entity& Component::getEntity() const	{ return entity; }
+	Manager& Component::getManager() const	{ return manager; }
 	const string& Component::getId() const	{ return id; }
 }

@@ -38,7 +38,7 @@ namespace sses
 			void setDrawPriority(int mDrawPriority);
 
 			// Getters
-			Manager& getManager();
+			Manager& getManager() const;
 			const std::string& getId() const;
 			int getDrawPriority() const;
 			std::vector<Component*>& getComponents();
@@ -53,7 +53,7 @@ namespace sses
 			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }
 			template<typename T> T* getFirstComponentSafe(const std::string& mId)
 			{
-				const auto components(memoryManager.getItems().getCasted<T*>(mId));
+				const auto& components(memoryManager.getItems().getCasted<T*>(mId));
 				return components.empty() ? nullptr : components[0];
 			}
 	};
