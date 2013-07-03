@@ -7,5 +7,5 @@
 
 namespace sses
 {
-	bool drawPrioritize(const Entity* mEntityA, const Entity* mEntityB) { return mEntityA->getDrawPriority() > mEntityB->getDrawPriority(); }
+	bool drawPrioritize(const Entity* mA, const Entity* mB) { return mA->getDrawPriority() > mB->getDrawPriority(); }
 }
