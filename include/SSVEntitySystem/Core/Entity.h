@@ -41,23 +41,27 @@ namespace sses
 			inline Manager& getManager() const								{ return manager; }
 			inline const std::string& getId() const							{ return id; }
 			inline int getDrawPriority() const								{ return drawPriority; }
+
 			inline std::vector<Component*>& getComponents()					{ return memoryManager.getItems().getItems(); }
+			inline const std::vector<Component*>& getComponents() const		{ return memoryManager.getItems().getItems(); }
 			inline Repository<Component*, std::size_t>& getComponentRepo()	{ return memoryManager.getItems(); }
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
 			{
 				T& result(*(new T(std::forward<TArgs>(mArgs)...)));
-				result.entity = this; result.id = Component::getHash<T>();
+				result.entity = this; result.id = getHash<T>();
 				memoryManager.adopt<T>(result);
-				manager.addComponent(result); result.init(); ssvu::log(ssvu::toStr(getComponents<T>().size())); return result;
+				manager.addComponent(result); result.init(); return result;
 			}
-			template<typename T> std::vector<T*> getComponents()	{ return memoryManager.getItems().getCasted<T*>(Component::getHash<T>()); }
-			template<typename T> T& getFirstComponent()				{ return *(memoryManager.getItems().getCasted<T*>(Component::getHash<T>())[0]); }
-			template<typename T> T* getFirstComponentSafe()
+			template<typename T> inline std::vector<T*> getComponents() const	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
+			template<typename T> inline T& getFirstComponent()	const			{ return *(memoryManager.getItems().getCasted<T*>(getHash<T>())[0]); }
+			template<typename T> inline T* getFirstComponentSafe() const
 			{
-				const auto& components(memoryManager.getItems().getCasted<T*>(Component::getHash<T>()));
+				const auto& components(memoryManager.getItems().getCasted<T*>(getHash<T>()));
 				return components.empty() ? nullptr : components[0];
 			}
+			template<typename T> inline unsigned int getComponentCount() const	{ return memoryManager.getItems().get(getHash<T>()).size(); }
+			template<typename T> inline bool hasComponent() const				{ return getComponentCount<T>() > 0; }
 	};
 }
 

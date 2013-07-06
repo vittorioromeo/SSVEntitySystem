@@ -22,13 +22,16 @@ namespace sses
 			std::unordered_map<TID, std::vector<T>> itemMap;
 
 		public:
-			std::vector<T>& getItems() { return items; }
-			std::vector<T>& get(const TID& mId) { return itemMap[mId]; }
+			std::vector<T>& getItems()						{ return items; }
+			const std::vector<T>& getItems() const			{ return items; }
+			std::vector<T>& get(const TID& mId)				{ return itemMap[mId]; }
+			const std::vector<T>& get(const TID& mId) const	{ return itemMap.at(mId); }
+
 			void add(const TID& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
 			void del(const TID& mId, T mPtr) { ssvu::eraseRemove(items, mPtr); ssvu::eraseRemove(itemMap[mId], mPtr); }
 			void clear() { items.clear(); itemMap.clear(); }
 
-			template<typename U> std::vector<U> getCasted(const TID& mId)
+			template<typename U> std::vector<U> getCasted(const TID& mId) const
 			{
 				std::vector<U> result;
 				for(const auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));

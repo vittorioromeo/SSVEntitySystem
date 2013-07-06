@@ -41,10 +41,14 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			inline std::vector<Entity*>& getEntities()							{ return memoryManager.getItems().getItems(); }
-			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return memoryManager.getItems().get(mId); }
+			inline std::vector<Entity*>& getEntities()										{ return memoryManager.getItems().getItems(); }
+			inline const std::vector<Entity*>& getEntities() const							{ return memoryManager.getItems().getItems(); }
+			inline std::vector<Entity*>& getEntities(const std::string& mId)				{ return memoryManager.getItems().get(mId); }
+			inline const std::vector<Entity*>& getEntities(const std::string& mId) const	{ return memoryManager.getItems().get(mId); }
 
-			template<typename T> std::vector<T*> getComponents() { return components.getCasted<T*>(Component::getHash<T>()); }
+			template<typename T> inline std::vector<T*> getComponents() const				{ return components.getCasted<T*>(getHash<T>()); }
+			template<typename T> inline unsigned int getComponentCount() const				{ return components.get(getHash<T>()).size(); }
+			template<typename T> inline bool hasComponent() const							{ return getComponentCount<T>() > 0; }
 	};
 }
 
