@@ -29,8 +29,7 @@ namespace sses
 	void Manager::update(float mFrameTime)
 	{
 		memoryManager.cleanUp();
-		vector<Entity*> toUpdate{memoryManager.getItems().getItems()};
-		for(const auto& e : toUpdate) e->update(mFrameTime);
+		for(const auto& e : memoryManager) e->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
@@ -39,12 +38,7 @@ namespace sses
 		for(const auto& e : toSort) e->draw();
 	}
 
-	Entity& Manager::createEntity(const string& mId) { return memoryManager.create(*this, mId); }
-
-	// Getters
-	vector<Entity*>& Manager::getEntities()							{ return memoryManager.getItems().getItems(); }
-	vector<Entity*>& Manager::getEntities(const string& mId) 		{ return memoryManager.getItems().get(mId); }
-	vector<Component*>& Manager::getComponents(const string& mId) 	{ return components.get(mId); }
+	Entity& Manager::createEntity(const string& mId) { return memoryManager.createDelayed(*this, mId); }
 }
 
 // TODO: transform std::string IDs in Uids like SSVSCollision!
