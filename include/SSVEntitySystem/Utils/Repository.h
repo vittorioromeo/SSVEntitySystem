@@ -12,23 +12,23 @@
 
 namespace sses
 {
-	template<typename T> class Repository
+	template<typename T, typename TID = std::string> class Repository
 	{
 		private:
 			typedef typename std::vector<T>::iterator iterator;
 			typedef typename std::vector<T>::const_iterator const_iterator;
 
 			std::vector<T> items;
-			std::unordered_map<std::string, std::vector<T>> itemMap;
+			std::unordered_map<TID, std::vector<T>> itemMap;
 
 		public:
 			std::vector<T>& getItems() { return items; }
-			std::vector<T>& get(const std::string& mId) { return itemMap[mId]; }
-			void add(const std::string& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
-			void del(const std::string& mId, T mPtr) { ssvu::eraseRemove(items, mPtr); ssvu::eraseRemove(itemMap[mId], mPtr); }
+			std::vector<T>& get(const TID& mId) { return itemMap[mId]; }
+			void add(const TID& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
+			void del(const TID& mId, T mPtr) { ssvu::eraseRemove(items, mPtr); ssvu::eraseRemove(itemMap[mId], mPtr); }
 			void clear() { items.clear(); itemMap.clear(); }
 
-			template<typename U> std::vector<U> getCasted(const std::string& mId)
+			template<typename U> std::vector<U> getCasted(const TID& mId)
 			{
 				std::vector<U> result;
 				for(const auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
