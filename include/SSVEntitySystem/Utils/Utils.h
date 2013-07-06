@@ -15,9 +15,9 @@ namespace ssvu
 {
 	namespace Traits
 	{
-		template<typename TItem> struct Container<sses::Repository<TItem>, TItem>
+		template<typename TItem, typename TID> struct Container<sses::Repository<TItem, TID>, TItem>
 		{
-			typedef sses::Repository<TItem> TContainer;
+			typedef sses::Repository<TItem, TID> TContainer;
 
 			static void init(TContainer&) { }
 			static void clear(TContainer& mContainer) { mContainer.clear(); }
