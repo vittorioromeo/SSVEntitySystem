@@ -19,7 +19,7 @@ namespace sses
 		memoryManager.cleanUp();
 		for(const auto& c : memoryManager) c->update(mFrameTime);
 	}
-	void Entity::draw() { for(const auto& c : memoryManager) c->draw(); }
-	void Entity::destroy() { manager.del(*this); }
+	void Entity::draw()		{ for(const auto& c : memoryManager) c->draw(); }
+	void Entity::destroy()	{ manager.del(*this); }
 
 }

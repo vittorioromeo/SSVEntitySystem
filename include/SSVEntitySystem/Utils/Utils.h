@@ -5,11 +5,9 @@
 #ifndef SSES_UTILS
 #define SSES_UTILS
 
-#include <algorithm>
-#include <vector>
 #include <SSVUtils/SSVUtils.h>
-#include "SSVEntitySystem/Utils/Repository.h"
 #include <google/dense_hash_set>
+#include "SSVEntitySystem/Utils/Repository.h"
 
 namespace ssvu
 {
@@ -19,10 +17,10 @@ namespace ssvu
 		{
 			typedef sses::Repository<TItem, TID> TContainer;
 
-			static void init(TContainer&) { }
-			static void clear(TContainer& mContainer) { mContainer.clear(); }
-			static void add(TContainer& mContainer, const TItem& mItem) { mContainer.add(mItem->getId(), mItem); }
-			static void del(TContainer& mContainer, const TItem& mItem) { mContainer.del(mItem->getId(), mItem); }
+			static void init(TContainer&)								{ }
+			static void clear(TContainer& mContainer)					{ mContainer.clear(); }
+			static void add(TContainer& mContainer, const TItem& mItem)	{ mContainer.add(mItem->getId(), mItem); }
+			static void del(TContainer& mContainer, const TItem& mItem)	{ mContainer.del(mItem->getId(), mItem); }
 		};
 
 		#ifndef SSVU_TRAITS_DENSEHASHSET
@@ -31,10 +29,10 @@ namespace ssvu
 		{
 			typedef google::dense_hash_set<TItem> TContainer;
 
-			static void init(TContainer& mContainer) { mContainer.set_empty_key(nullptr); }
-			static void clear(TContainer& mContainer) { mContainer.clear(); }
+			static void init(TContainer& mContainer)					{ mContainer.set_empty_key(nullptr); }
+			static void clear(TContainer& mContainer)					{ mContainer.clear(); }
 			static void add(TContainer& mContainer, const TItem& mItem) { mContainer.insert(mItem); }
-			static void del(TContainer&, const TItem&) { }
+			static void del(TContainer&, const TItem&)					{ }
 		};
 		#endif
 	}
@@ -44,7 +42,8 @@ namespace sses
 {
 	class Entity;
 
-	bool drawPrioritize(const Entity* mA, const Entity* mB);
+	bool drawSorter(const Entity* mA, const Entity* mB);
+	template<typename T> static std::size_t getHash() { return typeid(T).hash_code(); }
 }
 
 #endif
