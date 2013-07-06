@@ -46,8 +46,8 @@ namespace sses
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
 			{
-				T& result(memoryManager.create<T, Entity&, TArgs...>(*this, std::forward<TArgs>(mArgs)...));
-				manager.addComponent(result); return result;
+				T& result(memoryManager.create<T, TArgs...>(std::forward<TArgs>(mArgs)...));
+				result.entity = this; manager.addComponent(result); result.init(); return result;
 			}
 			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return memoryManager.getItems().getCasted<T*>(mId); }
 			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }

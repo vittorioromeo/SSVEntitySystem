@@ -18,16 +18,16 @@ namespace sses
 		friend class Manager;
 
 		private:
-			Entity& entity;
-			Manager& manager;
+			Entity* entity{nullptr};
 			std::string id{""};
 
 		public:
-			Component(Entity& mEntity, const std::string& mId = "");
+			Component(const std::string& mId = "");
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
 			virtual ~Component();
 
+			virtual void init();
 			virtual void update(float mFrameTime);
 			virtual void draw();
 
