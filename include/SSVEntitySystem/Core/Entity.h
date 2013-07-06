@@ -21,9 +21,9 @@ namespace sses
 
 		private:
 			Manager& manager;
-			std::string id{""};
+			std::string id;
 			int drawPriority{0};
-			ssvu::MemoryManager<Component, Repository<Component*>, google::dense_hash_set<Component*>> memoryManager;
+			ssvu::MemoryManager<Component, Repository<Component*, std::size_t>, google::dense_hash_set<Component*>> memoryManager;
 
 		public:
 			Entity(Manager& mManager, const std::string& mId = "");
@@ -35,25 +35,27 @@ namespace sses
 			void destroy();
 
 			// Setters
-			void setDrawPriority(int mDrawPriority);
+			inline void setDrawPriority(int mDrawPriority)					{ drawPriority = mDrawPriority; }
 
 			// Getters
-			Manager& getManager() const;
-			const std::string& getId() const;
-			int getDrawPriority() const;
-			std::vector<Component*>& getComponents();
-			Repository<Component*>& getComponentRepo();
+			inline Manager& getManager() const								{ return manager; }
+			inline const std::string& getId() const							{ return id; }
+			inline int getDrawPriority() const								{ return drawPriority; }
+			inline std::vector<Component*>& getComponents()					{ return memoryManager.getItems().getItems(); }
+			inline Repository<Component*, std::size_t>& getComponentRepo()	{ return memoryManager.getItems(); }
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
 			{
-				T& result(memoryManager.create<T, TArgs...>(std::forward<TArgs>(mArgs)...));
-				result.entity = this; manager.addComponent(result); result.init(); return result;
+				T& result(*(new T(std::forward<TArgs>(mArgs)...)));
+				result.entity = this; result.id = Component::getHash<T>();
+				memoryManager.adopt<T>(result);
+				manager.addComponent(result); result.init(); ssvu::log(ssvu::toStr(getComponents<T>().size())); return result;
 			}
-			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return memoryManager.getItems().getCasted<T*>(mId); }
-			template<typename T> T& getFirstComponent(const std::string& mId) { return *(memoryManager.getItems().getCasted<T*>(mId)[0]); }
-			template<typename T> T* getFirstComponentSafe(const std::string& mId)
+			template<typename T> std::vector<T*> getComponents()	{ return memoryManager.getItems().getCasted<T*>(Component::getHash<T>()); }
+			template<typename T> T& getFirstComponent()				{ return *(memoryManager.getItems().getCasted<T*>(Component::getHash<T>())[0]); }
+			template<typename T> T* getFirstComponentSafe()
 			{
-				const auto& components(memoryManager.getItems().getCasted<T*>(mId));
+				const auto& components(memoryManager.getItems().getCasted<T*>(Component::getHash<T>()));
 				return components.empty() ? nullptr : components[0];
 			}
 	};

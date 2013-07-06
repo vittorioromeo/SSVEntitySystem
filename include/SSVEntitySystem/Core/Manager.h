@@ -23,7 +23,7 @@ namespace sses
 
 		private:
 			ssvu::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> memoryManager;
-			Repository<Component*> components; // not owned
+			Repository<Component*, std::size_t> components; // not owned
 
 			void del(Entity& mEntity);
 			void addComponent(Component& mComponent);
@@ -41,11 +41,10 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			std::vector<Entity*>& getEntities();
-			std::vector<Entity*>& getEntities(const std::string& mId);
-			std::vector<Component*>& getComponents(const std::string& mId);
+			inline std::vector<Entity*>& getEntities()							{ return memoryManager.getItems().getItems(); }
+			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return memoryManager.getItems().get(mId); }
 
-			template<typename T> std::vector<T*> getComponents(const std::string& mId) { return components.getCasted<T*>(mId); }
+			template<typename T> std::vector<T*> getComponents() { return components.getCasted<T*>(Component::getHash<T>()); }
 	};
 }
 

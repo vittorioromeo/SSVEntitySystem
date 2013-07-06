@@ -6,6 +6,7 @@
 #define SSES_COMPONENT
 
 #include <string>
+#include <typeinfo>
 
 namespace sses
 {
@@ -19,10 +20,10 @@ namespace sses
 
 		private:
 			Entity* entity{nullptr};
-			std::string id{""};
+			std::size_t id;
 
 		public:
-			Component(const std::string& mId = "");
+			Component() = default;
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
 			virtual ~Component();
@@ -34,7 +35,9 @@ namespace sses
 			// Getters
 			Entity& getEntity() const;
 			Manager& getManager() const;
-			const std::string& getId() const;
+			inline std::size_t getId() const { return id; }
+
+			template<typename T> static std::size_t getHash() { return typeid(T).hash_code(); }
 	};
 }
 

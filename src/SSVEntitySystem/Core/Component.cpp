@@ -10,7 +10,6 @@ using namespace std;
 
 namespace sses
 {
-	Component::Component(const std::string& mId) : id{mId} { }
 	Component::~Component() { }
 
 	void Component::init() {  }
@@ -20,5 +19,4 @@ namespace sses
 	// Getters
 	Entity& Component::getEntity() const	{ return *entity; }
 	Manager& Component::getManager() const	{ return entity->getManager(); }
-	const string& Component::getId() const	{ return id; }
 }
