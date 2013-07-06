@@ -22,13 +22,4 @@ namespace sses
 	void Entity::draw() { for(const auto& c : memoryManager) c->draw(); }
 	void Entity::destroy() { manager.del(*this); }
 
-	// Setters
-	void Entity::setDrawPriority(int mDrawPriority) 	{ drawPriority = mDrawPriority; }
-
-	// Getters
-	Manager& Entity::getManager() const					{ return manager; }
-	const string& Entity::getId() const					{ return id; }
-	int Entity::getDrawPriority() const					{ return drawPriority; }
-	vector<Component*>& Entity::getComponents()			{ return memoryManager.getItems().getItems(); }
-	Repository<Component*>& Entity::getComponentRepo() 	{ return memoryManager.getItems(); }
 }
