@@ -34,7 +34,7 @@ namespace sses
 	void Manager::draw()
 	{
 		vector<Entity*> toSort{memoryManager.getItems().getItems()};
-		sort(begin(toSort), end(toSort), drawPrioritize); // TODO: only sort when needed (check before->after count? add needToSort bool?)
+		sort(begin(toSort), end(toSort), drawSorter); // TODO: only sort when needed (check before->after count? add needToSort bool?)
 		for(const auto& e : toSort) e->draw();
 	}
 
