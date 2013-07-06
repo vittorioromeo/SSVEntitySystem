@@ -5,7 +5,6 @@
 #ifndef SSES_COMPONENT
 #define SSES_COMPONENT
 
-#include <string>
 #include <typeinfo>
 
 namespace sses
@@ -37,7 +36,7 @@ namespace sses
 			Manager& getManager() const;
 			inline std::size_t getId() const { return id; }
 
-			template<typename T> static std::size_t getHash() { return typeid(T).hash_code(); }
+
 	};
 }
 
