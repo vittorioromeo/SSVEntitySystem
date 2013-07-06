@@ -43,7 +43,6 @@ namespace sses
 			inline int getDrawPriority() const								{ return drawPriority; }
 
 			inline std::vector<Component*>& getComponents()					{ return memoryManager.getItems().getItems(); }
-			inline const std::vector<Component*>& getComponents() const		{ return memoryManager.getItems().getItems(); }
 			inline Repository<Component*, std::size_t>& getComponentRepo()	{ return memoryManager.getItems(); }
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
@@ -53,15 +52,15 @@ namespace sses
 				memoryManager.adopt<T>(result);
 				manager.addComponent(result); result.init(); return result;
 			}
-			template<typename T> inline std::vector<T*> getComponents() const	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
-			template<typename T> inline T& getFirstComponent()	const			{ return *(memoryManager.getItems().getCasted<T*>(getHash<T>())[0]); }
-			template<typename T> inline T* getFirstComponentSafe() const
+			template<typename T> inline std::vector<T*> getComponents() 	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
+			template<typename T> inline T& getFirstComponent()				{ return *(memoryManager.getItems().getCasted<T*>(getHash<T>())[0]); }
+			template<typename T> inline unsigned int getComponentCount()	{ return memoryManager.getItems().getCount(getHash<T>()); }
+			template<typename T> inline bool hasComponent()					{ return getComponentCount<T>() > 0; }
+			template<typename T> inline T* getFirstComponentSafe()
 			{
 				const auto& components(memoryManager.getItems().getCasted<T*>(getHash<T>()));
 				return components.empty() ? nullptr : components[0];
 			}
-			template<typename T> inline unsigned int getComponentCount() const	{ return memoryManager.getItems().get(getHash<T>()).size(); }
-			template<typename T> inline bool hasComponent() const				{ return getComponentCount<T>() > 0; }
 	};
 }
 

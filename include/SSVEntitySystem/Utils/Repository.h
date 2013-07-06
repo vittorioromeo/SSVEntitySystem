@@ -22,16 +22,16 @@ namespace sses
 			std::unordered_map<TID, std::vector<T>> itemMap;
 
 		public:
-			std::vector<T>& getItems()						{ return items; }
-			const std::vector<T>& getItems() const			{ return items; }
-			std::vector<T>& get(const TID& mId)				{ return itemMap[mId]; }
-			const std::vector<T>& get(const TID& mId) const	{ return itemMap.at(mId); }
+			std::vector<T>& getItems()				{ return items; }
+			const std::vector<T>& getItems() const	{ return items; }
+			std::vector<T>& get(const TID& mId)		{ return itemMap[mId]; }
+			unsigned int getCount(const TID& mId)	{ return get(mId).size(); }
 
 			void add(const TID& mId, T mPtr) { items.push_back(mPtr); itemMap[mId].push_back(mPtr); }
 			void del(const TID& mId, T mPtr) { ssvu::eraseRemove(items, mPtr); ssvu::eraseRemove(itemMap[mId], mPtr); }
 			void clear() { items.clear(); itemMap.clear(); }
 
-			template<typename U> std::vector<U> getCasted(const TID& mId) const
+			template<typename U> std::vector<U> getCasted(const TID& mId)
 			{
 				std::vector<U> result;
 				for(const auto& ptrToCast : get(mId)) result.push_back(static_cast<U>(ptrToCast));
@@ -40,10 +40,10 @@ namespace sses
 
 			iterator begin() 				{ return items.begin(); }
 			iterator end() 					{ return items.end(); }
-			const_iterator begin() const 	{ return items.begin(); }
-			const_iterator end() const 		{ return items.end(); }
+			const_iterator begin() const	{ return items.begin(); }
+			const_iterator end() const		{ return items.end(); }
 			const iterator cbegin() const	{ return items.cbegin(); }
-			const iterator cend() const 	{ return items.cend(); }
+			const iterator cend() const		{ return items.cend(); }
 	};
 }
 
