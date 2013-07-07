@@ -18,13 +18,8 @@ namespace sses
 {
 	Manager::~Manager() { clear(); }
 
-	void Manager::addComponent(Component& mComponent) { components.add(mComponent.id, &mComponent); }
-	void Manager::del(Entity& mEntity)
-	{
-		for(const auto& c : mEntity.getComponentRepo()) components.del(c->getId(), c);
-		memoryManager.del(&mEntity);
-	}
-	void Manager::clear() { components.clear(); memoryManager.clear(); }
+	void Manager::del(Entity& mEntity) { memoryManager.del(&mEntity); }
+	void Manager::clear() { memoryManager.clear(); }
 
 	void Manager::update(float mFrameTime)
 	{
