@@ -50,10 +50,10 @@ namespace sses
 				T& result(*(new T(std::forward<TArgs>(mArgs)...)));
 				result.entity = this; result.id = getHash<T>();
 				memoryManager.adopt<T>(result);
-				manager.addComponent(result); result.init(); return result;
+				result.init(); return result;
 			}
-			template<typename T> inline std::vector<T*> getComponents() 	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
-			template<typename T> inline T& getFirstComponent()				{ return *(memoryManager.getItems().getCasted<T*>(getHash<T>())[0]); }
+			//template<typename T> inline std::vector<T*> getComponents() 	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
+			template<typename T> inline T& getFirstComponent()				{ return static_cast<T&>(*memoryManager.getItems().get(getHash<T>())[0]); }
 			template<typename T> inline unsigned int getComponentCount()	{ return memoryManager.getItems().getCount(getHash<T>()); }
 			template<typename T> inline bool hasComponent()					{ return getComponentCount<T>() > 0; }
 			template<typename T> inline T* getFirstComponentSafe()
