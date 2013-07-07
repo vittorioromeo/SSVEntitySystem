@@ -21,5 +21,4 @@ namespace sses
 	}
 	void Entity::draw()		{ for(const auto& c : memoryManager) c->draw(); }
 	void Entity::destroy()	{ manager.del(*this); }
-
 }
