@@ -35,8 +35,6 @@ namespace sses
 			Entity& getEntity() const;
 			Manager& getManager() const;
 			inline std::size_t getId() const { return id; }
-
-
 	};
 }
 
