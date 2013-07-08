@@ -12,7 +12,7 @@ namespace sses
 {
 	bool EntityDeleter::operator()(const Uptr<Entity>& mEntity) const { return !mEntity->isAlive(); }
 
-	void Manager::clear() { groupedEntities.clear(); }
+	void Manager::clear() { memoryManager.clear(); groupedEntities.clear(); }
 
 	void Manager::update(float mFrameTime)
 	{
