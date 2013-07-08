@@ -25,9 +25,6 @@ namespace sses
 		memoryManager.cleanUp();
 		for(const auto& e : memoryManager) e->update(mFrameTime);
 		memoryManager.populate();
-
-		for(const auto& e : toAdd) groupedEntities[e->getId()].push_back(e);
-		toAdd.clear();
 	}
 	void Manager::draw()
 	{
@@ -37,7 +34,7 @@ namespace sses
 		for(const auto& e : toSort) e->draw();
 	}
 
-	Entity& Manager::createEntity(const string& mId) { auto& result(memoryManager.create(*this, mId)); toAdd.push_back(&result); return result; }
+	Entity& Manager::createEntity(const string& mId) { auto& result(memoryManager.create(*this, mId)); groupedEntities[mId].push_back(&result); return result; }
 }
 
 // TODO: transform std::string IDs in Uids like SSVSCollision!

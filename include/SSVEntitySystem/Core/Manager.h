@@ -27,7 +27,7 @@ namespace sses
 
 		private:
 			ssvu::MemoryManager2<Entity, EntityDeleter> memoryManager;
-			std::vector<Entity*> toAdd, toSort;
+			std::vector<Entity*> toSort;
 			std::unordered_map<std::string, std::vector<Entity*>> groupedEntities;
 
 		public:
