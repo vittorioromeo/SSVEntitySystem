@@ -8,11 +8,17 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <SSVUtils/SSVUtils.h>
 #include "SSVEntitySystem/Global/Typedefs.h"
 
 namespace sses
 {
 	class Entity;
+
+	struct EntityDeleter
+	{
+		inline bool operator()(const Uptr<Entity>& mEntity) const;
+	};
 
 	class Manager
 	{
@@ -20,7 +26,7 @@ namespace sses
 		friend class Component;
 
 		private:
-			std::vector<Uptr<Entity>> entities;
+			ssvu::MemoryManager2<Entity, EntityDeleter> memoryManager;
 			std::vector<Entity*> toAdd, toSort;
 			std::unordered_map<std::string, std::vector<Entity*>> groupedEntities;
 
@@ -36,7 +42,7 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			inline std::vector<Uptr<Entity>>& getEntities()						{ return entities; }
+			inline std::vector<Uptr<Entity>>& getEntities()						{ return memoryManager.getItems(); }
 			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return groupedEntities[mId]; }
 			inline bool hasEntity(const std::string& mId)						{ return groupedEntities[mId].size() > 0; }
 			inline unsigned int getEntityCount(const std::string& mId)			{ return groupedEntities[mId].size(); }

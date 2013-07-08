@@ -10,31 +10,34 @@ using namespace std;
 
 namespace sses
 {
-	void Manager::clear() { groupedEntities.clear(); entities.clear(); }
+	bool EntityDeleter::operator()(const Uptr<Entity>& mEntity) const { return !mEntity->isAlive(); }
+
+	void Manager::clear() { groupedEntities.clear(); }
 
 	void Manager::update(float mFrameTime)
 	{
 		for(auto& p : groupedEntities)
 		{
 			auto& vec(groupedEntities[p.first]);
-			vec.erase(remove_if(begin(vec), end(vec), [](const Entity* mEntity){ return !mEntity->alive; }), end(vec));
+			vec.erase(remove_if(begin(vec), end(vec), [](const Entity* mEntity){ return !mEntity->isAlive(); }), end(vec));
 		}
-		entities.erase(remove_if(begin(entities), end(entities), [](const Uptr<Entity>& mEntity){ return !mEntity->alive; }), end(entities));
 
-		for(const auto& e : entities) e->update(mFrameTime);
+		memoryManager.cleanUp();
+		for(const auto& e : memoryManager) e->update(mFrameTime);
+		memoryManager.populate();
 
-		for(const auto& e : toAdd) { entities.push_back(Uptr<Entity>(e)); groupedEntities[e->getId()].push_back(e); }
+		for(const auto& e : toAdd) groupedEntities[e->getId()].push_back(e);
 		toAdd.clear();
 	}
 	void Manager::draw()
 	{
 		toSort.clear();
-		for(const auto& e : entities) toSort.push_back(e.get());
+		for(const auto& e : memoryManager) toSort.push_back(e.get());
 		sort(begin(toSort), end(toSort), [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}
 
-	Entity& Manager::createEntity(const string& mId) { auto result(new Entity{*this, mId}); toAdd.push_back(result); return *result; }
+	Entity& Manager::createEntity(const string& mId) { auto& result(memoryManager.create(*this, mId)); toAdd.push_back(&result); return result; }
 }
 
 // TODO: transform std::string IDs in Uids like SSVSCollision!

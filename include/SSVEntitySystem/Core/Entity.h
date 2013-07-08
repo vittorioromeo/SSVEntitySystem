@@ -17,8 +17,6 @@ namespace sses
 
 	class Entity
 	{
-		friend class Manager;
-
 		private:
 			Manager& manager;
 			std::string id;
@@ -37,6 +35,7 @@ namespace sses
 
 			inline void setDrawPriority(int mDrawPriority)			{ drawPriority = mDrawPriority; }
 
+			inline bool isAlive() const								{ return alive; }
 			inline Manager& getManager() const						{ return manager; }
 			inline const std::string& getId() const					{ return id; }
 			inline int getDrawPriority() const						{ return drawPriority; }
