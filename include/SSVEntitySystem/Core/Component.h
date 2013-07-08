@@ -24,11 +24,11 @@ namespace sses
 			Component() = default;
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
-			virtual ~Component();
+			virtual ~Component() { }
 
-			virtual void init();
-			virtual void update(float mFrameTime);
-			virtual void draw();
+			virtual inline void init()			{ }
+			virtual inline void update(float)	{ }
+			virtual inline void draw()			{ }
 
 			Entity& getEntity() const;
 			Manager& getManager() const;

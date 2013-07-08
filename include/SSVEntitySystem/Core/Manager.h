@@ -35,7 +35,7 @@ namespace sses
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 
-			void clear();
+			inline void clear() { memoryManager.clear(); groupedEntities.clear(); }
 			void update(float mFrameTime);
 			void draw();
 

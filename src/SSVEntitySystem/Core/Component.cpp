@@ -8,12 +8,6 @@
 
 namespace sses
 {
-	Component::~Component()			{ }
-
-	void Component::init()			{ }
-	void Component::update(float)	{ }
-	void Component::draw()			{ }
-
 	Entity& Component::getEntity() const	{ return *entity; }
 	Manager& Component::getManager() const	{ return entity->getManager(); }
 }

@@ -25,13 +25,13 @@ namespace sses
 			bool alive{true};
 
 		public:
-			Entity(Manager& mManager, const std::string& mId = "");
+			Entity(Manager& mManager, const std::string& mId = "") : manager(mManager), id{mId} { }
 			Entity(const Entity&) = delete; // non construction-copyable
 			Entity& operator=(const Entity&) = delete; // non copyable
 
-			void update(float mFrameTime);
-			void draw();
-			void destroy();
+			inline void update(float mFrameTime)	{ for(const auto& c : components) c->update(mFrameTime); }
+			inline void draw()						{ for(const auto& c : components) c->draw(); }
+			inline void destroy()					{ alive = false; }
 
 			inline void setDrawPriority(int mDrawPriority)			{ drawPriority = mDrawPriority; }
 
