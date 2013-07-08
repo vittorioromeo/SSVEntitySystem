@@ -42,7 +42,6 @@ namespace sses
 {
 	class Entity;
 
-	bool drawSorter(const Entity* mA, const Entity* mB);
 	template<typename T> static std::size_t getHash() { return typeid(T).hash_code(); }
 }
 

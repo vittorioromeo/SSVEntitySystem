@@ -7,18 +7,14 @@
 #include <algorithm>
 #include "SSVEntitySystem/Core/Entity.h"
 #include "SSVEntitySystem/Core/Component.h"
+#include <SSVUtils/SSVUtils.h>
 
 using namespace std;
 
 namespace sses
 {
 	Entity::Entity(Manager& mManager, const std::string& mId) : manager(mManager), id{mId} { }
-
-	void Entity::update(float mFrameTime)
-	{
-		memoryManager.cleanUp();
-		for(const auto& c : memoryManager) c->update(mFrameTime);
-	}
-	void Entity::draw()		{ for(const auto& c : memoryManager) c->draw(); }
-	void Entity::destroy()	{ manager.del(*this); }
+	void Entity::update(float mFrameTime) { for(const auto& c : components) c->update(mFrameTime); }
+	void Entity::draw() { for(const auto& c : components) c->draw(); }
+	void Entity::destroy() { alive = false; }
 }

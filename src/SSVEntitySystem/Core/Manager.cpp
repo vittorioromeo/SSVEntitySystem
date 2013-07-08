@@ -16,24 +16,46 @@ using namespace std;
 
 namespace sses
 {
-	Manager::~Manager() { clear(); }
-
-	void Manager::del(Entity& mEntity) { memoryManager.del(&mEntity); }
-	void Manager::clear() { memoryManager.clear(); }
+	void Manager::clear() { groupedEntities.clear(); entities.clear(); }
 
 	void Manager::update(float mFrameTime)
 	{
-		memoryManager.cleanUp();
-		for(const auto& e : memoryManager) e->update(mFrameTime);
+		for(auto& p : groupedEntities)
+		{
+			vector<Entity*>& groupVector(groupedEntities[p.first]);
+			auto itr(remove_if(begin(groupVector), end(groupVector), [](const Entity* mEntity){ return !mEntity->alive; }));
+			groupVector.erase(itr, end(groupVector));
+		}
+
+		auto itr(remove_if(begin(entities), end(entities), [](const unique_ptr<Entity>& mEntity){ return !mEntity->alive; }));
+		entities.erase(itr, end(entities));
+
+		for(const auto& e : entities) e->update(mFrameTime);
+
+		for(const auto& e : toAdd)
+		{
+			entities.push_back(unique_ptr<Entity>(e));
+			groupedEntities[e->getId()].push_back(e);
+		}
+
+		toAdd.clear();
 	}
 	void Manager::draw()
 	{
-		vector<Entity*> toSort{memoryManager.getItems().getItems()};
-		sort(begin(toSort), end(toSort), drawSorter); // TODO: only sort when needed (check before->after count? add needToSort bool?)
+		toSort.clear();
+		for(const auto& e : entities) toSort.push_back(e.get());
+		sort(begin(toSort), end(toSort), [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}
 
-	Entity& Manager::createEntity(const string& mId) { return memoryManager.createDelayed(*this, mId); }
+	Entity& Manager::createEntity(const string& mId)
+	{
+		auto result(new Entity{*this, mId});
+		toAdd.push_back(result);
+		//entities.push_back(unique_ptr<Entity>(result));
+		//groupedEntities[mId].push_back(result);
+		return *result;
+	}
 }
 
 // TODO: transform std::string IDs in Uids like SSVSCollision!

@@ -7,6 +7,8 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <memory>
 #include "SSVEntitySystem/Utils/Utils.h"
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Utils/Repository.h"
@@ -22,13 +24,12 @@ namespace sses
 		friend class Component;
 
 		private:
-			ssvu::MemoryManager<Entity, Repository<Entity*>, google::dense_hash_set<Entity*>> memoryManager;
-
-			void del(Entity& mEntity);
+			std::vector<std::unique_ptr<Entity>> entities;
+			std::vector<Entity*> toAdd, toSort;
+			std::unordered_map<std::string, std::vector<Entity*>> groupedEntities;
 
 		public:
 			Manager() = default;
-			~Manager();
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 
@@ -39,10 +40,10 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			inline std::vector<Entity*>& getEntities()							{ return memoryManager.getItems().getItems(); }
-			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return memoryManager.getItems().get(mId); }
-			inline bool hasEntity(const std::string& mId)						{ return memoryManager.getItems().getCount(mId) > 0; }
-			inline unsigned int getEntityCount(const std::string& mId)			{ return memoryManager.getItems().getCount(mId); }
+			inline std::vector<std::unique_ptr<Entity>>& getEntities()			{ return entities; }
+			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return groupedEntities[mId]; }
+			inline bool hasEntity(const std::string& mId)						{ return groupedEntities[mId].size() > 0; }
+			inline unsigned int getEntityCount(const std::string& mId)			{ return groupedEntities[mId].size(); }
 	};
 }
 

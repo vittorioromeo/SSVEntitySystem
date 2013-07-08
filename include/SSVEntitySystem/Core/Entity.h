@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "SSVEntitySystem/Utils/Utils.h"
 #include "SSVEntitySystem/Utils/Repository.h"
 #include "SSVEntitySystem/Core/Manager.h"
@@ -23,7 +24,8 @@ namespace sses
 			Manager& manager;
 			std::string id;
 			int drawPriority{0};
-			ssvu::MemoryManager<Component, Repository<Component*, std::size_t>, google::dense_hash_set<Component*>> memoryManager;
+			std::vector<std::unique_ptr<Component>> components;
+			bool alive{true};
 
 		public:
 			Entity(Manager& mManager, const std::string& mId = "");
@@ -42,24 +44,22 @@ namespace sses
 			inline const std::string& getId() const							{ return id; }
 			inline int getDrawPriority() const								{ return drawPriority; }
 
-			inline std::vector<Component*>& getComponents()					{ return memoryManager.getItems().getItems(); }
-			inline Repository<Component*, std::size_t>& getComponentRepo()	{ return memoryManager.getItems(); }
+			inline std::vector<std::unique_ptr<Component>>& getComponents()	{ return components; }
 
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
 			{
 				T& result(*(new T(std::forward<TArgs>(mArgs)...)));
 				result.entity = this; result.id = getHash<T>();
-				memoryManager.adopt<T>(result);
+				components.push_back(std::unique_ptr<Component>(&result));
 				result.init(); return result;
 			}
-			//template<typename T> inline std::vector<T*> getComponents() 	{ return memoryManager.getItems().getCasted<T*>(getHash<T>()); }
-			template<typename T> inline T& getFirstComponent()				{ return static_cast<T&>(*memoryManager.getItems().get(getHash<T>())[0]); }
-			template<typename T> inline unsigned int getComponentCount()	{ return memoryManager.getItems().getCount(getHash<T>()); }
+			template<typename T> inline T& getFirstComponent()				{ for(const auto& c : components) if(getHash<T>() == c->getId()) return static_cast<T&>(*c); }
+			template<typename T> inline unsigned int getComponentCount()	{ unsigned int result{0}; for(const auto& c : components) if(getHash<T>() == c->getId()) ++result; return result; }
 			template<typename T> inline bool hasComponent()					{ return getComponentCount<T>() > 0; }
 			template<typename T> inline T* getFirstComponentSafe()
 			{
-				const auto& components(memoryManager.getItems().getCasted<T*>(getHash<T>()));
-				return components.empty() ? nullptr : components[0];
+			//	const auto& components(memoryManager.getItems().getCasted<T*>(getHash<T>()));
+				//return components.empty() ? nullptr : components[0];
 			}
 	};
 }

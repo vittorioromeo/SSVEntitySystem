@@ -12,7 +12,7 @@ namespace sses
 {
 	Component::~Component() { }
 
-	void Component::init() {  }
+	void Component::init() { }
 	void Component::update(float) { }
 	void Component::draw() { }
 
