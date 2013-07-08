@@ -6,17 +6,14 @@
 #include "SSVEntitySystem/Core/Entity.h"
 #include "SSVEntitySystem/Core/Manager.h"
 
-using namespace std;
-
 namespace sses
 {
-	Component::~Component() { }
+	Component::~Component()			{ }
 
-	void Component::init() { }
-	void Component::update(float) { }
-	void Component::draw() { }
+	void Component::init()			{ }
+	void Component::update(float)	{ }
+	void Component::draw()			{ }
 
-	// Getters
 	Entity& Component::getEntity() const	{ return *entity; }
 	Manager& Component::getManager() const	{ return entity->getManager(); }
 }

@@ -5,7 +5,7 @@
 #ifndef SSES_COMPONENT
 #define SSES_COMPONENT
 
-#include <typeinfo>
+#include "SSVEntitySystem/Global/Typedefs.h"
 
 namespace sses
 {
@@ -15,11 +15,10 @@ namespace sses
 	class Component
 	{
 		friend class Entity;
-		friend class Manager;
 
 		private:
 			Entity* entity{nullptr};
-			std::size_t id;
+			TypeId id;
 
 		public:
 			Component() = default;
@@ -31,10 +30,9 @@ namespace sses
 			virtual void update(float mFrameTime);
 			virtual void draw();
 
-			// Getters
 			Entity& getEntity() const;
 			Manager& getManager() const;
-			inline std::size_t getId() const { return id; }
+			inline TypeId getId() const { return id; }
 	};
 }
 

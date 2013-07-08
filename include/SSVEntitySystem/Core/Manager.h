@@ -8,11 +8,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <memory>
-#include "SSVEntitySystem/Utils/Utils.h"
-#include "SSVEntitySystem/Core/Component.h"
-#include "SSVEntitySystem/Utils/Repository.h"
-#include <google/dense_hash_set>
+#include "SSVEntitySystem/Global/Typedefs.h"
 
 namespace sses
 {
@@ -24,7 +20,7 @@ namespace sses
 		friend class Component;
 
 		private:
-			std::vector<std::unique_ptr<Entity>> entities;
+			std::vector<Uptr<Entity>> entities;
 			std::vector<Entity*> toAdd, toSort;
 			std::unordered_map<std::string, std::vector<Entity*>> groupedEntities;
 
@@ -40,7 +36,7 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			inline std::vector<std::unique_ptr<Entity>>& getEntities()			{ return entities; }
+			inline std::vector<Uptr<Entity>>& getEntities()						{ return entities; }
 			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return groupedEntities[mId]; }
 			inline bool hasEntity(const std::string& mId)						{ return groupedEntities[mId].size() > 0; }
 			inline unsigned int getEntityCount(const std::string& mId)			{ return groupedEntities[mId].size(); }

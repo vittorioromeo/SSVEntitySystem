@@ -14,7 +14,8 @@ using namespace std;
 namespace sses
 {
 	Entity::Entity(Manager& mManager, const std::string& mId) : manager(mManager), id{mId} { }
-	void Entity::update(float mFrameTime) { for(const auto& c : components) c->update(mFrameTime); }
-	void Entity::draw() { for(const auto& c : components) c->draw(); }
-	void Entity::destroy() { alive = false; }
+
+	void Entity::update(float mFrameTime)	{ for(const auto& c : components) c->update(mFrameTime); }
+	void Entity::draw()						{ for(const auto& c : components) c->draw(); }
+	void Entity::destroy()					{ alive = false; }
 }
