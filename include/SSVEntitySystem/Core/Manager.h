@@ -15,20 +15,17 @@ namespace sses
 {
 	class Entity;
 
-	struct EntityDeleter
-	{
-		inline bool operator()(const Uptr<Entity>& mEntity) const;
-	};
-
 	class Manager
 	{
 		friend class Entity;
 		friend class Component;
 
 		private:
-			ssvu::MemoryManager2<Entity, EntityDeleter> memoryManager;
+			ssvu::MemoryManager<Entity> memoryManager;
 			std::vector<Entity*> toSort;
 			std::unordered_map<std::string, std::vector<Entity*>> groupedEntities;
+
+			void del(Entity& mEntity);
 
 		public:
 			Manager() = default;
@@ -42,7 +39,7 @@ namespace sses
 			Entity& createEntity(const std::string& mId = "");
 
 			// Getters
-			inline std::vector<Uptr<Entity>>& getEntities()						{ return memoryManager.getItems(); }
+			inline ssvu::MemoryManager<Entity>::Container& getEntities()		{ return memoryManager.getItems(); }
 			inline std::vector<Entity*>& getEntities(const std::string& mId)	{ return groupedEntities[mId]; }
 			inline bool hasEntity(const std::string& mId)						{ return groupedEntities[mId].size() > 0; }
 			inline unsigned int getEntityCount(const std::string& mId)			{ return groupedEntities[mId].size(); }

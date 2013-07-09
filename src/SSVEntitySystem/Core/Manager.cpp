@@ -10,7 +10,7 @@ using namespace std;
 
 namespace sses
 {
-	bool EntityDeleter::operator()(const Uptr<Entity>& mEntity) const { return !mEntity->isAlive(); }
+	void Manager::del(Entity& mEntity) { memoryManager.del(mEntity); }
 
 	void Manager::update(float mFrameTime)
 	{
@@ -20,9 +20,8 @@ namespace sses
 			vec.erase(remove_if(begin(vec), end(vec), [](const Entity* mEntity){ return !mEntity->isAlive(); }), end(vec));
 		}
 
-		memoryManager.cleanUp();
+		memoryManager.refresh();
 		for(const auto& e : memoryManager) e->update(mFrameTime);
-		memoryManager.populate();
 	}
 	void Manager::draw()
 	{
