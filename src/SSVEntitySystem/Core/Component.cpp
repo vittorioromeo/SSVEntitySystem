@@ -4,10 +4,8 @@
 
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Core/Entity.h"
-#include "SSVEntitySystem/Core/Manager.h"
 
 namespace sses
 {
-	Entity& Component::getEntity() const	{ return *entity; }
-	Manager& Component::getManager() const	{ return entity->getManager(); }
+	Manager& Component::getManager() const { return entity->getManager(); }
 }

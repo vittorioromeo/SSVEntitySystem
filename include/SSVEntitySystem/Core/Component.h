@@ -30,9 +30,9 @@ namespace sses
 			virtual inline void update(float)	{ }
 			virtual inline void draw()			{ }
 
-			Entity& getEntity() const;
-			Manager& getManager() const;
+			inline Entity& getEntity() const { return *entity; }
 			inline TypeId getId() const { return id; }
+			Manager& getManager() const;
 	};
 }
 

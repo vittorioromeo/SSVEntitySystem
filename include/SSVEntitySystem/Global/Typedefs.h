@@ -12,7 +12,7 @@ namespace sses
 {
 	using TypeId = std::size_t;
 	template<typename T> using Uptr = std::unique_ptr<T>;
-	template<typename T> static TypeId getTypeId() { return typeid(T).hash_code(); }
+	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }
 }
 
 #endif
