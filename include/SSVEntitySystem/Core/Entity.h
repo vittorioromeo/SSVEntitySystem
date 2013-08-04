@@ -45,7 +45,7 @@ namespace sses
 			template<typename T> inline bool hasComponent() const				{ return getComponentCount<T>() > 0; }
 			template<typename T, typename... TArgs> T& createComponent(TArgs&&... mArgs)
 			{
-				auto result(new T(std::forward<TArgs>(mArgs)...));
+				auto result(new T{std::forward<TArgs>(mArgs)...});
 				result->entity = this;
 				result->id = getTypeId<T>();
 				result->init();
