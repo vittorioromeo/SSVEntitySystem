@@ -10,8 +10,6 @@ using namespace std;
 
 namespace sses
 {
-	void Manager::del(Entity& mEntity) { memoryManager.del(mEntity); }
-
 	void Manager::update(float mFrameTime)
 	{
 		for(auto& p : groupedEntities)
@@ -30,8 +28,4 @@ namespace sses
 		sort(begin(toSort), end(toSort), [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}
-
-	Entity& Manager::createEntity(const string& mId) { auto& result(memoryManager.create(*this, mId)); groupedEntities[mId].push_back(&result); return result; }
 }
-
-// TODO: transform std::string IDs in Uids like SSVSCollision!

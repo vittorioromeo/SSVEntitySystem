@@ -7,9 +7,12 @@
 
 #include <typeinfo>
 #include <memory>
+#include <bitset>
 
 namespace sses
 {
+	using Group = unsigned int;
+	using Bitset = std::bitset<64>;
 	using TypeId = std::size_t;
 	template<typename T> using Uptr = std::unique_ptr<T>;
 	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }
