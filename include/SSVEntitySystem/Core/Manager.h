@@ -10,7 +10,6 @@
 #include <unordered_map>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVEntitySystem/Global/Typedefs.h"
-#include "SSVEntitySystem/Global/GroupManager.h"
 
 namespace sses
 {
@@ -24,7 +23,6 @@ namespace sses
 		private:
 			ssvu::MemoryManager<Entity> memoryManager;
 			std::vector<Entity*> toSort;
-			GroupManager groupManager;
 			std::unordered_map<Group, std::vector<Entity*>> groupedEntities; // TODO: is this necessary now? Run some benchmarks
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
@@ -43,7 +41,6 @@ namespace sses
 			inline Entity& createEntity() { return memoryManager.create(*this); }
 
 			// Getters
-			inline Group getGroup(const std::string& mLabel)				{ return groupManager.get(mLabel); }
 			inline ssvu::MemoryManager<Entity>::Container& getEntities()	{ return memoryManager.getItems(); }
 			inline std::vector<Entity*>& getEntities(Group mGroup)			{ return groupedEntities[mGroup]; }
 			inline bool hasEntity(Group mGroup) 							{ return !groupedEntities[mGroup].empty(); }
