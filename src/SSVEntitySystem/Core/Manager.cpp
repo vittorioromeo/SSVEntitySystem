@@ -21,7 +21,7 @@ namespace sses
 	{
 		toSort.clear();
 		for(const auto& e : memoryManager) toSort.push_back(e.get());
-		sort(begin(toSort), end(toSort), [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
+		sort(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}
 }
