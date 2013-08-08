@@ -31,6 +31,7 @@ namespace sses
 			inline void addGroup(Group mGroup)								{ groups.set(mGroup); manager.addToGroup(this, mGroup); }
 			inline void delGroup(Group mGroup)								{ groups.set(mGroup, false); manager.delFromGroup(this, mGroup); }
 			inline bool hasGroup(Group mGroup) const						{ return groups.test(mGroup); }
+			inline bool hasAnyGroup(const Bitset& mGroups) const			{ return (groups & mGroups).any(); }
 			inline void clearGroups()										{ for(Group i{0}; i < groups.size(); ++i) if(groups.test(i)) manager.delFromGroup(this, i); groups.reset(); }
 			inline const Bitset& getGroups() const							{ return groups; }
 
