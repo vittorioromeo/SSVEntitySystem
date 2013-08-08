@@ -7,17 +7,13 @@
 #include "SSVEntitySystem/Core/Entity.h"
 
 using namespace std;
+using namespace ssvu;
 
 namespace sses
 {
 	void Manager::update(float mFrameTime)
 	{
-		for(auto& p : groupedEntities)
-		{
-			auto& vec(groupedEntities[p.first]);
-			vec.erase(remove_if(begin(vec), end(vec), [](const Entity* mEntity){ return !mEntity->isAlive(); }), end(vec));
-		}
-
+		for(auto& p : groupedEntities) eraseRemoveIf(groupedEntities[p.first], &memoryManager.isDead<Entity*>);
 		memoryManager.refresh();
 		for(const auto& e : memoryManager) e->update(mFrameTime);
 	}
