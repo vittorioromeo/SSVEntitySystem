@@ -21,30 +21,29 @@ namespace sses
 		friend class Component;
 
 		private:
-			ssvu::MemoryManager<Entity> memoryManager;
+			ssvu::MemoryManager<Entity> entities;
 			std::vector<Entity*> toSort;
 			std::unordered_map<Group, std::vector<Entity*>> groupedEntities; // TODO: is this necessary now? Run some benchmarks
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
 			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }
-			inline void del(Entity& mEntity)						{ memoryManager.del(mEntity); }
+			inline void del(Entity& mEntity)						{ entities.del(mEntity); }
 
 		public:
 			Manager() = default;
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 
-			inline void clear() { memoryManager.clear(); groupedEntities.clear(); }
+			inline void clear() { entities.clear(); groupedEntities.clear(); }
 			void update(float mFrameTime);
 			void draw();
 
-			inline Entity& createEntity() { return memoryManager.create(*this); }
+			inline Entity& createEntity() { return entities.create(*this); }
 
-			// Getters
-			inline ssvu::MemoryManager<Entity>::Container& getEntities()	{ return memoryManager.getItems(); }
-			inline std::vector<Entity*>& getEntities(Group mGroup)			{ return groupedEntities[mGroup]; }
-			inline bool hasEntity(Group mGroup) 							{ return !groupedEntities[mGroup].empty(); }
-			inline unsigned int getEntityCount(Group mGroup)				{ return groupedEntities[mGroup].size(); }
+			inline decltype(entities)::Container& getEntities()		{ return entities.getItems(); }
+			inline std::vector<Entity*>& getEntities(Group mGroup)	{ return groupedEntities[mGroup]; }
+			inline bool hasEntity(Group mGroup) 					{ return !groupedEntities[mGroup].empty(); }
+			inline unsigned int getEntityCount(Group mGroup)		{ return groupedEntities[mGroup].size(); }
 	};
 }
 

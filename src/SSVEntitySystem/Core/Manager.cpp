@@ -12,14 +12,14 @@ namespace sses
 {
 	void Manager::update(float mFrameTime)
 	{
-		for(auto& p : groupedEntities) eraseRemoveIf(groupedEntities[p.first], &memoryManager.isDead<Entity*>);
-		memoryManager.refresh();
-		for(const auto& e : memoryManager) e->update(mFrameTime);
+		for(auto& p : groupedEntities) eraseRemoveIf(groupedEntities[p.first], &entities.isDead<Entity*>);
+		entities.refresh();
+		for(const auto& e : entities) e->update(mFrameTime);
 	}
 	void Manager::draw()
 	{
 		toSort.clear();
-		for(const auto& e : memoryManager) toSort.push_back(e.get());
+		for(const auto& e : entities) toSort.push_back(e.get());
 		sort(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}

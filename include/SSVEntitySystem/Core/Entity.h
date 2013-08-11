@@ -41,9 +41,9 @@ namespace sses
 
 			inline void setDrawPriority(int mDrawPriority)			{ drawPriority = mDrawPriority; }
 
-			inline Manager& getManager() const						{ return manager; }
-			inline int getDrawPriority() const						{ return drawPriority; }
-			inline std::vector<Uptr<Component>>& getComponents()	{ return components; }
+			inline Manager& getManager() const				{ return manager; }
+			inline int getDrawPriority() const				{ return drawPriority; }
+			inline decltype(components)& getComponents()	{ return components; }
 
 			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return static_cast<T*>(c.get()); return nullptr; }
 			template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
