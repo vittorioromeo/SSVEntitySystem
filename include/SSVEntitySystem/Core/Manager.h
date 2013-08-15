@@ -43,7 +43,7 @@ namespace sses
 			inline decltype(entities)::Container& getEntities()		{ return entities.getItems(); }
 			inline std::vector<Entity*>& getEntities(Group mGroup)	{ return groupedEntities[mGroup]; }
 			inline bool hasEntity(Group mGroup) 					{ return !groupedEntities[mGroup].empty(); }
-			inline unsigned int getEntityCount(Group mGroup)		{ return groupedEntities[mGroup].size(); }
+			inline std::size_t getEntityCount(Group mGroup)			{ return groupedEntities[mGroup].size(); }
 	};
 }
 

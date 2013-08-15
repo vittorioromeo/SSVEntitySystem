@@ -47,7 +47,7 @@ namespace sses
 
 			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return static_cast<T*>(c.get()); return nullptr; }
 			template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
-			template<typename T> inline unsigned int getComponentCount() const	{ unsigned int result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getId()) ++result; return result; }
+			template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getId()) ++result; return result; }
 			template<typename T> inline bool hasComponent() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return true; return false;  }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
