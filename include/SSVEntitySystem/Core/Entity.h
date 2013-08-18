@@ -39,7 +39,7 @@ namespace sses
 			inline void draw()						{ for(const auto& c : components) c->draw(); }
 			inline void destroy()					{ manager.del(*this); }
 
-			inline void setDrawPriority(int mDrawPriority)			{ drawPriority = mDrawPriority; }
+			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
 
 			inline Manager& getManager() const				{ return manager; }
 			inline int getDrawPriority() const				{ return drawPriority; }

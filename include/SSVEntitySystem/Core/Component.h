@@ -20,6 +20,9 @@ namespace sses
 			Entity* entity{nullptr};
 			TypeId id;
 
+			template<typename T = Entity> inline T& getEntityImpl() const { return *entity; }
+			template<typename TM = Manager, typename TE = Entity> inline TM& getManagerImpl() const { return getEntityImpl<TE>().getManager(); }
+
 		public:
 			Component() = default;
 			Component(const Component&) = delete; // non construction-copyable
@@ -30,7 +33,8 @@ namespace sses
 			virtual inline void update(float)	{ }
 			virtual inline void draw()			{ }
 
-			inline Entity& getEntity() const	{ return *entity; }
+			inline Entity& getEntity() const	{ return getEntityImpl(); }
+			inline Manager& getManager() const	{ return getManagerImpl(); }
 			inline TypeId getId() const			{ return id; }
 	};
 }
