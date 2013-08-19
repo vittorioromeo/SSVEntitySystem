@@ -20,8 +20,7 @@ namespace sses
 			Entity* entity{nullptr};
 			TypeId id;
 
-			template<typename T = Entity> inline T& getEntityImpl() const { return *entity; }
-			template<typename TM = Manager, typename TE = Entity> inline TM& getManagerImpl() const { return getEntityImpl<TE>().getManager(); }
+			template<typename TE = Entity> inline Manager& getManagerImpl() const { return static_cast<TE&>(getEntity()).getManager(); }
 
 		public:
 			Component() = default;
@@ -33,7 +32,7 @@ namespace sses
 			virtual inline void update(float)	{ }
 			virtual inline void draw()			{ }
 
-			inline Entity& getEntity() const	{ return getEntityImpl(); }
+			inline Entity& getEntity() const	{ return *entity; }
 			inline Manager& getManager() const	{ return getManagerImpl(); }
 			inline TypeId getId() const			{ return id; }
 	};
