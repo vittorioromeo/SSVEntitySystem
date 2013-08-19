@@ -5,10 +5,6 @@
 #ifndef SSES_MANAGER
 #define SSES_MANAGER
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <SSVUtils/SSVUtils.h>
 #include "SSVEntitySystem/Global/Typedefs.h"
 
 namespace sses

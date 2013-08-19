@@ -8,13 +8,17 @@
 #include <typeinfo>
 #include <memory>
 #include <bitset>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <SSVUtils/SSVUtils.h>
 
 namespace sses
 {
 	using Group = unsigned int;
 	using Bitset = std::bitset<64>;
 	using TypeId = std::size_t;
-	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = std::unique_ptr<T, TDeleter>;
+	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }
 }
 

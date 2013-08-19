@@ -26,7 +26,7 @@ namespace sses
 			Component() = default;
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
-			virtual ~Component() { }
+			virtual inline ~Component() { }
 
 			virtual inline void init()			{ }
 			virtual inline void update(float)	{ }

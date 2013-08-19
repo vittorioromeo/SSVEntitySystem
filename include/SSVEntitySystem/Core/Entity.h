@@ -5,8 +5,6 @@
 #ifndef SSES_ENTITY
 #define SSES_ENTITY
 
-#include <vector>
-#include <string>
 #include "SSVEntitySystem/Core/Manager.h"
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Global/Typedefs.h"
