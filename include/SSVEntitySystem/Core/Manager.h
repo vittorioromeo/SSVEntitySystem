@@ -18,7 +18,7 @@ namespace sses
 		private:
 			ssvu::MemoryManager<Entity> entities;
 			std::vector<Entity*> toSort;
-			std::unordered_map<Group, std::vector<Entity*>> groupedEntities; // TODO: is this necessary now? Run some benchmarks
+			std::unordered_map<Group, std::vector<Entity*>> groupedEntities;
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
 			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }

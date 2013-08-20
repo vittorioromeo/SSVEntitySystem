@@ -56,15 +56,14 @@ namespace sses
 			}
 	};
 
+	// These definitions are in Entity.h because they require Entity's definition
 	inline Manager& Component::getManager() const { return entity->getManager(); }
-
 	inline void Manager::update(float mFrameTime)
 	{
 		for(auto& p : groupedEntities) ssvu::eraseRemoveIf(groupedEntities[p.first], &entities.isDead<Entity*>);
 		entities.refresh();
 		for(const auto& e : entities) e->update(mFrameTime);
 	}
-
 	inline void Manager::draw()
 	{
 		toSort.clear();
