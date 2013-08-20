@@ -6,11 +6,10 @@
 #define SSES_MANAGER
 
 #include "SSVEntitySystem/Global/Typedefs.h"
+#include "SSVEntitySystem/Core/Entity.h"
 
 namespace sses
 {
-	class Entity;
-
 	class Manager
 	{
 		friend class Entity;
@@ -25,29 +24,14 @@ namespace sses
 			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }
 			inline void del(Entity& mEntity)						{ entities.del(mEntity); }
 
-			template<typename T = Entity> inline void updateImpl(float mFrameTime)
-			{
-				for(auto& p : groupedEntities) ssvu::eraseRemoveIf(groupedEntities[p.first], &entities.isDead<T*>);
-				entities.refresh();
-				for(const ssvu::Uptr<T>& e : entities) e->update(mFrameTime);
-			}
-
-			template<typename T = Entity> inline void drawImpl()
-			{
-				toSort.clear();
-				for(const auto& e : entities) toSort.push_back(e.get());
-				sort(toSort, [](const T* mA, const T* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
-				for(T* e : toSort) e->draw();
-			}
-
 		public:
 			Manager() = default;
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 
 			inline void clear() { entities.clear(); groupedEntities.clear(); }
-			inline void update(float mFrameTime) { updateImpl(mFrameTime); }
-			inline void draw() { drawImpl(); }
+			inline void update(float mFrameTime);
+			inline void draw();
 
 			inline Entity& createEntity() { return entities.create(*this); }
 

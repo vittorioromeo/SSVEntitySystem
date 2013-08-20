@@ -11,8 +11,6 @@
 
 namespace sses
 {
-	class Component;
-
 	class Entity : public ssvu::MemoryManageable
 	{
 		private:
@@ -57,6 +55,23 @@ namespace sses
 				return *result;
 			}
 	};
+
+	inline Manager& Component::getManager() const { return entity->getManager(); }
+
+	inline void Manager::update(float mFrameTime)
+	{
+		for(auto& p : groupedEntities) ssvu::eraseRemoveIf(groupedEntities[p.first], &entities.isDead<Entity*>);
+		entities.refresh();
+		for(const auto& e : entities) e->update(mFrameTime);
+	}
+
+	inline void Manager::draw()
+	{
+		toSort.clear();
+		for(const auto& e : entities) toSort.push_back(e.get());
+		sort(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
+		for(const auto& e : toSort) e->draw();
+	}
 }
 
 #endif
