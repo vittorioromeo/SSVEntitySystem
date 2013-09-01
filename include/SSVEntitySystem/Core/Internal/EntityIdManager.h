@@ -6,7 +6,6 @@
 #define SSES_INTERNAL_ENTITYIDMANAGER
 
 #include "SSVEntitySystem/Global/Typedefs.h"
-#include "SSVEntitySystem/Core/Entity.h"
 
 namespace sses
 {
