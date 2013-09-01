@@ -11,12 +11,23 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <stack>
+#include <cassert>
 #include <SSVUtils/SSVUtils.h>
 
 namespace sses
 {
+	inline std::size_t getMaxEntities()
+	{
+		static std::size_t maxEntities{1000000};
+		return maxEntities;
+	}
+
 	using Group = unsigned int;
 	using Bitset = std::bitset<64>;
+	using EntityId = std::size_t;
+	using EntityIdUse = std::uint8_t;
+	using EntityStat = std::pair<EntityId, EntityIdUse>;
 	using TypeId = std::size_t;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }

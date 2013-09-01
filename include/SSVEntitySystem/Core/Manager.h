@@ -7,6 +7,7 @@
 
 #include "SSVEntitySystem/Global/Typedefs.h"
 #include "SSVEntitySystem/Core/Entity.h"
+#include "SSVEntitySystem/Core/Internal/EntityIdManager.h"
 
 namespace sses
 {
@@ -16,6 +17,7 @@ namespace sses
 		friend class Component;
 
 		private:
+			Internal::EntityIdManager entityIdManager;
 			ssvu::MemoryManager<Entity> entities;
 			std::vector<Entity*> toSort;
 			std::unordered_map<Group, std::vector<Entity*>> groupedEntities;
@@ -33,12 +35,14 @@ namespace sses
 			inline void update(float mFrameTime);
 			inline void draw();
 
-			inline Entity& createEntity() { return entities.create(*this); }
+			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
 
 			inline decltype(entities)::Container& getEntities()		{ return entities.getItems(); }
 			inline std::vector<Entity*>& getEntities(Group mGroup)	{ return groupedEntities[mGroup]; }
 			inline bool hasEntity(Group mGroup) 					{ return !groupedEntities[mGroup].empty(); }
 			inline std::size_t getEntityCount(Group mGroup)			{ return groupedEntities[mGroup].size(); }
+
+			inline bool isAlive(const EntityStat& mStat) const		{ return entityIdManager.isAlive(mStat); }
 	};
 }
 

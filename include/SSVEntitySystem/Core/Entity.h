@@ -14,15 +14,18 @@ namespace sses
 	class Entity : public ssvu::MemoryManageable
 	{
 		private:
+			EntityStat stat;
 			Manager& manager;
 			Bitset groups;
 			std::vector<Uptr<Component>> components;
 			int drawPriority{0};
 
 		public:
-			Entity(Manager& mManager) : manager(mManager) { }
+			Entity(const EntityStat& mStat, Manager& mManager) : stat{mStat}, manager(mManager) { }
 			Entity(const Entity&) = delete; // non construction-copyable
 			Entity& operator=(const Entity&) = delete; // non copyable
+
+			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
 
 			inline void addGroup(Group mGroup)								{ groups.set(mGroup); manager.addToGroup(this, mGroup); }
 			inline void delGroup(Group mGroup)								{ groups.set(mGroup, false); manager.delFromGroup(this, mGroup); }
@@ -37,6 +40,7 @@ namespace sses
 
 			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
 
+			inline const EntityStat& getStat() const		{ return stat; }
 			inline Manager& getManager() const				{ return manager; }
 			inline int getDrawPriority() const				{ return drawPriority; }
 			inline decltype(components)& getComponents()	{ return components; }
@@ -55,22 +59,6 @@ namespace sses
 				return *result;
 			}
 	};
-
-	// These definitions are in Entity.h because they require Entity's definition
-	inline Manager& Component::getManager() const { return entity->getManager(); }
-	inline void Manager::update(float mFrameTime)
-	{
-		for(auto& p : groupedEntities) ssvu::eraseRemoveIf(groupedEntities[p.first], &entities.isDead<Entity*>);
-		entities.refresh();
-		for(const auto& e : entities) e->update(mFrameTime);
-	}
-	inline void Manager::draw()
-	{
-		toSort.clear();
-		for(const auto& e : entities) toSort.push_back(e.get());
-		sort(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
-		for(const auto& e : toSort) e->draw();
-	}
 }
 
 #endif
