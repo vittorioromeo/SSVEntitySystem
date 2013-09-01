@@ -17,12 +17,6 @@
 
 namespace sses
 {
-	inline std::size_t getMaxEntities()
-	{
-		static std::size_t maxEntities{1000000};
-		return maxEntities;
-	}
-
 	using Group = unsigned int;
 	using Bitset = std::bitset<64>;
 	using EntityId = std::size_t;
@@ -30,6 +24,8 @@ namespace sses
 	using EntityStat = std::pair<EntityId, EntityIdUse>;
 	using TypeId = std::size_t;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
+
+	inline std::size_t getMaxEntities() { static std::size_t maxEntities{1000000}; return maxEntities; }
 	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }
 }
 
