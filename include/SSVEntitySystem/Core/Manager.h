@@ -37,11 +37,11 @@ namespace sses
 
 			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
 
-			inline decltype(entities)::Container& getEntities()		{ return entities.getItems(); }
-			inline std::vector<Entity*>& getEntities(Group mGroup)	{ return groupedEntities[mGroup]; }
+			inline decltype(entities)::Container& getEntities()	noexcept	{ return entities.getItems(); }
+			inline std::vector<Entity*>& getEntities(Group mGroup) noexcept	{ return groupedEntities[mGroup]; }
+
 			inline bool hasEntity(Group mGroup) 					{ return !groupedEntities[mGroup].empty(); }
 			inline std::size_t getEntityCount(Group mGroup)			{ return groupedEntities[mGroup].size(); }
-
 			inline bool isAlive(const EntityStat& mStat) const		{ return entityIdManager.isAlive(mStat); }
 	};
 }

@@ -25,8 +25,8 @@ namespace sses
 	using TypeId = std::size_t;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 
-	inline std::size_t getMaxEntities() { static std::size_t maxEntities{1000000}; return maxEntities; }
-	template<typename T> inline static TypeId getTypeId() { return typeid(T).hash_code(); }
+	inline std::size_t getMaxEntities() noexcept { static std::size_t maxEntities{1000000}; return maxEntities; }
+	template<typename T> inline static TypeId getTypeId() noexcept { return typeid(T).hash_code(); }
 }
 
 #endif

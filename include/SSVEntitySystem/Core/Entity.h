@@ -32,7 +32,7 @@ namespace sses
 			inline bool hasGroup(Group mGroup) const						{ return groups.test(mGroup); }
 			inline bool hasAnyGroup(const Bitset& mGroups) const			{ return (groups & mGroups).any(); }
 			inline void clearGroups()										{ for(Group i{0}; i < groups.size(); ++i) if(groups.test(i)) manager.delFromGroup(this, i); groups.reset(); }
-			inline const Bitset& getGroups() const							{ return groups; }
+			inline const Bitset& getGroups() const noexcept					{ return groups; }
 
 			inline void update(float mFrameTime)	{ for(const auto& c : components) c->update(mFrameTime); }
 			inline void draw()						{ for(const auto& c : components) c->draw(); }
@@ -40,10 +40,10 @@ namespace sses
 
 			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
 
-			inline const EntityStat& getStat() const		{ return stat; }
-			inline Manager& getManager() const				{ return manager; }
-			inline int getDrawPriority() const				{ return drawPriority; }
-			inline decltype(components)& getComponents()	{ return components; }
+			inline const EntityStat& getStat() const noexcept		{ return stat; }
+			inline Manager& getManager() const noexcept				{ return manager; }
+			inline int getDrawPriority() const noexcept				{ return drawPriority; }
+			inline decltype(components)& getComponents() noexcept	{ return components; }
 
 			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return static_cast<T*>(c.get()); return nullptr; }
 			template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
