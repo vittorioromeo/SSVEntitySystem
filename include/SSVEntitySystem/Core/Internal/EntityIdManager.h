@@ -19,7 +19,7 @@ namespace sses
 				std::vector<EntityIdUse> entityIdUses;
 
 			public:
-				EntityIdManager() { entityIdUses.resize(getMaxEntities(), 0); }
+				inline EntityIdManager() { entityIdUses.resize(getMaxEntities(), 0); }
 
 				inline EntityStat getFreeStat()
 				{
