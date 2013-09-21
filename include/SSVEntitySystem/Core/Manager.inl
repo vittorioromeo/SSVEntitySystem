@@ -17,7 +17,7 @@ namespace sses
 	{
 		toSort.clear();
 		for(const auto& e : entities) toSort.push_back(e.get());
-		sort(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
+		ssvu::sortStable(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}
 }
