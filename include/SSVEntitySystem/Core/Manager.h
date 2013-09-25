@@ -32,7 +32,7 @@ namespace sses
 			Manager& operator=(const Manager&) = delete; // non copyable
 
 			inline void clear() { entities.clear(); groupedEntities.clear(); }
-			inline void update(float mFrameTime);
+			inline void update(float mFT);
 			inline void draw();
 
 			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }

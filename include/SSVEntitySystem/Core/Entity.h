@@ -34,9 +34,9 @@ namespace sses
 			inline void clearGroups()										{ for(Group i{0}; i < groups.size(); ++i) if(groups.test(i)) manager.delFromGroup(this, i); groups.reset(); }
 			inline const Bitset& getGroups() const noexcept					{ return groups; }
 
-			inline void update(float mFrameTime)	{ for(const auto& c : components) c->update(mFrameTime); }
-			inline void draw()						{ for(const auto& c : components) c->draw(); }
-			inline void destroy()					{ manager.del(*this); }
+			inline void update(float mFT)	{ for(const auto& c : components) c->update(mFT); }
+			inline void draw()				{ for(const auto& c : components) c->draw(); }
+			inline void destroy()			{ manager.del(*this); }
 
 			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
 
