@@ -45,15 +45,15 @@ namespace sses
 			inline int getDrawPriority() const noexcept				{ return drawPriority; }
 			inline decltype(components)& getComponents() noexcept	{ return components; }
 
-			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return static_cast<T*>(c.get()); return nullptr; }
+			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return static_cast<T*>(c.get()); return nullptr; }
 			template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
-			template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getId()) ++result; return result; }
-			template<typename T> inline bool hasComponent() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getId()) return true; return false;  }
+			template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) ++result; return result; }
+			template<typename T> inline bool hasComponent() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return true; return false;  }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				auto result(new T{std::forward<TArgs>(mArgs)...});
 				result->entity = this;
-				result->id = getTypeId<T>();
+				result->componentTypeId = getTypeId<T>();
 				result->init();
 				components.emplace_back(result);
 				return *result;
