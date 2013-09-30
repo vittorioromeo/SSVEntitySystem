@@ -27,13 +27,6 @@ namespace sses
 
 			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
 
-			inline void addGroup(Group mGroup)								{ groups.set(mGroup); manager.addToGroup(this, mGroup); }
-			inline void delGroup(Group mGroup)								{ groups.set(mGroup, false); manager.delFromGroup(this, mGroup); }
-			inline bool hasGroup(Group mGroup) const						{ return groups.test(mGroup); }
-			inline bool hasAnyGroup(const Bitset& mGroups) const			{ return (groups & mGroups).any(); }
-			inline void clearGroups()										{ for(Group i{0}; i < groups.size(); ++i) if(groups.test(i)) manager.delFromGroup(this, i); groups.reset(); }
-			inline const Bitset& getGroups() const noexcept					{ return groups; }
-
 			inline void update(float mFT)	{ for(const auto& c : components) c->update(mFT); }
 			inline void draw()				{ for(const auto& c : components) c->draw(); }
 			inline void destroy()			{ manager.del(*this); }
@@ -58,6 +51,18 @@ namespace sses
 				components.emplace_back(result);
 				return *result;
 			}
+
+			// Groups
+			inline void addGroups(Group mGroup)	noexcept													{ groups[mGroup] = true; manager.addToGroup(this, mGroup); }
+			inline void delGroups(Group mGroup)	noexcept													{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); }
+			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ groups[mGroup] = true; manager.addToGroup(this, mGroup); addGroups(mGroups...); }
+			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); delGroups(mGroups...); }
+			inline void addGroup(Group mGroup) noexcept														{ addGroups(mGroup); }
+			inline void delGroup(Group mGroup) noexcept														{ delGroups(mGroup); }
+			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
+			inline bool hasAnyGroup(const Bitset& mGroups) const noexcept									{ return (groups & mGroups).any(); }
+			inline void clearGroups() noexcept																{ for(Group i{0}; i < groups.size(); ++i) if(groups[i]) manager.delFromGroup(this, i); groups.reset(); }
+			inline const Bitset& getGroups() const noexcept													{ return groups; }
 	};
 }
 
