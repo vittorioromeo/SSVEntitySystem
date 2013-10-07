@@ -21,7 +21,7 @@ namespace sses
 			TypeId componentTypeId;
 
 		public:
-			Component() = default;
+			Component() noexcept = default;
 			Component(const Component&) = delete; // non construction-copyable
 			Component& operator=(const Component&) = delete; // non copyable
 			inline virtual ~Component() { }

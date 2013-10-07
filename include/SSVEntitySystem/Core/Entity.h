@@ -21,7 +21,7 @@ namespace sses
 			int drawPriority{0};
 
 		public:
-			Entity(const EntityStat& mStat, Manager& mManager) : stat{mStat}, manager(mManager) { }
+			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
 			Entity(const Entity&) = delete; // non construction-copyable
 			Entity& operator=(const Entity&) = delete; // non copyable
 
@@ -29,7 +29,7 @@ namespace sses
 
 			inline void update(float mFT)	{ for(const auto& c : components) c->update(mFT); }
 			inline void draw()				{ for(const auto& c : components) c->draw(); }
-			inline void destroy()			{ manager.del(*this); }
+			inline void destroy() noexcept	{ manager.del(*this); }
 
 			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
 
