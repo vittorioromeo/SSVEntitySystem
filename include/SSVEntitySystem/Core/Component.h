@@ -18,7 +18,6 @@ namespace sses
 
 		private:
 			Entity* entity{nullptr};
-			TypeId componentTypeId;
 
 		public:
 			Component() noexcept = default;
@@ -30,8 +29,7 @@ namespace sses
 			inline virtual void update(float)	{ }
 			inline virtual void draw()			{ }
 
-			inline Entity& getEntity() const noexcept			{ return *entity; }
-			inline TypeId getComponentTypeId() const noexcept	{ return componentTypeId; }
+			inline Entity& getEntity() const noexcept { return *entity; }
 			inline Manager& getManager() const noexcept;
 	};
 }

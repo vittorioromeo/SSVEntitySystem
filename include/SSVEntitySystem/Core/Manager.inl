@@ -9,7 +9,7 @@ namespace sses
 {
 	inline void Manager::update(float mFT)
 	{
-		for(auto& p : groupedEntities) ssvu::eraseRemoveIf(groupedEntities[p.first], &entities.isDead<Entity*>);
+		for(auto& v : groupedEntities) ssvu::eraseRemoveIf(v, &entities.isDead<Entity*>);
 		entities.refresh();
 		for(const auto& e : entities) e->update(mFT);
 	}

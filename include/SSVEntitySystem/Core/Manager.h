@@ -20,7 +20,7 @@ namespace sses
 			Internal::EntityIdManager entityIdManager;
 			ssvu::MemoryManager<Entity> entities;
 			std::vector<Entity*> toSort;
-			std::unordered_map<Group, std::vector<Entity*>> groupedEntities;
+			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
 			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }
@@ -31,7 +31,7 @@ namespace sses
 			Manager(const Manager&) = delete; // non construction-copyable
 			Manager& operator=(const Manager&) = delete; // non copyable
 
-			inline void clear() { entities.clear(); groupedEntities.clear(); }
+			inline void clear() { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
 			inline void update(float mFT);
 			inline void draw();
 

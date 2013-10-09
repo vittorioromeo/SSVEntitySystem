@@ -16,8 +16,10 @@ namespace sses
 		private:
 			EntityStat stat;
 			Manager& manager;
-			Bitset groups;
+			GroupBitset groups;
 			std::vector<Uptr<Component>> components;
+			std::array<Component*, maxComponents> componentPtrs;
+			TypeIdsBitset typeIdsBitset;
 			int drawPriority{0};
 
 		public:
@@ -38,31 +40,35 @@ namespace sses
 			inline int getDrawPriority() const noexcept				{ return drawPriority; }
 			inline decltype(components)& getComponents() noexcept	{ return components; }
 
-			template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return static_cast<T*>(c.get()); return nullptr; }
-			template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
-			template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) ++result; return result; }
-			template<typename T> inline bool hasComponent() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return true; return false;  }
+			//template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return static_cast<T*>(c.get()); return nullptr; }
+			//template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
+			//template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) ++result; return result; }
+
+
+			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[getTypeIdBitIdx<T>()]; }
+			template<typename T> inline T& getComponent() noexcept			{ assert(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[getTypeIdBitIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
+				assert(!hasComponent<T>());
 				auto result(new T{std::forward<TArgs>(mArgs)...});
-				result->entity = this;
-				result->componentTypeId = getTypeId<T>();
-				result->init();
+				result->entity = this; result->init();
+				componentPtrs[getTypeIdBitIdx<T>()] = result;
 				components.emplace_back(result);
+				appendTypeIdBit<T>(typeIdsBitset);
 				return *result;
 			}
 
 			// Groups
-			inline void addGroups(Group mGroup)	noexcept													{ groups[mGroup] = true; manager.addToGroup(this, mGroup); }
-			inline void delGroups(Group mGroup)	noexcept													{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); }
-			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ groups[mGroup] = true; manager.addToGroup(this, mGroup); addGroups(mGroups...); }
-			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); delGroups(mGroups...); }
+			inline void addGroups(Group mGroup) noexcept													{ groups[mGroup] = true; manager.addToGroup(this, mGroup); }
+			inline void delGroups(Group mGroup) noexcept													{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); }
+			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ addGroups(mGroup); addGroups(mGroups...); }
+			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ delGroups(mGroup); delGroups(mGroups...); }
 			inline void addGroup(Group mGroup) noexcept														{ addGroups(mGroup); }
 			inline void delGroup(Group mGroup) noexcept														{ delGroups(mGroup); }
 			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
-			inline bool hasAnyGroup(const Bitset& mGroups) const noexcept									{ return (groups & mGroups).any(); }
+			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).any(); }
 			inline void clearGroups() noexcept																{ for(Group i{0}; i < groups.size(); ++i) if(groups[i]) manager.delFromGroup(this, i); groups.reset(); }
-			inline const Bitset& getGroups() const noexcept													{ return groups; }
+			inline const GroupBitset& getGroups() const noexcept											{ return groups; }
 	};
 }
 

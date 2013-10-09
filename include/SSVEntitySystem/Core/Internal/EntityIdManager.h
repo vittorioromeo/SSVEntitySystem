@@ -16,11 +16,9 @@ namespace sses
 			private:
 				EntityId lastEntityId{0};
 				std::stack<EntityId, std::vector<EntityId>> freeIds;
-				std::vector<EntityIdUse> entityIdUses;
+				std::array<EntityIdUse, maxEntities> entityIdUses;
 
 			public:
-				inline EntityIdManager() { entityIdUses.resize(getMaxEntities(), 0); }
-
 				inline EntityStat getFreeStat()
 				{
 					EntityId id;
