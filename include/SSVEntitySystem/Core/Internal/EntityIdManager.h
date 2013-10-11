@@ -18,18 +18,13 @@ namespace sses
 				std::array<EntityIdUse, maxEntities> entityIdUses;
 
 			public:
-				inline EntityIdManager()
+				inline EntityIdManager() : freeIds(maxEntities)
 				{
 					std::iota(std::begin(freeIds), std::end(freeIds), 0);
 					std::fill(std::begin(entityIdUses), std::end(entityIdUses), 0);
 				}
 
-				inline EntityStat getFreeStat()
-				{
-					EntityId id{freeIds.back()};
-					freeIds.pop_back();
-					return {id, entityIdUses[id]};
-				}
+				inline EntityStat getFreeStat()	{ EntityId id{freeIds.back()}; freeIds.pop_back(); return {id, entityIdUses[id]}; }
 				inline bool isAlive(const EntityStat& mStat) const noexcept { return entityIdUses[mStat.first] == mStat.second; }
 				inline void reclaim(const EntityStat& mStat) { freeIds.push_back(mStat.first); ++entityIdUses[mStat.first]; }
 		};
