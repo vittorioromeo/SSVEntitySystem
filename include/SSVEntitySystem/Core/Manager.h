@@ -24,7 +24,7 @@ namespace sses
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
 			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }
-			inline void del(Entity& mEntity)						{ entities.del(mEntity); }
+			inline void del(Entity& mEntity) noexcept				{ entities.del(mEntity); }
 
 		public:
 			Manager() = default;
@@ -40,9 +40,9 @@ namespace sses
 			inline decltype(entities)::Container& getEntities()	noexcept	{ return entities.getItems(); }
 			inline std::vector<Entity*>& getEntities(Group mGroup) noexcept	{ return groupedEntities[mGroup]; }
 
-			inline bool hasEntity(Group mGroup) 					{ return !groupedEntities[mGroup].empty(); }
-			inline std::size_t getEntityCount(Group mGroup)			{ return groupedEntities[mGroup].size(); }
-			inline bool isAlive(const EntityStat& mStat) const		{ return entityIdManager.isAlive(mStat); }
+			inline bool hasEntity(Group mGroup)								{ return !groupedEntities[mGroup].empty(); }
+			inline std::size_t getEntityCount(Group mGroup) const noexcept	{ return groupedEntities[mGroup].size(); }
+			inline bool isAlive(const EntityStat& mStat) const noexcept		{ return entityIdManager.isAlive(mStat); }
 	};
 }
 

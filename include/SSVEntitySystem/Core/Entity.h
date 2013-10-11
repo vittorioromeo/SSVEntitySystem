@@ -40,11 +40,6 @@ namespace sses
 			inline int getDrawPriority() const noexcept				{ return drawPriority; }
 			inline decltype(components)& getComponents() noexcept	{ return components; }
 
-			//template<typename T> inline T* getComponentSafe() const				{ for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) return static_cast<T*>(c.get()); return nullptr; }
-			//template<typename T> inline T& getComponent() const					{ return *getComponentSafe<T>(); }
-			//template<typename T> inline std::size_t getComponentCount() const	{ std::size_t result{0}; for(const auto& c : components) if(getTypeId<T>() == c->getComponentTypeId()) ++result; return result; }
-
-
 			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[getTypeIdBitIdx<T>()]; }
 			template<typename T> inline T& getComponent() noexcept			{ assert(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[getTypeIdBitIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
@@ -53,8 +48,8 @@ namespace sses
 				auto result(new T{std::forward<TArgs>(mArgs)...});
 				result->entity = this; result->init();
 				componentPtrs[getTypeIdBitIdx<T>()] = result;
+				typeIdsBitset[getTypeIdBitIdx<T>()] = true;
 				components.emplace_back(result);
-				appendTypeIdBit<T>(typeIdsBitset);
 				return *result;
 			}
 

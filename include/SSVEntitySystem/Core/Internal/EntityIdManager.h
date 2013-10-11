@@ -14,26 +14,24 @@ namespace sses
 		class EntityIdManager
 		{
 			private:
-				EntityId lastEntityId{0};
-				std::stack<EntityId, std::vector<EntityId>> freeIds;
+				std::vector<EntityId> freeIds;
 				std::array<EntityIdUse, maxEntities> entityIdUses;
 
 			public:
+				inline EntityIdManager()
+				{
+					std::iota(std::begin(freeIds), std::end(freeIds), 0);
+					std::fill(std::begin(entityIdUses), std::end(entityIdUses), 0);
+				}
+
 				inline EntityStat getFreeStat()
 				{
-					EntityId id;
-
-					if(freeIds.empty())
-					{
-						assert(lastEntityId < getMaxEntities());
-						id = lastEntityId++;
-					}
-					else { id = freeIds.top(); freeIds.pop(); }
-
+					EntityId id{freeIds.back()};
+					freeIds.pop_back();
 					return {id, entityIdUses[id]};
 				}
-				inline bool isAlive(const EntityStat& mStat) const { return entityIdUses[mStat.first] == mStat.second; }
-				inline void reclaim(const EntityStat& mStat) { freeIds.push(mStat.first); ++entityIdUses[mStat.first]; }
+				inline bool isAlive(const EntityStat& mStat) const noexcept { return entityIdUses[mStat.first] == mStat.second; }
+				inline void reclaim(const EntityStat& mStat) { freeIds.push_back(mStat.first); ++entityIdUses[mStat.first]; }
 		};
 	}
 }

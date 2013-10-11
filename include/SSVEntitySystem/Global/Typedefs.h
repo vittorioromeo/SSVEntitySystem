@@ -52,7 +52,6 @@ namespace sses
 
 	template<typename T> inline constexpr const TypeId& getTypeId() noexcept					{ return Internal::TypeIdStorage<T>::typeId; }
 	template<typename T> inline constexpr static const std::size_t& getTypeIdBitIdx() noexcept	{ return Internal::TypeIdStorage<T>::bitIdx; }
-	template<typename T> inline static void appendTypeIdBit(TypeIdsBitset& mBitset) noexcept	{ Internal::buildBitsetHelper<T>(mBitset); }
 }
 
 #endif
