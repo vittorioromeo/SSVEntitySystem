@@ -23,7 +23,6 @@ namespace sses
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
-			inline void delFromGroup(Entity* mEntity, Group mGroup)	{ ssvu::eraseRemove(groupedEntities[mGroup], mEntity); }
 			inline void del(Entity& mEntity) noexcept				{ entities.del(mEntity); }
 
 		public:

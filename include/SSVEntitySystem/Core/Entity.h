@@ -55,14 +55,14 @@ namespace sses
 
 			// Groups
 			inline void addGroups(Group mGroup) noexcept													{ groups[mGroup] = true; manager.addToGroup(this, mGroup); }
-			inline void delGroups(Group mGroup) noexcept													{ groups[mGroup] = false; manager.delFromGroup(this, mGroup); }
+			inline void delGroups(Group mGroup) noexcept													{ groups[mGroup] = false; }
 			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ addGroups(mGroup); addGroups(mGroups...); }
 			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ delGroups(mGroup); delGroups(mGroups...); }
 			inline void addGroup(Group mGroup) noexcept														{ addGroups(mGroup); }
 			inline void delGroup(Group mGroup) noexcept														{ delGroups(mGroup); }
 			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
 			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).any(); }
-			inline void clearGroups() noexcept																{ for(Group i{0}; i < groups.size(); ++i) if(groups[i]) manager.delFromGroup(this, i); groups.reset(); }
+			inline void clearGroups() noexcept																{ groups.reset(); }
 			inline const GroupBitset& getGroups() const noexcept											{ return groups; }
 	};
 }
