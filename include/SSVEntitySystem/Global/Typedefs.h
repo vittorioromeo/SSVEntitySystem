@@ -14,7 +14,9 @@
 #include <unordered_map>
 #include <stack>
 #include <cassert>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/Global/Typedefs.h>
+#include <SSVUtils/MemoryManager/MemoryManager.h>
+#include <SSVUtils/Utils/UtilsContainers.h>
 
 namespace sses
 {
