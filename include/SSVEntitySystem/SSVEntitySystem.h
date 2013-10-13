@@ -8,7 +8,6 @@
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Core/Entity.h"
 #include "SSVEntitySystem/Core/Manager.h"
-
 #include "SSVEntitySystem/Core/Component.inl"
 #include "SSVEntitySystem/Core/Manager.inl"
 

@@ -22,7 +22,7 @@ namespace sses
 {
 	static constexpr std::size_t maxEntities{1000000};
 	static constexpr std::size_t maxGroups{32};
-	static constexpr std::size_t maxComponents{32};
+	static constexpr std::size_t maxComponents{64};
 
 	using EntityId = std::size_t;
 	using EntityIdUse = std::uint8_t;
@@ -38,22 +38,17 @@ namespace sses
 
 	namespace Internal
 	{
-		static unsigned int lastTypeIdBitIdx{0};
+		inline std::size_t getNextTypeId() { static std::size_t lastTypeIdBitIdx{0}; return lastTypeIdBitIdx++; }
 
-		template<typename T> struct TypeIdStorage { static const TypeId typeId; static const std::size_t bitIdx; };
-		template<typename T> const TypeId TypeIdStorage<T>::typeId{typeid(T).hash_code()};
-		template<typename T> const std::size_t TypeIdStorage<T>::bitIdx{lastTypeIdBitIdx++};
+		template<typename T> struct TypeIdStorage { static const std::size_t bitIdx; };
+		template<typename T> const std::size_t TypeIdStorage<T>::bitIdx{getNextTypeId()};
 
-		template<typename T> inline static void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { mBitset.set(Internal::TypeIdStorage<T>::bitIdx); }
-		template<typename T1, typename T2, typename... TArgs> inline static void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { buildBitsetHelper<T1>(mBitset); buildBitsetHelper<T2, TArgs...>(mBitset); }
-		template<typename... TArgs> inline static TypeIdsBitset getBuildBitset() noexcept { TypeIdsBitset result; buildBitsetHelper<TArgs...>(result); return result; }
-
-		template<typename... TArgs> struct TypeIdsBitsetStorage{ static const TypeIdsBitset bitset; };
-		template<typename... TArgs> const TypeIdsBitset TypeIdsBitsetStorage<TArgs...>::bitset{getBuildBitset<TArgs...>()};
+		template<typename T> inline void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { mBitset.set(Internal::TypeIdStorage<T>::bitIdx); }
+		template<typename T1, typename T2, typename... TArgs> inline void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { buildBitsetHelper<T1>(mBitset); buildBitsetHelper<T2, TArgs...>(mBitset); }
+		template<typename... TArgs> inline TypeIdsBitset getBuildBitset() noexcept { TypeIdsBitset result; buildBitsetHelper<TArgs...>(result); return result; }
 	}
 
-	template<typename T> inline constexpr const TypeId& getTypeId() noexcept					{ return Internal::TypeIdStorage<T>::typeId; }
-	template<typename T> inline constexpr static const std::size_t& getTypeIdBitIdx() noexcept	{ return Internal::TypeIdStorage<T>::bitIdx; }
+	template<typename T> inline constexpr const std::size_t& getTypeIdBitIdx() noexcept	{ return Internal::TypeIdStorage<T>::bitIdx; }
 }
 
 #endif
