@@ -36,7 +36,7 @@ namespace sses
 
 			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
 
-			inline decltype(entities)::Container& getEntities()	noexcept	{ return entities.getItems(); }
+			inline decltype(entities)::Container& getEntities() noexcept	{ return entities.getItems(); }
 			inline std::vector<Entity*>& getEntities(Group mGroup) noexcept	{ return groupedEntities[mGroup]; }
 
 			inline bool hasEntity(Group mGroup)								{ return !groupedEntities[mGroup].empty(); }

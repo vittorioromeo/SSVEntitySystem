@@ -58,10 +58,9 @@ namespace sses
 			inline void delGroups(Group mGroup) noexcept													{ groups[mGroup] = false; }
 			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ addGroups(mGroup); addGroups(mGroups...); }
 			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ delGroups(mGroup); delGroups(mGroups...); }
-			inline void addGroup(Group mGroup) noexcept														{ addGroups(mGroup); }
-			inline void delGroup(Group mGroup) noexcept														{ delGroups(mGroup); }
 			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
 			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).any(); }
+			inline bool hasAllGroups(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).all(); }
 			inline void clearGroups() noexcept																{ groups.reset(); }
 			inline const GroupBitset& getGroups() const noexcept											{ return groups; }
 	};
