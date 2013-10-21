@@ -25,7 +25,6 @@ namespace sses
 			Component& operator=(const Component&) = delete; // non copyable
 			inline virtual ~Component() { }
 
-			inline virtual void init()			{ }
 			inline virtual void update(float)	{ }
 			inline virtual void draw()			{ }
 
