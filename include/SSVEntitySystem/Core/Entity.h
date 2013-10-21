@@ -8,25 +8,9 @@
 #include "SSVEntitySystem/Core/Manager.h"
 #include "SSVEntitySystem/Core/Component.h"
 #include "SSVEntitySystem/Global/Typedefs.h"
-#include <type_traits>
 
 namespace sses
 {
-	template<typename C> struct HasInit
-	{
-		private:
-			template<typename T> static constexpr typename std::is_same<decltype(std::declval<T>().init()), void>::type check(T*);
-			template<typename> static constexpr std::false_type check(...);
-			using Type = decltype(check<C>(0));
-
-		public:
-			static constexpr bool Value = Type::value;
-	};
-
-	template<typename T, bool TCheck> struct CallInitHelper;
-	template<typename T> struct CallInitHelper<T, true>		{ inline static void callInit(T* mComponent) { mComponent->init(); } };
-	template<typename T> struct CallInitHelper<T, false>	{ inline static void callInit(T*) { } };
-
 	class Entity : public ssvu::MemoryManageable
 	{
 		private:
@@ -62,8 +46,7 @@ namespace sses
 			{
 				assert(!hasComponent<T>());
 				auto result(new T{std::forward<TArgs>(mArgs)...});
-				result->entity = this;
-				CallInitHelper<T, HasInit<T>::Value>::callInit(result);
+				result->entity = this; Internal::callInit(result);
 				componentPtrs[getTypeIdBitIdx<T>()] = result;
 				typeIdsBitset[getTypeIdBitIdx<T>()] = true;
 				components.emplace_back(result);
