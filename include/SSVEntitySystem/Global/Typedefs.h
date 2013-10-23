@@ -48,21 +48,8 @@ namespace sses
 		template<typename T1, typename T2, typename... TArgs> inline void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { buildBitsetHelper<T1>(mBitset); buildBitsetHelper<T2, TArgs...>(mBitset); }
 		template<typename... TArgs> inline TypeIdsBitset getBuildBitset() noexcept { TypeIdsBitset result; buildBitsetHelper<TArgs...>(result); return result; }
 
-		template<typename C> struct HasInit
-		{
-			private:
-				template<typename T> static constexpr typename std::is_same<decltype(std::declval<T>().init()), void>::type check(T*);
-				template<typename> static constexpr std::false_type check(...);
-				using Type = decltype(check<C>(0));
-
-			public:
-				static constexpr bool Value = Type::value;
-		};
-
-		template<typename T, bool TCheck> struct CallInitHelper;
-		template<typename T> struct CallInitHelper<T, true>		{ inline static void call(T* mComponent) { mComponent->init(); } };
-		template<typename T> struct CallInitHelper<T, false>	{ inline static void call(T*) { } };
-		template<typename T> inline void callInit(T* mComponent) { Internal::CallInitHelper<T, HasInit<T>::Value>::call(mComponent); }
+		SSVU_DEFINE_HAS_MEMBER_CHECKER(HasInit, init);
+		SSVU_DEFINE_HAS_MEMBER_INVOKER(callInit, init, (HasInit<T, void()>::Value));
 	}
 
 	template<typename T> inline constexpr const std::size_t& getTypeIdBitIdx() noexcept	{ return Internal::TypeIdStorage<T>::bitIdx; }
