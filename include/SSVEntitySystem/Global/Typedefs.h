@@ -21,6 +21,8 @@
 
 namespace sses
 {
+	class Component;
+
 	static constexpr std::size_t maxEntities{1000000};
 	static constexpr std::size_t maxGroups{32};
 	static constexpr std::size_t maxComponents{64};
@@ -29,7 +31,7 @@ namespace sses
 	using EntityIdUse = std::uint8_t;
 	using EntityStat = std::pair<EntityId, EntityIdUse>;
 
-	using TypeId = std::size_t;
+	using TypeIdIdx = std::size_t;
 	using TypeIdsBitset = std::bitset<maxComponents>;
 
 	using Group = unsigned int;
@@ -39,20 +41,20 @@ namespace sses
 
 	namespace Internal
 	{
-		inline std::size_t getNextTypeId() { static std::size_t lastTypeIdBitIdx{0}; return lastTypeIdBitIdx++; }
+		inline TypeIdIdx getNextTypeIdBitIdx() noexcept { static TypeIdIdx lastIdx{0}; return lastIdx++; }
+	}
 
-		template<typename T> struct TypeIdStorage { static const std::size_t bitIdx; };
-		template<typename T> const std::size_t TypeIdStorage<T>::bitIdx{getNextTypeId()};
+	template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
+	{
+		static_assert(std::is_base_of<Component, T>::value, "Type must derive from Component");
+		static TypeIdIdx idx{Internal::getNextTypeIdBitIdx()}; return idx;
+	}
 
-		template<typename T> inline void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { mBitset.set(Internal::TypeIdStorage<T>::bitIdx); }
-		template<typename T1, typename T2, typename... TArgs> inline void buildBitsetHelper(TypeIdsBitset& mBitset) noexcept { buildBitsetHelper<T1>(mBitset); buildBitsetHelper<T2, TArgs...>(mBitset); }
-		template<typename... TArgs> inline TypeIdsBitset getBuildBitset() noexcept { TypeIdsBitset result; buildBitsetHelper<TArgs...>(result); return result; }
-
+	namespace Internal
+	{
 		SSVU_DEFINE_HAS_MEMBER_CHECKER(HasInit, init);
 		SSVU_DEFINE_HAS_MEMBER_INVOKER(callInit, init, (HasInit<T, void()>::Value));
 	}
-
-	template<typename T> inline constexpr const std::size_t& getTypeIdBitIdx() noexcept	{ return Internal::TypeIdStorage<T>::bitIdx; }
 }
 
 #endif

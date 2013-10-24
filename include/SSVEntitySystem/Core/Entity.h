@@ -46,7 +46,7 @@ namespace sses
 			{
 				assert(!hasComponent<T>());
 				auto result(new T{std::forward<TArgs>(mArgs)...});
-				result->entity = this; Internal::callInit(result);
+				result->entity = this; Internal::callInit(*result);
 				componentPtrs[getTypeIdBitIdx<T>()] = result;
 				typeIdsBitset[getTypeIdBitIdx<T>()] = true;
 				components.emplace_back(result);
