@@ -46,7 +46,7 @@ namespace sses
 
 	template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
 	{
-		static_assert(std::is_base_of<Component, T>::value, "Type must derive from Component");
+		static_assert(ssvu::isBaseOf<Component, T>(), "Type must derive from Component");
 		static TypeIdIdx idx{Internal::getNextTypeIdBitIdx()}; return idx;
 	}
 
