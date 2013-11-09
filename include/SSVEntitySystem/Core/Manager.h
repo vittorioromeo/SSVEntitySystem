@@ -11,7 +11,7 @@
 
 namespace sses
 {
-	class Manager
+	class Manager : ssvu::NoCopy
 	{
 		friend class Entity;
 		friend class Component;
@@ -27,8 +27,6 @@ namespace sses
 
 		public:
 			Manager() = default;
-			Manager(const Manager&) = delete; // non construction-copyable
-			Manager& operator=(const Manager&) = delete; // non copyable
 
 			inline void clear() { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
 			inline void update(float mFT);

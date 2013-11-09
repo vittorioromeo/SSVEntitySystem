@@ -12,21 +12,19 @@ namespace sses
 	class Entity;
 	class Manager;
 
-	class Component
+	class Component : ssvu::NoCopy
 	{
 		friend class Entity;
 
 		private:
 			Entity* entity{nullptr};
 
+			inline virtual void update(float) { }
+			inline virtual void draw() { }
+
 		public:
 			Component() noexcept = default;
-			Component(const Component&) = delete; // non construction-copyable
-			Component& operator=(const Component&) = delete; // non copyable
 			inline virtual ~Component() { }
-
-			inline virtual void update(float)	{ }
-			inline virtual void draw()			{ }
 
 			inline Entity& getEntity() const noexcept { return *entity; }
 			inline Manager& getManager() const noexcept;

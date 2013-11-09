@@ -42,18 +42,15 @@ namespace sses
 	namespace Internal
 	{
 		inline TypeIdIdx getNextTypeIdBitIdx() noexcept { static TypeIdIdx lastIdx{0}; return lastIdx++; }
-	}
 
-	template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
-	{
-		static_assert(ssvu::isBaseOf<Component, T>(), "Type must derive from Component");
-		static TypeIdIdx idx{Internal::getNextTypeIdBitIdx()}; return idx;
-	}
-
-	namespace Internal
-	{
 		SSVU_DEFINE_HAS_MEMBER_CHECKER(HasInit, init);
 		SSVU_DEFINE_HAS_MEMBER_INVOKER(callInit, init, (HasInit<T, void()>::Value));
+
+		template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
+		{
+			static_assert(ssvu::isBaseOf<Component, T>(), "Type must derive from Component");
+			static TypeIdIdx idx{getNextTypeIdBitIdx()}; return idx;
+		}
 	}
 }
 

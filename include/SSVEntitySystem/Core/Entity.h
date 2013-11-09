@@ -11,8 +11,12 @@
 
 namespace sses
 {
-	class Entity : public ssvu::MemoryManageable
+	class Manager;
+
+	class Entity : ssvu::NoCopy, public ssvu::MemoryManageable
 	{
+		friend class Manager;
+
 		private:
 			EntityStat stat;
 			Manager& manager;
@@ -22,15 +26,13 @@ namespace sses
 			TypeIdsBitset typeIdsBitset;
 			int drawPriority{0};
 
-		public:
-			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
-			Entity(const Entity&) = delete; // non construction-copyable
-			Entity& operator=(const Entity&) = delete; // non copyable
-
-			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
-
 			inline void update(float mFT)	{ for(const auto& c : components) c->update(mFT); }
 			inline void draw()				{ for(const auto& c : components) c->draw(); }
+
+		public:
+			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
+			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
+
 			inline void destroy() noexcept	{ manager.del(*this); }
 
 			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
@@ -40,15 +42,15 @@ namespace sses
 			inline int getDrawPriority() const noexcept				{ return drawPriority; }
 			inline decltype(components)& getComponents() noexcept	{ return components; }
 
-			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[getTypeIdBitIdx<T>()]; }
-			template<typename T> inline T& getComponent() noexcept			{ assert(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[getTypeIdBitIdx<T>()]); }
+			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdBitIdx<T>()]; }
+			template<typename T> inline T& getComponent() noexcept			{ assert(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdBitIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				assert(!hasComponent<T>());
 				auto result(new T{std::forward<TArgs>(mArgs)...});
 				result->entity = this; Internal::callInit(*result);
-				componentPtrs[getTypeIdBitIdx<T>()] = result;
-				typeIdsBitset[getTypeIdBitIdx<T>()] = true;
+				componentPtrs[Internal::getTypeIdBitIdx<T>()] = result;
+				typeIdsBitset[Internal::getTypeIdBitIdx<T>()] = true;
 				components.emplace_back(result);
 				return *result;
 			}
