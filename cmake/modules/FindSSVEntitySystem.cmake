@@ -1,5 +1,5 @@
 FIND_PATH(SSVENTITYSYSTEM_INCLUDE_DIR
-  NAMES SSVEntitySystem/SSVEntitySystem.h
+  NAMES SSVEntitySystem/SSVEntitySystem.hpp
   PATH_SUFFIXES include/
   PATHS "${PROJECT_SOURCE_DIR}/../SSVEntitySystem/"
   "${PROJECT_SOURCE_DIR}/extlibs/SSVEntitySystem/"
