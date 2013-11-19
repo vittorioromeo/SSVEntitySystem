@@ -47,7 +47,7 @@ namespace sses
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				assert(!hasComponent<T>());
-				auto result(new T{std::forward<TArgs>(mArgs)...});
+				auto result(new T(std::forward<TArgs>(mArgs)...));
 				result->entity = this; Internal::callInit(*result);
 				componentPtrs[Internal::getTypeIdBitIdx<T>()] = result;
 				typeIdsBitset[Internal::getTypeIdBitIdx<T>()] = true;
