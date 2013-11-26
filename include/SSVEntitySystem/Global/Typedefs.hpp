@@ -15,7 +15,7 @@
 #include <stack>
 #include <cassert>
 #include <type_traits>
-#include <SSVUtils/Global/Typedefs.hpp>
+#include <SSVUtils/Global/Common.hpp>
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include <SSVUtils/Utils/UtilsContainers.hpp>
 
