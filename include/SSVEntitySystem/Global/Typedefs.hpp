@@ -37,6 +37,8 @@ namespace sses
 	using Group = unsigned int;
 	using GroupBitset = std::bitset<maxGroups>;
 
+	using FT = ssvu::FT;
+
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 
 	namespace Internal

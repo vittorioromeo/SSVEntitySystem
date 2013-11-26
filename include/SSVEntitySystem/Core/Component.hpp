@@ -19,7 +19,7 @@ namespace sses
 		private:
 			Entity* entity{nullptr};
 
-			inline virtual void update(float) { }
+			inline virtual void update(FT) { }
 			inline virtual void draw() { }
 
 		public:

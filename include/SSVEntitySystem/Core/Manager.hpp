@@ -29,7 +29,7 @@ namespace sses
 			Manager() = default;
 
 			inline void clear() { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
-			inline void update(float mFT);
+			inline void update(FT mFT);
 			inline void draw();
 
 			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
