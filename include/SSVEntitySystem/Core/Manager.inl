@@ -7,10 +7,14 @@
 
 namespace sses
 {
-	inline void Manager::update(FT mFT)
+	inline void Manager::refresh()
 	{
 		for(auto i(0u); i < maxGroups; ++i) ssvu::eraseRemoveIf(groupedEntities[i], [i](const Entity* mEntity){ return ssvu::MemoryManager<Entity>::isDead(mEntity) || !mEntity->hasGroup(i); });
 		entities.refresh();
+	}
+	inline void Manager::update(FT mFT)
+	{
+		refresh();
 		for(const auto& e : entities) e->update(mFT);
 	}
 	inline void Manager::draw()
