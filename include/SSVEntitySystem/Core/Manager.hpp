@@ -28,7 +28,7 @@ namespace sses
 		public:
 			Manager() = default;
 
-			inline void clear() { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
+			inline void clear() noexcept { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
 			inline void refresh();
 			inline void update(FT mFT);
 			inline void draw();
