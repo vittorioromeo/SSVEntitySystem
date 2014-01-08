@@ -20,7 +20,7 @@ namespace sses
 	inline void Manager::draw()
 	{
 		toSort.clear();
-		for(const auto& e : entities) toSort.push_back(e.get());
+		for(const auto& e : entities) toSort.emplace_back(e.get());
 		ssvu::sortStable(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
 		for(const auto& e : toSort) e->draw();
 	}

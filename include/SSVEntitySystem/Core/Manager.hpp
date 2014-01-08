@@ -22,7 +22,7 @@ namespace sses
 			std::vector<Entity*> toSort;
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
-			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].push_back(mEntity); }
+			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].emplace_back(mEntity); }
 			inline void del(Entity& mEntity) noexcept				{ entities.del(mEntity); }
 
 		public:

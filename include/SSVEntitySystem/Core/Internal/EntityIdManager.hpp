@@ -26,7 +26,7 @@ namespace sses
 
 				inline EntityStat getFreeStat()	{ EntityId id{freeIds.back()}; freeIds.pop_back(); return {id, entityIdUses[id]}; }
 				inline bool isAlive(const EntityStat& mStat) const noexcept { return entityIdUses[mStat.first] == mStat.second; }
-				inline void reclaim(const EntityStat& mStat) { freeIds.push_back(mStat.first); ++entityIdUses[mStat.first]; }
+				inline void reclaim(const EntityStat& mStat) { freeIds.emplace_back(mStat.first); ++entityIdUses[mStat.first]; }
 		};
 	}
 }
