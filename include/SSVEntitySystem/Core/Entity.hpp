@@ -27,7 +27,7 @@ namespace sses
 			int drawPriority{0};
 
 			inline void update(FT mFT)	{ for(const auto& c : components) c->update(mFT); }
-			inline void draw()				{ for(const auto& c : components) c->draw(); }
+			inline void draw()			{ for(const auto& c : components) c->draw(); }
 
 		public:
 			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
