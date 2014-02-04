@@ -45,8 +45,7 @@ namespace sses
 	{
 		inline TypeIdIdx getNextTypeIdBitIdx() noexcept { static TypeIdIdx lastIdx{0}; return lastIdx++; }
 
-		SSVU_DEFINE_HAS_MEMBER_CHECKER(HasInit, init);
-		SSVU_DEFINE_HAS_MEMBER_INVOKER(callInit, init, (HasInit<T, void()>::Value));
+		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void());	// `callInit(...)` only calls `T::init` if it exists
 
 		template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
 		{
