@@ -43,10 +43,10 @@ namespace sses
 			inline decltype(components)& getComponents() noexcept	{ return components; }
 
 			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdBitIdx<T>()]; }
-			template<typename T> inline T& getComponent() noexcept			{ assert(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdBitIdx<T>()]); }
+			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdBitIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
-				assert(!hasComponent<T>());
+				SSVU_ASSERT(!hasComponent<T>());
 				auto& result(ssvu::getEmplaceUptr<T>(components, std::forward<TArgs>(mArgs)...));
 				result.entity = this; Internal::callInit(result);
 				componentPtrs[Internal::getTypeIdBitIdx<T>()] = &result;
