@@ -15,9 +15,8 @@
 #include <stack>
 #include <cassert>
 #include <type_traits>
-#include <SSVUtils/Global/Common.hpp>
+#include <SSVUtils/Core/Core.hpp>
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
-#include <SSVUtils/Utils/Containers.hpp>
 
 namespace sses
 {
