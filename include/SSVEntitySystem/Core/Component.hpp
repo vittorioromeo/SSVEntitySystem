@@ -23,10 +23,14 @@ namespace sses
 			inline virtual void draw() { }
 
 		public:
-			Component() noexcept = default;
+			inline Component() noexcept = default;
 			inline virtual ~Component() { }
 
-			inline Entity& getEntity() const noexcept { return *entity; }
+			inline Entity& getEntity() const noexcept
+			{
+				SSVU_ASSERT(entity != nullptr);
+				return *entity;
+			}
 			inline Manager& getManager() const noexcept;
 	};
 }

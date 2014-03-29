@@ -33,9 +33,9 @@ namespace sses
 			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
 			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
 
-			inline void destroy() noexcept	{ manager.del(*this); }
+			inline void destroy() noexcept { manager.del(*this); }
 
-			inline void setDrawPriority(int mDrawPriority)	{ drawPriority = mDrawPriority; }
+			inline void setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
 
 			inline const EntityStat& getStat() const noexcept		{ return stat; }
 			inline Manager& getManager() const noexcept				{ return manager; }
