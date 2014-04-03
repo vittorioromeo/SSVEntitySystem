@@ -30,7 +30,7 @@ namespace sses
 			inline void draw()			{ for(const auto& c : components) c->draw(); }
 
 		public:
-			Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat{mStat}, manager(mManager) { }
+			inline Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat(mStat), manager(mManager) { }
 			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
 
 			inline void destroy() noexcept { manager.del(*this); }
