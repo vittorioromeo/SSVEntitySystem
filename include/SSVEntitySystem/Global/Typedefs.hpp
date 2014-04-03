@@ -26,9 +26,9 @@ namespace sses
 	static constexpr std::size_t maxGroups{32};
 	static constexpr std::size_t maxComponents{64};
 
-	using EntityId = std::size_t;
-	using EntityIdUse = std::uint8_t;
-	using EntityStat = std::pair<EntityId, EntityIdUse>;
+	using EntityId = int;
+	using EntityIdCtr = int;
+	struct EntityStat { EntityId id; EntityIdCtr ctr; };
 
 	using TypeIdIdx = std::size_t;
 	using TypeIdsBitset = std::bitset<maxComponents>;
