@@ -22,8 +22,12 @@ namespace sses
 			std::vector<Entity*> toSort;
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
-			inline void addToGroup(Entity* mEntity, Group mGroup)	{ groupedEntities[mGroup].emplace_back(mEntity); }
-			inline void del(Entity& mEntity) noexcept				{ entities.del(mEntity); }
+			inline void addToGroup(Entity* mEntity, Group mGroup)
+			{
+				SSVU_ASSERT(!ssvu::contains(groupedEntities[mGroup], mEntity));
+				groupedEntities[mGroup].emplace_back(mEntity);
+			}
+			inline void del(Entity& mEntity) noexcept { entities.del(mEntity); }
 
 		public:
 			inline void clear() noexcept { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
