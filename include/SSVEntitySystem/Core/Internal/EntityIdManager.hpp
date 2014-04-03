@@ -15,18 +15,18 @@ namespace sses
 		{
 			private:
 				std::vector<EntityId> freeIds;
-				std::array<EntityIdUse, maxEntities> entityIdUses;
+				std::array<EntityIdCtr, maxEntities> idCtrs;
 
 			public:
 				inline EntityIdManager() : freeIds(maxEntities)
 				{
 					std::iota(std::begin(freeIds), std::end(freeIds), 0);
-					std::fill(std::begin(entityIdUses), std::end(entityIdUses), 0);
+					std::fill(std::begin(idCtrs), std::end(idCtrs), 0);
 				}
 
-				inline EntityStat getFreeStat()	{ EntityId id{freeIds.back()}; freeIds.pop_back(); return {id, entityIdUses[id]}; }
-				inline bool isAlive(const EntityStat& mStat) const noexcept { return entityIdUses[mStat.first] == mStat.second; }
-				inline void reclaim(const EntityStat& mStat) { freeIds.emplace_back(mStat.first); ++entityIdUses[mStat.first]; }
+				inline EntityStat getFreeStat()	{ EntityId id{freeIds.back()}; freeIds.pop_back(); return EntityStat{id, idCtrs[id]}; }
+				inline bool isAlive(const EntityStat& mStat) const noexcept { return idCtrs[mStat.id] == mStat.ctr; }
+				inline void reclaim(const EntityStat& mStat) { freeIds.emplace_back(mStat.id); ++idCtrs[mStat.id]; }
 		};
 	}
 }
