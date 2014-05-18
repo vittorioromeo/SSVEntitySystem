@@ -5,17 +5,13 @@
 #ifndef SSES_ENTITY
 #define SSES_ENTITY
 
-#include "SSVEntitySystem/Core/Manager.hpp"
-#include "SSVEntitySystem/Core/Component.hpp"
-#include "SSVEntitySystem/Global/Typedefs.hpp"
-
 namespace sses
 {
 	class Manager;
 
 	class Entity : ssvu::NoCopy, public ssvu::MemoryManageable
 	{
-		friend class Manager;
+		friend Manager;
 
 		private:
 			EntityStat stat;

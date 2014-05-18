@@ -5,8 +5,6 @@
 #ifndef SSES_INTERNAL_ENTITYIDMANAGER
 #define SSES_INTERNAL_ENTITYIDMANAGER
 
-#include "SSVEntitySystem/Global/Typedefs.hpp"
-
 namespace sses
 {
 	namespace Internal

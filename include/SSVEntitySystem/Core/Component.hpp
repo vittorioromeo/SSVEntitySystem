@@ -5,8 +5,6 @@
 #ifndef SSES_COMPONENT
 #define SSES_COMPONENT
 
-#include "SSVEntitySystem/Global/Typedefs.hpp"
-
 namespace sses
 {
 	class Entity;
@@ -14,7 +12,7 @@ namespace sses
 
 	class Component : ssvu::NoCopy
 	{
-		friend class Entity;
+		friend Entity;
 
 		private:
 			Entity* entity{nullptr};

@@ -5,9 +5,14 @@
 #ifndef SSVENTITYSYSTEM
 #define SSVENTITYSYSTEM
 
+#include <bitset>
+#include <SSVUtils/Core/Core.hpp>
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
+#include "SSVEntitySystem/Global/Typedefs.hpp"
 #include "SSVEntitySystem/Core/Component.hpp"
-#include "SSVEntitySystem/Core/Entity.hpp"
+#include "SSVEntitySystem/Core/Internal/EntityIdManager.hpp"
 #include "SSVEntitySystem/Core/Manager.hpp"
+#include "SSVEntitySystem/Core/Entity.hpp"
 #include "SSVEntitySystem/Core/Component.inl"
 #include "SSVEntitySystem/Core/Manager.inl"
 

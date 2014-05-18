@@ -5,19 +5,6 @@
 #ifndef SSES_TYPEDEFS
 #define SSES_TYPEDEFS
 
-#include <typeinfo>
-#include <memory>
-#include <bitset>
-#include <string>
-#include <array>
-#include <vector>
-#include <unordered_map>
-#include <stack>
-#include <cassert>
-#include <type_traits>
-#include <SSVUtils/Core/Core.hpp>
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
-
 namespace sses
 {
 	class Component;

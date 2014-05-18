@@ -5,16 +5,12 @@
 #ifndef SSES_MANAGER
 #define SSES_MANAGER
 
-#include "SSVEntitySystem/Global/Typedefs.hpp"
-#include "SSVEntitySystem/Core/Entity.hpp"
-#include "SSVEntitySystem/Core/Internal/EntityIdManager.hpp"
-
 namespace sses
 {
 	class Manager : ssvu::NoCopy
 	{
-		friend class Entity;
-		friend class Component;
+		friend Entity;
+		friend Component;
 
 		private:
 			Internal::EntityIdManager entityIdManager;
