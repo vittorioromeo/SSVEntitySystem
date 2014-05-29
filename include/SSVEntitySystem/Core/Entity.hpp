@@ -17,7 +17,7 @@ namespace sses
 			EntityStat stat;
 			Manager& manager;
 			GroupBitset groups;
-			std::vector<Uptr<Component>> components;
+			ssvu::VecUptr<Component> components;
 			std::array<Component*, maxComponents> componentPtrs;
 			TypeIdsBitset typeIdsBitset;
 			int drawPriority{0};
