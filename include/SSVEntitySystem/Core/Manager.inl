@@ -9,7 +9,7 @@ namespace sses
 {
 	inline void Manager::refresh()
 	{
-		for(auto i(0u); i < maxGroups; ++i) ssvu::eraseRemoveIf(groupedEntities[i], [i](const Entity* mEntity){ return ssvu::MemoryManager<Entity>::isDead(mEntity) || !mEntity->hasGroup(i); });
+		for(auto i(0u); i < maxGroups; ++i) ssvu::eraseRemoveIf(groupedEntities[i], [i](const Entity* mEntity){ return ssvu::MonoManager<Entity>::isDead(mEntity) || !mEntity->hasGroup(i); });
 		entities.refresh();
 	}
 	inline void Manager::update(FT mFT)

@@ -9,7 +9,7 @@ namespace sses
 {
 	class Manager;
 
-	class Entity : ssvu::NoCopy, public ssvu::MemoryManageable
+	class Entity : ssvu::NoCopy
 	{
 		friend Manager;
 

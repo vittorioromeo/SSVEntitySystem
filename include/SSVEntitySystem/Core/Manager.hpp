@@ -14,7 +14,7 @@ namespace sses
 
 		private:
 			Internal::EntityIdManager entityIdManager;
-			ssvu::MemoryManager<Entity> entities;
+			ssvu::MonoManager<Entity> entities;
 			std::vector<Entity*> toSort;
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
