@@ -17,6 +17,7 @@ namespace sses
 			ssvu::MonoManager<Entity> entities;
 			std::vector<Entity*> toSort;
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;
+			ssvu::PolyRecycler<Component> componentRecycler;
 
 			inline void addToGroup(Entity* mEntity, Group mGroup)
 			{

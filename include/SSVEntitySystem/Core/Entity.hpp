@@ -17,7 +17,7 @@ namespace sses
 			EntityStat stat;
 			Manager& manager;
 			GroupBitset groups;
-			ssvu::VecUptr<Component> components;
+			std::vector<decltype(manager.componentRecycler)::PtrType> components;
 			std::array<Component*, maxComponents> componentPtrs;
 			TypeIdsBitset typeIdsBitset;
 			int drawPriority{0};
@@ -43,7 +43,12 @@ namespace sses
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				SSVU_ASSERT(!hasComponent<T>());
-				auto& result(ssvu::getEmplaceUptr<T>(components, std::forward<TArgs>(mArgs)...));
+
+				auto uptr(manager.componentRecycler.create<T>(std::forward<TArgs>(mArgs)...));
+				auto& result(*reinterpret_cast<T*>(uptr.get()));
+
+				components.emplace_back(std::move(uptr));
+
 				result.entity = this; Internal::callInit(result);
 				componentPtrs[Internal::getTypeIdBitIdx<T>()] = &result;
 				typeIdsBitset[Internal::getTypeIdBitIdx<T>()] = true;
