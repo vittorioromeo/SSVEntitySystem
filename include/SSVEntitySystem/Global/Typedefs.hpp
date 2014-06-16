@@ -39,6 +39,8 @@ namespace sses
 			static TypeIdIdx idx{getNextTypeIdBitIdx()}; return idx;
 		}
 	}
+
+	inline EntityStat getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
 }
 
 #endif

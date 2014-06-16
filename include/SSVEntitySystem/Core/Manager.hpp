@@ -39,7 +39,12 @@ namespace sses
 
 			inline bool hasEntity(Group mGroup)								{ return !groupedEntities[mGroup].empty(); }
 			inline std::size_t getEntityCount(Group mGroup) const noexcept	{ return groupedEntities[mGroup].size(); }
-			inline bool isAlive(const EntityStat& mStat) const noexcept		{ return entityIdManager.isAlive(mStat); }
+
+			inline bool isAlive(const EntityStat& mStat) const noexcept
+			{
+				SSVU_ASSERT(mStat != getNullEntityStat());
+				return entityIdManager.isAlive(mStat);
+			}
 	};
 }
 
