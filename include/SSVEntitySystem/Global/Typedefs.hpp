@@ -41,6 +41,7 @@ namespace sses
 	}
 
 	inline EntityStat getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
+	inline bool isNullEntityStat(const EntityStat& mEntityStat) noexcept { return mEntityStat.ctr == -1 && mEntityStat.id == -1; }
 }
 
 #endif

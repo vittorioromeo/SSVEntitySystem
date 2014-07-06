@@ -42,7 +42,7 @@ namespace sses
 
 			inline bool isAlive(const EntityStat& mStat) const noexcept
 			{
-				SSVU_ASSERT(mStat != getNullEntityStat());
+				SSVU_ASSERT(!isNullEntityStat(mStat));
 				return entityIdManager.isAlive(mStat);
 			}
 	};
