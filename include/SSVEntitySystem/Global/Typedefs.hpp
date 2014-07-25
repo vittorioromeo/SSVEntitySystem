@@ -29,7 +29,12 @@ namespace sses
 
 	namespace Internal
 	{
-		inline TypeIdIdx getNextTypeIdBitIdx() noexcept { static TypeIdIdx lastIdx{0}; return lastIdx++; }
+		inline TypeIdIdx getNextTypeIdBitIdx() noexcept
+		{
+			static TypeIdIdx lastIdx{0};
+			SSVU_ASSERT(lastIdx < maxComponents);
+			return lastIdx++;
+		}
 
 		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()); // `callInit(...)` only calls `T::init` if it exists
 
