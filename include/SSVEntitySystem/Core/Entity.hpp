@@ -44,10 +44,10 @@ namespace sses
 			{
 				SSVU_ASSERT(!hasComponent<T>());
 
-				auto uptr(manager.componentRecycler.create<T>(std::forward<TArgs>(mArgs)...));
-				auto& result(*reinterpret_cast<T*>(uptr.get()));
+				auto uPtr(manager.componentRecycler.create<T>(std::forward<TArgs>(mArgs)...));
+				auto& result(*reinterpret_cast<T*>(uPtr.get()));
 
-				components.emplace_back(std::move(uptr));
+				components.emplace_back(std::move(uPtr));
 
 				result.entity = this; Internal::callInit(result);
 				componentPtrs[Internal::getTypeIdBitIdx<T>()] = &result;

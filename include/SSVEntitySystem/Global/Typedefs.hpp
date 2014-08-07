@@ -25,7 +25,7 @@ namespace sses
 
 	using FT = ssvu::FT;
 
-	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
+	template<typename T, typename TDeleter = std::default_delete<T>> using UPtr = ssvu::UPtr<T, TDeleter>;
 
 	namespace Internal
 	{
