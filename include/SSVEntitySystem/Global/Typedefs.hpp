@@ -50,3 +50,5 @@ namespace sses
 }
 
 #endif
+
+// TODO: don't call init and use constructors instead? (investigate)
