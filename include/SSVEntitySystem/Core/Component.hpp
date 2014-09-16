@@ -24,12 +24,12 @@ namespace sses
 			inline Component() noexcept = default;
 			inline virtual ~Component() { }
 
-			inline Entity& getEntity() const noexcept
+			inline auto& getEntity() const noexcept
 			{
 				SSVU_ASSERT(entity != nullptr);
 				return *entity;
 			}
-			inline Manager& getManager() const noexcept;
+			inline auto& getManager() const noexcept;
 	};
 }
 

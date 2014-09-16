@@ -32,13 +32,13 @@ namespace sses
 			inline void update(FT mFT);
 			inline void draw();
 
-			inline Entity& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
+			inline auto& createEntity() { return entities.create(entityIdManager.getFreeStat(), *this); }
 
-			inline decltype(entities)& getEntities() noexcept				{ return entities; }
-			inline std::vector<Entity*>& getEntities(Group mGroup) noexcept	{ return groupedEntities[mGroup]; }
+			inline auto& getEntities() noexcept				{ return entities; }
+			inline auto& getEntities(Group mGroup) noexcept	{ return groupedEntities[mGroup]; }
 
-			inline bool hasEntity(Group mGroup)								{ return !groupedEntities[mGroup].empty(); }
-			inline std::size_t getEntityCount(Group mGroup) const noexcept	{ return groupedEntities[mGroup].size(); }
+			inline bool hasEntity(Group mGroup)						{ return !groupedEntities[mGroup].empty(); }
+			inline auto getEntityCount(Group mGroup) const noexcept	{ return groupedEntities[mGroup].size(); }
 
 			inline bool isAlive(const EntityStat& mStat) const noexcept
 			{

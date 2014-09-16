@@ -33,10 +33,10 @@ namespace sses
 
 			inline void setDrawPriority(int mDrawPriority) { drawPriority = mDrawPriority; }
 
-			inline const EntityStat& getStat() const noexcept		{ return stat; }
-			inline Manager& getManager() const noexcept				{ return manager; }
-			inline int getDrawPriority() const noexcept				{ return drawPriority; }
-			inline decltype(components)& getComponents() noexcept	{ return components; }
+			inline const auto& getStat() const noexcept	{ return stat; }
+			inline auto& getManager() const noexcept	{ return manager; }
+			inline int getDrawPriority() const noexcept	{ return drawPriority; }
+			inline auto& getComponents() noexcept		{ return components; }
 
 			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdBitIdx<T>()]; }
 			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdBitIdx<T>()]); }
@@ -44,7 +44,7 @@ namespace sses
 			{
 				SSVU_ASSERT(!hasComponent<T>());
 
-				auto uPtr(manager.componentRecycler.create<T>(std::forward<TArgs>(mArgs)...));
+				auto uPtr(manager.componentRecycler.create<T>(ssvu::fwd<TArgs>(mArgs)...));
 				auto& result(*reinterpret_cast<T*>(uPtr.get()));
 
 				components.emplace_back(std::move(uPtr));
@@ -60,13 +60,13 @@ namespace sses
 			inline void addGroups(Group mGroup) noexcept { groups[mGroup] = true; manager.addToGroup(this, mGroup); }
 			inline void delGroups(Group mGroup) noexcept { groups[mGroup] = false; }
 			inline void clearGroups() noexcept { groups.reset(); }
-			template<typename... TGroups> inline void setGroups(bool mOn, Group mGroup, TGroups... mGroups) noexcept { setGroups(mOn, mGroup); setGroups(mOn, mGroups...); }
-			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept	{ addGroups(mGroup); addGroups(mGroups...); }
-			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept	{ delGroups(mGroup); delGroups(mGroups...); }
+			template<typename... TGroups> inline void setGroups(bool mOn, Group mGroup, TGroups... mGroups) noexcept	{ setGroups(mOn, mGroup); setGroups(mOn, mGroups...); }
+			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept				{ addGroups(mGroup); addGroups(mGroups...); }
+			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept				{ delGroups(mGroup); delGroups(mGroups...); }
 			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
 			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).any(); }
 			inline bool hasAllGroups(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).all(); }
-			inline const GroupBitset& getGroups() const noexcept											{ return groups; }
+			inline const auto& getGroups() const noexcept													{ return groups; }
 	};
 }
 

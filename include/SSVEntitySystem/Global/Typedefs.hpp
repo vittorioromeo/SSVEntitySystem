@@ -29,7 +29,7 @@ namespace sses
 
 	namespace Internal
 	{
-		inline TypeIdIdx getNextTypeIdBitIdx() noexcept
+		inline auto getNextTypeIdBitIdx() noexcept
 		{
 			static TypeIdIdx lastIdx{0};
 			SSVU_ASSERT(lastIdx < maxComponents);
@@ -38,14 +38,14 @@ namespace sses
 
 		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()); // `callInit(...)` only calls `T::init` if it exists
 
-		template<typename T> inline const TypeIdIdx& getTypeIdBitIdx() noexcept
+		template<typename T> inline const auto& getTypeIdBitIdx() noexcept
 		{
 			SSVU_ASSERT_STATIC(ssvu::isBaseOf<Component, T>(), "Type must derive from Component");
 			static TypeIdIdx idx{getNextTypeIdBitIdx()}; return idx;
 		}
 	}
 
-	inline EntityStat getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
+	inline auto getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
 	inline bool isNullEntityStat(const EntityStat& mEntityStat) noexcept { return mEntityStat.ctr == -1 && mEntityStat.id == -1; }
 }
 

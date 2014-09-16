@@ -22,7 +22,7 @@ namespace sses
 					std::fill(std::begin(idCtrs), std::end(idCtrs), 0);
 				}
 
-				inline EntityStat getFreeStat()	{ EntityId id{freeIds.back()}; freeIds.pop_back(); return EntityStat{id, idCtrs[id]}; }
+				inline auto getFreeStat() { EntityId id{freeIds.back()}; freeIds.pop_back(); return EntityStat{id, idCtrs[id]}; }
 				inline bool isAlive(const EntityStat& mStat) const noexcept { return idCtrs[mStat.id] == mStat.ctr; }
 				inline void reclaim(const EntityStat& mStat) { freeIds.emplace_back(mStat.id); ++idCtrs[mStat.id]; }
 		};
