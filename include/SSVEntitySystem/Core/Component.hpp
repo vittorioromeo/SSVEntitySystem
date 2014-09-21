@@ -7,9 +7,6 @@
 
 namespace sses
 {
-	class Entity;
-	class Manager;
-
 	class Component : ssvu::NoCopy
 	{
 		friend Entity;

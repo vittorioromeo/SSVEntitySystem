@@ -7,42 +7,58 @@
 
 namespace sses
 {
+	// Forward declarations
 	class Component;
+	class Entity;
+	class Manager;
 
-	static constexpr std::size_t maxEntities{1000000};
+	// Constants
+	static constexpr std::size_t maxEntities{1'000'000};
 	static constexpr std::size_t maxGroups{32};
 	static constexpr std::size_t maxComponents{64};
 
+	// Entity typedefs
 	using EntityId = int;
 	using EntityIdCtr = int;
 	struct EntityStat { EntityId id; EntityIdCtr ctr; };
 
-	using TypeIdIdx = std::size_t;
-	using TypeIdsBitset = std::bitset<maxComponents>;
+	// Type index typedefs
+	using TypeIdx = std::size_t;
+	using TypeIdxBitset = std::bitset<maxComponents>;
 
+	// Group typedefs
 	using Group = unsigned int;
 	using GroupBitset = std::bitset<maxGroups>;
 
+	// SSVUtils typedefs
 	using FT = ssvu::FT;
 
-	template<typename T, typename TDeleter = std::default_delete<T>> using UPtr = ssvu::UPtr<T, TDeleter>;
+	// Recycler typedefs
+	using ComponentRecycler = ssvu::PolyFixedRecycler<Component, maxComponents>;
+	using ComponentRecyclerPtr = ComponentRecycler::PtrType;
 
 	namespace Internal
 	{
-		inline auto getNextTypeIdBitIdx() noexcept
+		// Returns the next unique bit index for a type
+		inline auto getLastTypeIdx() noexcept
 		{
-			static TypeIdIdx lastIdx{0};
+			static TypeIdx lastIdx{0};
 			SSVU_ASSERT(lastIdx < maxComponents);
 			return lastIdx++;
 		}
 
-		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()); // `callInit(...)` only calls `T::init` if it exists
+		// Stores a specific bit index for a Component type
+		template<typename T> struct TypeIdxInfo { static TypeIdx idx; };
+		template<typename T> TypeIdx TypeIdxInfo<T>::idx{getLastTypeIdx()};
 
-		template<typename T> inline const auto& getTypeIdBitIdx() noexcept
+		// Shortcut to get the bit index of a Component type
+		template<typename T> inline auto getTypeIdx() noexcept
 		{
-			SSVU_ASSERT_STATIC(ssvu::isBaseOf<Component, T>(), "Type must derive from Component");
-			static TypeIdIdx idx{getNextTypeIdBitIdx()}; return idx;
+			SSVU_ASSERT_STATIC(ssvu::isBaseOf<Component, T>(), "`T` must derive from `Component`");
+			return TypeIdxInfo<T>::idx;
 		}
+
+		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()); // `callInit(...)` only calls `T::init` if it exists
 	}
 
 	inline auto getNullEntityStat() noexcept { return EntityStat{-1, -1}; }

@@ -7,8 +7,6 @@
 
 namespace sses
 {
-	class Manager;
-
 	class Entity : ssvu::NoCopy
 	{
 		friend Manager;
@@ -17,9 +15,9 @@ namespace sses
 			EntityStat stat;
 			Manager& manager;
 			GroupBitset groups;
-			std::vector<decltype(manager.componentRecycler)::PtrType> components;
+			std::vector<ComponentRecyclerPtr> components;
 			std::array<Component*, maxComponents> componentPtrs;
-			TypeIdsBitset typeIdsBitset;
+			TypeIdxBitset typeIdsBitset;
 			int drawPriority{0};
 
 			inline void update(FT mFT)	{ for(const auto& c : components) c->update(mFT); }
@@ -38,20 +36,21 @@ namespace sses
 			inline int getDrawPriority() const noexcept	{ return drawPriority; }
 			inline auto& getComponents() noexcept		{ return components; }
 
-			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdBitIdx<T>()]; }
-			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdBitIdx<T>()]); }
+			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdx<T>()]; }
+			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				SSVU_ASSERT(!hasComponent<T>());
 
+				// TODO: manager getCreateEmplace...
 				auto uPtr(manager.componentRecycler.create<T>(ssvu::fwd<TArgs>(mArgs)...));
 				auto& result(*reinterpret_cast<T*>(uPtr.get()));
 
 				components.emplace_back(std::move(uPtr));
 
 				result.entity = this; Internal::callInit(result);
-				componentPtrs[Internal::getTypeIdBitIdx<T>()] = &result;
-				typeIdsBitset[Internal::getTypeIdBitIdx<T>()] = true;
+				componentPtrs[Internal::getTypeIdx<T>()] = &result;
+				typeIdsBitset[Internal::getTypeIdx<T>()] = true;
 				return result;
 			}
 
@@ -63,10 +62,10 @@ namespace sses
 			template<typename... TGroups> inline void setGroups(bool mOn, Group mGroup, TGroups... mGroups) noexcept	{ setGroups(mOn, mGroup); setGroups(mOn, mGroups...); }
 			template<typename... TGroups> inline void addGroups(Group mGroup, TGroups... mGroups) noexcept				{ addGroups(mGroup); addGroups(mGroups...); }
 			template<typename... TGroups> inline void delGroups(Group mGroup, TGroups... mGroups) noexcept				{ delGroups(mGroup); delGroups(mGroups...); }
-			inline bool hasGroup(Group mGroup) const noexcept												{ return groups[mGroup]; }
-			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).any(); }
-			inline bool hasAllGroups(const GroupBitset& mGroups) const noexcept								{ return (groups & mGroups).all(); }
-			inline const auto& getGroups() const noexcept													{ return groups; }
+			inline bool hasGroup(Group mGroup) const noexcept					{ return groups[mGroup]; }
+			inline bool hasAnyGroup(const GroupBitset& mGroups) const noexcept	{ return (groups & mGroups).any(); }
+			inline bool hasAllGroups(const GroupBitset& mGroups) const noexcept	{ return (groups & mGroups).all(); }
+			inline const auto& getGroups() const noexcept						{ return groups; }
 	};
 }
 
