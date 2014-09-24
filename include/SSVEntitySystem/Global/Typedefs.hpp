@@ -58,7 +58,7 @@ namespace sses
 			return TypeIdxInfo<T>::idx;
 		}
 
-		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()); // `callInit(...)` only calls `T::init` if it exists
+		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()) // `callInit(...)` only calls `T::init` if it exists
 	}
 
 	inline auto getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
