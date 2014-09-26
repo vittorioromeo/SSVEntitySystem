@@ -7,7 +7,7 @@
 
 namespace sses
 {
-	class Entity : ssvu::NoCopy
+	class Entity
 	{
 		friend Manager;
 
@@ -26,6 +26,9 @@ namespace sses
 		public:
 			inline Entity(const EntityStat& mStat, Manager& mManager) noexcept : stat(mStat), manager(mManager) { }
 			inline ~Entity() { manager.entityIdManager.reclaim(stat); }
+
+			inline Entity(const Entity&) = delete;
+			inline Entity& operator=(const Entity&) = delete;
 
 			inline void destroy() noexcept { manager.del(*this); }
 

@@ -7,7 +7,7 @@
 
 namespace sses
 {
-	class Manager : ssvu::NoCopy
+	class Manager
 	{
 		friend Entity;
 		friend Component;
@@ -27,6 +27,11 @@ namespace sses
 			inline void del(Entity& mEntity) noexcept { entities.del(mEntity); }
 
 		public:
+			inline Manager() = default;
+
+			inline Manager(const Manager&) = delete;
+			inline Manager& operator=(const Manager&) = delete;
+
 			inline void clear() noexcept { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
 			inline void refresh();
 			inline void update(FT mFT);

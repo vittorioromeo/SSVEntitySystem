@@ -7,7 +7,7 @@
 
 namespace sses
 {
-	class Component : ssvu::NoCopy
+	class Component
 	{
 		friend Entity;
 
@@ -19,6 +19,10 @@ namespace sses
 
 		public:
 			inline Component() noexcept = default;
+
+			inline Component(const Component&) = delete;
+			inline Component& operator=(const Component&) = delete;
+
 			inline virtual ~Component() { }
 
 			inline auto& getEntity() const noexcept
