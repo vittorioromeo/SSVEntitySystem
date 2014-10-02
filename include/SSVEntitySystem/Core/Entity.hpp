@@ -40,7 +40,7 @@ namespace sses
 			inline auto& getComponents() noexcept		{ return components; }
 
 			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdx<T>()]; }
-			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return reinterpret_cast<T&>(*componentPtrs[Internal::getTypeIdx<T>()]); }
+			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return ssvu::castUp<T>(*componentPtrs[Internal::getTypeIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				SSVU_ASSERT(!hasComponent<T>());
