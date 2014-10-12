@@ -12,10 +12,13 @@ namespace sses
 	class Entity;
 	class Manager;
 
+	// SSVU Typedefs
+	using SizeT = ssvu::SizeT;
+
 	// Constants
-	static constexpr std::size_t maxEntities{1'000'000};
-	static constexpr std::size_t maxGroups{32};
-	static constexpr std::size_t maxComponents{64};
+	static constexpr SizeT maxEntities{1'000'000};
+	static constexpr SizeT maxGroups{32};
+	static constexpr SizeT maxComponents{64};
 
 	// Entity typedefs
 	using EntityId = int;
@@ -23,7 +26,7 @@ namespace sses
 	struct EntityStat { EntityId id; EntityIdCtr ctr; };
 
 	// Type index typedefs
-	using TypeIdx = std::size_t;
+	using TypeIdx = SizeT;
 	using TypeIdxBitset = std::bitset<maxComponents>;
 
 	// Group typedefs
