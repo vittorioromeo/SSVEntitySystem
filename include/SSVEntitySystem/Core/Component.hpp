@@ -12,24 +12,20 @@ namespace sses
 		friend Entity;
 
 		private:
-			Entity* entity{nullptr};
+			Entity& entity;
 
 			inline virtual void update(FT) { }
 			inline virtual void draw() { }
 
 		public:
-			inline Component() noexcept = default;
+			inline Component(Entity& mE) noexcept : entity{mE} { }
 
 			inline Component(const Component&) = delete;
 			inline Component& operator=(const Component&) = delete;
 
 			inline virtual ~Component() { }
 
-			inline auto& getEntity() const noexcept
-			{
-				SSVU_ASSERT(entity != nullptr);
-				return *entity;
-			}
+			inline auto& getEntity() const noexcept { return entity; }
 			inline auto& getManager() const noexcept;
 	};
 }

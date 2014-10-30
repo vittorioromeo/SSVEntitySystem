@@ -60,8 +60,6 @@ namespace sses
 			SSVU_ASSERT_STATIC(ssvu::isBaseOf<Component, T>(), "`T` must derive from `Component`");
 			return TypeIdxInfo<T>::idx;
 		}
-
-		SSVU_DEFINE_MEMFN_CALLER(callInit, init, void()) // `callInit(...)` only calls `T::init` if it exists
 	}
 
 	inline auto getNullEntityStat() noexcept { return EntityStat{-1, -1}; }
