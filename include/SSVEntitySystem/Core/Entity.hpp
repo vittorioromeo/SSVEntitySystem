@@ -45,7 +45,7 @@ namespace sses
 			{
 				SSVU_ASSERT(!hasComponent<T>());
 
-				auto& result(manager.componentRecycler.getCreateEmplace<T>(components, *this, ssvu::fwd<TArgs>(mArgs)...));
+				auto& result(manager.componentRecycler.getCreateEmplace<T>(components, *this, SSVU_FWD(mArgs)...));
 
 				componentPtrs[Internal::getTypeIdx<T>()] = &result;
 				typeIdsBitset[Internal::getTypeIdx<T>()] = true;
