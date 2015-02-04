@@ -39,16 +39,16 @@ namespace sses
 			inline int getDrawPriority() const noexcept	{ return drawPriority; }
 			inline auto& getComponents() noexcept		{ return components; }
 
-			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Internal::getTypeIdx<T>()]; }
-			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return ssvu::castUp<T>(*componentPtrs[Internal::getTypeIdx<T>()]); }
+			template<typename T> inline bool hasComponent() const noexcept	{ return typeIdsBitset[Impl::getTypeIdx<T>()]; }
+			template<typename T> inline T& getComponent() noexcept			{ SSVU_ASSERT(hasComponent<T>()); return ssvu::castUp<T>(*componentPtrs[Impl::getTypeIdx<T>()]); }
 			template<typename T, typename... TArgs> inline T& createComponent(TArgs&&... mArgs)
 			{
 				SSVU_ASSERT(!hasComponent<T>());
 
 				auto& result(manager.componentRecycler.getCreateEmplace<T>(components, *this, SSVU_FWD(mArgs)...));
 
-				componentPtrs[Internal::getTypeIdx<T>()] = &result;
-				typeIdsBitset[Internal::getTypeIdx<T>()] = true;
+				componentPtrs[Impl::getTypeIdx<T>()] = &result;
+				typeIdsBitset[Impl::getTypeIdx<T>()] = true;
 				return result;
 			}
 

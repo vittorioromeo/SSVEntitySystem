@@ -7,7 +7,7 @@
 
 namespace sses
 {
-	namespace Internal
+	namespace Impl
 	{
 		class EntityIdManager
 		{

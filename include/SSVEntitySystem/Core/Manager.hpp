@@ -13,7 +13,7 @@ namespace sses
 		friend Component;
 
 		private:
-			Internal::EntityIdManager entityIdManager;
+			Impl::EntityIdManager entityIdManager;
 			ssvu::MonoManager<Entity> entities;
 			std::vector<Entity*> toSort;
 			std::array<std::vector<Entity*>, maxGroups> groupedEntities;

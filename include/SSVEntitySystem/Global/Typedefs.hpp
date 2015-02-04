@@ -40,7 +40,7 @@ namespace sses
 	using ComponentRecycler = ssvu::PolyFixedRecycler<Component, maxComponents>;
 	using ComponentRecyclerPtr = ComponentRecycler::PtrType;
 
-	namespace Internal
+	namespace Impl
 	{
 		// Returns the next unique bit index for a type
 		inline auto getLastTypeIdx() noexcept
