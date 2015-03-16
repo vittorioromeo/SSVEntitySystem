@@ -13,7 +13,8 @@ namespace sses
 	class Manager;
 
 	// SSVU Typedefs
-	using SizeT = ssvu::SizeT;
+	using ssvu::SizeT;
+	using ssvu::FT;
 
 	// Constants
 	static constexpr SizeT maxEntities{1'000'000};
@@ -32,9 +33,6 @@ namespace sses
 	// Group typedefs
 	using Group = unsigned int;
 	using GroupBitset = std::bitset<maxGroups>;
-
-	// SSVUtils typedefs
-	using FT = ssvu::FT;
 
 	// Recycler typedefs
 	using ComponentRecycler = ssvu::PolyFixedRecycler<Component, maxComponents>;
