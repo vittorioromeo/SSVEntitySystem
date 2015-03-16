@@ -25,6 +25,7 @@ namespace sses
 				groupedEntities[mGroup].emplace_back(mEntity);
 			}
 			inline void del(Entity& mEntity) noexcept { entities.del(mEntity); }
+			inline void refresh();
 
 		public:
 			inline Manager() = default;
@@ -33,7 +34,6 @@ namespace sses
 			inline Manager& operator=(const Manager&) = delete;
 
 			inline void clear() noexcept { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
-			inline void refresh();
 			inline void update(FT mFT);
 			inline void draw();
 

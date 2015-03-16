@@ -18,8 +18,8 @@ namespace sses
 			public:
 				inline EntityIdManager() : freeIds(maxEntities)
 				{
-					std::iota(std::begin(freeIds), std::end(freeIds), 0);
-					std::fill(std::begin(idCtrs), std::end(idCtrs), 0);
+					ssvu::iota(freeIds, 0);
+					ssvu::fill(idCtrs, 0);
 				}
 
 				inline auto getFreeStat() { EntityId id{freeIds.back()}; freeIds.pop_back(); return EntityStat{id, idCtrs[id]}; }
