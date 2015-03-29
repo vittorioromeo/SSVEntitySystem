@@ -33,6 +33,8 @@ namespace sses
 			inline Manager(const Manager&) = delete;
 			inline Manager& operator=(const Manager&) = delete;
 
+			inline ~Manager() { clear(); }
+
 			inline void clear() noexcept { entities.clear(); for(auto& v : groupedEntities) v.clear(); }
 			inline void update(FT mFT);
 			inline void draw();
