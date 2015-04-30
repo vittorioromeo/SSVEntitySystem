@@ -35,7 +35,7 @@ namespace sses
 	using GroupBitset = std::bitset<maxGroups>;
 
 	// Recycler typedefs
-	using ComponentRecycler = ssvu::PolyFixedRecycler<Component, maxComponents>;
+	using ComponentRecycler = ssvu::PolyRecycler<Component>;
 	using ComponentRecyclerPtr = ComponentRecycler::PtrType;
 
 	namespace Impl
