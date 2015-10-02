@@ -7,7 +7,10 @@
 
 namespace sses
 {
-	inline auto& Component::getManager() const noexcept { return entity.getManager(); }
+inline auto& Component::getManager() const noexcept
+{
+    return entity.getManager();
+}
 }
 
 #endif

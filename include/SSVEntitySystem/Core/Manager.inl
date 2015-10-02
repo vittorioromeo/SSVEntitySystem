@@ -7,23 +7,31 @@
 
 namespace sses
 {
-	inline void Manager::refresh()
-	{
-		for(auto i(0u); i < maxGroups; ++i) ssvu::eraseRemoveIf(groupedEntities[i], [i](const Entity* mEntity){ return ssvu::MonoManager<Entity>::isDead(mEntity) || !mEntity->hasGroup(i); });
-		entities.refresh();
-	}
-	inline void Manager::update(FT mFT)
-	{
-		refresh();
-		for(const auto& e : entities) e->update(mFT);
-	}
-	inline void Manager::draw()
-	{
-		toSort.clear();
-		for(const auto& e : entities) toSort.emplace_back(e.get());
-		ssvu::sortStable(toSort, [](const Entity* mA, const Entity* mB){ return mA->getDrawPriority() > mB->getDrawPriority(); });
-		for(const auto& e : toSort) e->draw();
-	}
+inline void Manager::refresh()
+{
+    for(auto i(0u); i < maxGroups; ++i)
+        ssvu::eraseRemoveIf(groupedEntities[i], [i](const Entity* mEntity)
+        {
+            return ssvu::MonoManager<Entity>::isDead(mEntity) ||
+                   !mEntity->hasGroup(i);
+        });
+    entities.refresh();
+}
+inline void Manager::update(FT mFT)
+{
+    refresh();
+    for(const auto& e : entities) e->update(mFT);
+}
+inline void Manager::draw()
+{
+    toSort.clear();
+    for(const auto& e : entities) toSort.emplace_back(e.get());
+    ssvu::sortStable(toSort, [](const Entity* mA, const Entity* mB)
+    {
+        return mA->getDrawPriority() > mB->getDrawPriority();
+    });
+    for(const auto& e : toSort) e->draw();
+}
 }
 
 #endif
