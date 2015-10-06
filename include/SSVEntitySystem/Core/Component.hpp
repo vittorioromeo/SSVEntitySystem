@@ -7,27 +7,27 @@
 
 namespace sses
 {
-class Component
-{
-    friend Entity;
+    class Component
+    {
+        friend Entity;
 
-private:
-    Entity& entity;
+    private:
+        Entity& entity;
 
-    inline virtual void update(FT) {}
-    inline virtual void draw() {}
+        inline virtual void update(FT) {}
+        inline virtual void draw() {}
 
-public:
-    inline Component(Entity& mE) noexcept : entity{mE} {}
+    public:
+        inline Component(Entity& mE) noexcept : entity{mE} {}
 
-    inline Component(const Component&) = delete;
-    inline Component& operator=(const Component&) = delete;
+        inline Component(const Component&) = delete;
+        inline Component& operator=(const Component&) = delete;
 
-    inline virtual ~Component() {}
+        inline virtual ~Component() {}
 
-    inline auto& getEntity() const noexcept { return entity; }
-    inline auto& getManager() const noexcept;
-};
+        inline auto& getEntity() const noexcept { return entity; }
+        inline auto& getManager() const noexcept;
+    };
 }
 
 #endif
