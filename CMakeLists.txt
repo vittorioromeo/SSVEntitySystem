@@ -5,5 +5,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../SSVCMake/cmake/modules/;${CMAKE_SO
 include(SSVCMake)
 
 SSVCMake_setDefaults()
+SSVCMake_findExtlib(vrm_pp)
 SSVCMake_findExtlib(SSVUtils)
 SSVCMake_setAndInstallHeaderOnly()
