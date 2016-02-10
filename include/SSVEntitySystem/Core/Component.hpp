@@ -5,6 +5,32 @@
 #ifndef SSES_COMPONENT
 #define SSES_COMPONENT
 
+#include <vrm/pp.hpp>
+
+// TODO: refactor, add to vrm_core and ssvu
+
+#define TEMP_NAMESPACE VRM_PP_CAT(temp_namespace, __LINE__)
+
+#define TEMP_NAMESPACE_END
+
+#define TEMP_MARK_NONFINAL(base)                               \
+    namespace TEMP_NAMESPACE                                   \
+    {                                                          \
+        struct SSVU_ATTRIBUTE(unused) temp_marker final : base \
+        {                                                      \
+        };                                                     \
+    }
+
+#define TEMP_MARK_NONFINAL_METHOD(base, return_type, method)             \
+    namespace TEMP_NAMESPACE                                             \
+    {                                                                    \
+        struct SSVU_ATTRIBUTE(unused) temp_marker final : base           \
+        {                                                                \
+            inline return_type SSVU_ATTRIBUTE(unused) method override {} \
+        };                                                               \
+    }
+
+
 namespace sses
 {
     class Component
@@ -29,5 +55,9 @@ namespace sses
         inline auto& getManager() const noexcept;
     };
 }
+
+TEMP_MARK_NONFINAL(sses::Component)
+TEMP_MARK_NONFINAL_METHOD(sses::Component, void, update(sses::FT))
+TEMP_MARK_NONFINAL_METHOD(sses::Component, void, draw())
 
 #endif
